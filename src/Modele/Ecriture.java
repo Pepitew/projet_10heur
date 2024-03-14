@@ -1,24 +1,40 @@
 package Modele;
 
-
-import java.io.BufferedWriter;
-import java.io.File;
+// exemple
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.nio.charset.StandardCharsets;
+import java.io.BufferedWriter;
 
 public class Ecriture {
-	String info;
-	public Ecriture(Musique music) {
-		
-	}
-	
-	
 
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Musique uneMusique = new Musique("Salut", "je suis l'auteur", 60);
+		enregistrement(uneMusique);
 	}
 
+	public static void enregistrement(Musique music) {
+		String data;
+		data = music.getTitre().hashCode()+";"+music.getAuteur().hashCode();
+		System.out.println(data);
+		/*
+		try {
+			// Creates a FileWriter
+			FileWriter file = new FileWriter("output.txt");
+
+			// Creates a BufferedWriter
+			BufferedWriter output = new BufferedWriter(file);
+
+			// Writes the string to the file
+			output.write(data);
+
+			// Closes the writer
+			output.close();
+		}
+
+		catch (Exception e) {
+			e.getStackTrace();
+		}
+		*/
+	}
+	
 }
