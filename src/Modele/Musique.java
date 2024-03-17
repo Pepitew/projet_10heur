@@ -1,6 +1,7 @@
 package Modele;
 
 import java.awt.Image;
+import java.util.ArrayList;
 
 public class Musique {
 	static enum STYLE {POP,ROCK,RAP,ELECTRO,SLAM};
@@ -69,19 +70,29 @@ public class Musique {
 	 * @param chaineEncodee La chaîne de caractères encodée représentant une chanson
 	 * @return La chanson décodée
 	 */
-	public static String decoder(String musiqueEncodee) {
-		StringBuilder phrase = new StringBuilder();
+	public static Musique decoder(String musiqueEncodee) {
+		String mot = "";
+		ArrayList<String> arguments = new ArrayList<String>();
 	    for (int i = 0; i < musiqueEncodee.length(); i = i + 2) {
 	    	String hexChar = musiqueEncodee.substring(i, i + 2);
 	    	char caractere = (char) Integer.parseInt(hexChar, 16);
-	    	if (caractere == ';') {	    		
-	    		phrase.append(" ");
-	    	} else {
-	    		phrase.append(caractere);
+	    	if (caractere != '|' || caractere != ' ') {
+	    		if (caractere == ';') {	    		
+	    			arguments.add(mot);
+	    			mot = "";
+	    		} else {
+	    			mot += caractere;
+	    		}
 	    	}
 	    }
 		
-	    return phrase.toString();
+	    return new Musique(arguments.get(0), arguments.get(1), Integer.parseInt(arguments.get(2)));
+	}
+	
+	public String toString() {
+		StringBuilder phrase = new StringBuilder();
+		phrase.append("Titre : " + this.titre + "\nAuteur : " + this.auteur + "\ndurée (minutes) :" + this.duree);
+		return phrase.toString();
 	}
 
 	
@@ -103,8 +114,8 @@ public class Musique {
 		Musique m1 = new Musique("Salut", "les nullos", 140);
 		String chaine = Musique.encoder(m1);
 		System.out.println(chaine);
-		String chaine2 = Musique.decoder(chaine);
-		System.out.println(chaine2);
+		Musique m2 = Musique.decoder(chaine);
+		System.out.println(m2);
 		
 	}
 
