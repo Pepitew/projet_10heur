@@ -1,5 +1,5 @@
 // Contrôleur associé à la vue VueFormulaire 
-package Vue;
+package Controleur;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,15 +15,23 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class ControllerFormulaire {
-	
+	// Variable de la class ControllerFormulaire
+	public Stage stage;
+	String imageName;
 	// Variable associée au fichier FXML
+	@FXML
+	private GridPane root;
 	@FXML
 	private Label labelTitre, labelAuteur, labelDuree;
 	@FXML
@@ -31,7 +39,11 @@ public class ControllerFormulaire {
 	@FXML
 	private Button btnAjouter;
 	@FXML
+	private AnchorPane addMusic;
+	@FXML
 	private Label labelAddMusic;
+	@FXML 
+	private ImageView imageMusic;
 	
 	 // Création d'un dictionnaire (Map) associant les champs de texte aux labels
     private Map<TextField, Label> labelFieldMap = new HashMap<>();
@@ -79,8 +91,8 @@ public class ControllerFormulaire {
         scaleTransition.play();
 	}
 	
-	// Permet d'enregistrer des images dans le dossier Images
-	public void addImage() throws IOException {
+	// Permet de selectionner une image et de l'afficher
+	public void addImage(){
 		// Création d'une instance de FileChooser
         FileChooser fileChooser = new FileChooser();
         // Paramétrage du fileChooser
@@ -91,11 +103,29 @@ public class ControllerFormulaire {
         File selectedFile = fileChooser.showOpenDialog(null);
         // Si une image est selectionnée...
         if (selectedFile != null) {
-        	String imageName = selectedFile.getName();
+        	imageName = selectedFile.getName();
         	Image image = new Image(selectedFile.toURI().toString());	
-        	// ... on l'enregistre
-        	ImageIO.write(SwingFXUtils.fromFXImage(image, null),"png", new File("Image/"+imageName));
-        	System.out.println("Image enregistrer avec succès");
+        	// ... on l'affiche
+        	imageMusic.setImage(image);
+        	
+        	// modification de l'affichage
+        	labelAddMusic.setTranslateX(-40);
+        	labelAddMusic.setTranslateY(100);
+        	labelAddMusic.setText("Cliquer sur l'image pour la changer");
+        	addMusic.setOnMouseEntered(null);
+        	addMusic.setOnMouseExited(null);
+        	addMusic.setStyle("-fx-border-width:0;");
+      
         }
+	}
+
+	// Permet d'enregistrer des images dans le dossier Images
+	public void saveImage() throws IOException {
+		Image image = imageMusic.getImage();
+		if (image != null) {
+			ImageIO.write(SwingFXUtils.fromFXImage(image, null),"png", new File("Image/"+imageName));			
+			System.out.println("Image ajouter avec succès");
+			stage.close();
+		}
 	}
 }

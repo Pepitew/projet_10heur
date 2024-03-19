@@ -1,5 +1,6 @@
 package Main;
 
+import Controleur.ControllerFormulaire;
 import Vue.VueFormulaire;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -12,8 +13,11 @@ public class App extends Application {
 public void start(Stage primaryStage) {
 	try {
 		Image icon = new Image("logo.png");
-		
+		// Instanciation de la vue et du controleur
 		VueFormulaire vueFormulaire = new VueFormulaire();
+		ControllerFormulaire controllerFormulaire = vueFormulaire.cf;
+		controllerFormulaire.stage = primaryStage; // je lui passe le stage en attribut mais c'est juste pour dépanner jsp sur que ce soit la chose à faire
+		
 		primaryStage.setScene(vueFormulaire);
 		primaryStage.setResizable(false);
 		primaryStage.getIcons().add(icon);

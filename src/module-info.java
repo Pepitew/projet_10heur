@@ -10,4 +10,5 @@ module projet_10heur {
 	
 	opens Main to javafx.graphics;
 	opens Vue to javafx.fxml;
+	opens Controleur to javafx.fxml;
 }
