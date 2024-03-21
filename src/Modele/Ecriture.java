@@ -9,13 +9,16 @@ public class Ecriture {
 	
 	public static void main(String[] args) {
 		Musique uneMusique = new Musique("Salut", "je suis l'auteur", 60);
-		enregistrement(uneMusique);
+		
+		String infoMusique = Musique.encoder(uneMusique);
+		
+		System.out.println(infoMusique);
 	}
 
-	public static void enregistrement(Musique music) {
-		String data;
-		data = music.getTitre().hashCode()+";"+music.getAuteur().hashCode();
-		System.out.println(data);
+	public static void enregistrement(String info) {
+		
+		
+		System.out.println();
 		/*
 		try {
 			// Creates a FileWriter
@@ -34,7 +37,7 @@ public class Ecriture {
 		catch (Exception e) {
 			e.getStackTrace();
 		}
-		*/
+		 */
 	}
 	
 }
