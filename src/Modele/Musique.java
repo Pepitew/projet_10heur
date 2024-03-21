@@ -119,6 +119,24 @@ public class Musique {
 		Musique m2 = new Musique("Apex", "collander", 136);
 		Musique m3 = new Musique("Apax", "collander", 141);
 		Musique m4 = new Musique("Apox", "collander", 145);
+		Album a = new Album("Apex le roi");
+		
+		a.ajouterMusique(m1);
+		a.ajouterMusique(m2);
+		a.ajouterMusique(m3);
+		a.ajouterMusique(m4);
+		
+		String musiquesEncodees = Album.encoderMusique(a);
+		String albumEncode = Album.encoderAlbum(a);
+		
+		System.out.println(musiquesEncodees);
+		System.out.println(albumEncode);
+		
+		
+		Album a2 = Album.decoderAlbum(albumEncode);
+		
+		System.out.println(a2);
+		
 		String chaine = "";
 		chaine = Musique.encoder(m1) + Musique.encoder(m2) + Musique.encoder(m3) + Musique.encoder(m4); //Sauvegarde les musique dans une chaine de caractere
 		String[] musiques = chaine.split("7c"); // 7c correspond a | en ASCII
@@ -128,10 +146,8 @@ public class Musique {
 		}
 		System.out.println(nouvellesMusiques);
 		
-		Ecriture.enregistrement(m1);
-		Ecriture.enregistrement(m2);
-		Ecriture.enregistrement(m3);
-		Ecriture.enregistrement(m4);		
+		
+		
 		
 	}
 
