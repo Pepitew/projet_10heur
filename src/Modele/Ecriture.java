@@ -45,7 +45,7 @@ public class Ecriture {
 					System.out.println(line);
 					//parsing manuel -> peupler le modèle
 					line = fichier.readLine();
-					// a continuer ...
+					// todo
 				}
 			}
 
