@@ -21,12 +21,22 @@ public class Album {
 	
 	//TODO Album.decoder / albul.encoder
 	
-	public static String encoder(Album a) {
+	//Encode toutes les musiques de Album dans inf_music
+	public static String encoderMusique(Album a) {
 		StringBuilder phrase = new StringBuilder();
 		
 		for (Musique m : a.liste) {
 			phrase.append(Musique.encoder(m));
 		}
+		
+		return phrase.toString();
+	}
+	
+	//Encode les informations de l'album dans inf_album
+	public static String encoderAlbum(Album a) {
+		StringBuilder phrase = new StringBuilder();
+		
+		//TODO
 		
 		return phrase.toString();
 	}
