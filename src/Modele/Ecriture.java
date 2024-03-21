@@ -6,8 +6,20 @@ import java.io.BufferedWriter;
 
 public class Ecriture {
 
-	public static void enregistrement(Musique music) {
+
+	
+	public static void main(String[] args) {
+		Musique uneMusique = new Musique("Salut", "je suis l'auteur", 60);
 		
+		String infoMusique = Musique.encoder(uneMusique);
+		
+		System.out.println(infoMusique);
+	}
+
+
+
+	public static void enregistrement(Musique music) {
+
 		try {
 			// Creates a FileWriter
 			FileWriter file = new FileWriter("output.txt");
@@ -25,6 +37,7 @@ public class Ecriture {
 		catch (Exception e) {
 			e.getStackTrace();
 		}
+
 	}
 	
 }
