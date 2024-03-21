@@ -14,7 +14,7 @@ public class VueApplication extends Scene{
 		// Chargement du fichier FXML et création du root node
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Application.fxml"));
         GridPane root = loader.load();
-        
+      
         // Affectation du noeud racine (root node) à la Scene
         this.setRoot(root);
 	}

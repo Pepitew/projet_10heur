@@ -13,15 +13,14 @@ public class App extends Application {
 @Override
 public void start(Stage primaryStage) {
 	try {
-		Image icon = new Image("logo.png");
+		Image icon = new Image("file:../../Logo/logo.png");
 		// Instanciation de la vue et du controleur
 		VueApplication vueApplication = new VueApplication();
 		VueFormulaire vueFormulaire = new VueFormulaire();
 		ControllerFormulaire controllerFormulaire = vueFormulaire.cf;
-		controllerFormulaire.stage = primaryStage; // je lui passe le stage en attribut mais c'est juste pour dépanner jsp sur que ce soit la chose à faire
-		
+	
 		primaryStage.setScene(vueApplication);
-		primaryStage.setResizable(false);
+		primaryStage.setResizable(true);
 		primaryStage.getIcons().add(icon);
 		
 		primaryStage.show();

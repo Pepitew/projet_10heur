@@ -10,7 +10,12 @@ import javax.imageio.ImageIO;
 
 import javafx.animation.ScaleTransition;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -23,11 +28,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 public class ControllerFormulaire {
 	// Variable de la class ControllerFormulaire
-	public Stage stage;
 	String imageName;
 	// Variable associée au fichier FXML
 	@FXML
@@ -54,7 +59,6 @@ public class ControllerFormulaire {
 	    labelFieldMap.put(fieldTitre,labelTitre);
         labelFieldMap.put(fieldAuteur,labelAuteur);
         labelFieldMap.put(fieldDuree,labelDuree);
-        
 	}
 	
 	// mets le texte associer à la zone de saisie en noir lorsqu'elle est sélectionnée
@@ -120,12 +124,20 @@ public class ControllerFormulaire {
 	}
 
 	// Permet d'enregistrer des images dans le dossier Images
-	public void saveImage() throws IOException {
+	public void saveImage(ActionEvent event) throws IOException {
 		Image image = imageMusic.getImage();
 		if (image != null) {
 			ImageIO.write(SwingFXUtils.fromFXImage(image, null),"png", new File("Image/"+imageName));			
+			
+			Parent root = FXMLLoader.load(getClass().getResource("/Vue/Application.fxml"));
+			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+			Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+			stage.setScene(scene);
+			
+			stage.show();	
+
 			System.out.println("Image ajouter avec succès");
-			stage.close();
 		}
 	}
 }
