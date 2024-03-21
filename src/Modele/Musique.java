@@ -7,7 +7,7 @@ public class Musique {
 	static enum STYLE {POP,ROCK,RAP,ELECTRO,SLAM};
 
 
-	public STYLE[] styles; //Styles de la musique (peut en avoir plusieurs)
+	public ArrayList<STYLE> styles; //Styles de la musique (peut en avoir plusieurs)
 	public boolean isLiked;
 	private String titre;
 	private String auteur;
@@ -32,6 +32,10 @@ public class Musique {
 
 	public void ajouterImage(Image img) {
 		this.couverture = img;
+	}
+	
+	public void ajouterStyle(STYLE style) {
+		this.styles.add(style);
 	}
 	
 	/**
@@ -123,7 +127,11 @@ public class Musique {
 			nouvellesMusiques.add(Musique.decoder(str));
 		}
 		System.out.println(nouvellesMusiques);
-
+		
+		Ecriture.enregistrement(m1);
+		Ecriture.enregistrement(m2);
+		Ecriture.enregistrement(m3);
+		Ecriture.enregistrement(m4);		
 		
 	}
 
