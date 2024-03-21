@@ -20,5 +20,15 @@ public class Album {
 	}
 	
 	//TODO Album.decoder / albul.encoder
+	
+	public static String encoder(Album a) {
+		StringBuilder phrase = new StringBuilder();
+		
+		for (Musique m : a.liste) {
+			phrase.append(Musique.encoder(m));
+		}
+		
+		return phrase.toString();
+	}
 
 }
