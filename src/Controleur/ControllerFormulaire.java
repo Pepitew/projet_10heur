@@ -97,7 +97,7 @@ public class ControllerFormulaire {
         FileChooser fileChooser = new FileChooser();
         // Paramétrage du fileChooser
         fileChooser.setTitle("Choisissez une image");
-        fileChooser.setInitialDirectory(new File("C:\\Users\\thiba\\Pictures"));
+        
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("All images", "*.jpeg", "*.png", "*.jpg"));
         // Ouverture de la boite de dialogue
         File selectedFile = fileChooser.showOpenDialog(null);
