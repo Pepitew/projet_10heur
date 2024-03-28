@@ -85,7 +85,7 @@
             </TextField>
          </children>
       </FlowPane>
-      <ScrollPane focusTraversable="false" hbarPolicy="NEVER" style="-fx-background-color: white;" vbarPolicy="NEVER" GridPane.columnIndex="2" GridPane.columnSpan="10" GridPane.rowIndex="3" GridPane.rowSpan="3">
+      <ScrollPane focusTraversable="false" style="-fx-background-color: white;" vbarPolicy="NEVER" GridPane.columnIndex="2" GridPane.columnSpan="10" GridPane.rowIndex="3" GridPane.rowSpan="3">
          <content>
             <HBox spacing="10.0">
                <children>
