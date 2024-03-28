@@ -6,15 +6,16 @@ import java.util.TreeSet;
 
 public class Musique {
 	static enum STYLE {POP,ROCK,RAP,ELECTRO,SLAM};
+	public static int ID = 0;
 
-
+	
+	public int ID_Musique;
 	public ArrayList<STYLE> styles; //Styles de la musique (peut en avoir plusieurs)
 	public boolean isLiked;
 	private String titre;
 	private String auteur;
 	private int duree; //En minutes
 	private Image couverture; //on peut changer l'Image
-	public TreeSet<Commentaire> commentaires;
 	
 
 	public Musique(String titre, String auteur, int duree) {
@@ -22,14 +23,13 @@ public class Musique {
 		this.auteur = auteur;
 		this.duree = duree;
 		this.isLiked = false;
-		this.commentaires = new TreeSet<>();
+		
 	}
 	public Musique(String titre, String auteur, int duree, boolean isLiked) {
 		this.titre = titre;
 		this.auteur = auteur;
 		this.duree = duree;
 		this.isLiked = isLiked;
-		this.commentaires = new TreeSet<>();
 		
 	}
 	
@@ -41,10 +41,7 @@ public class Musique {
 	public void ajouterStyle(STYLE style) {
 		this.styles.add(style);
 	}
-	
-	public void ajouterCommentaire(Commentaire com) {
-		this.commentaires.add(com);
-	}
+
 	
 	/**
 	 * Transforme une chanson en chaine de caractère compatible
@@ -103,7 +100,7 @@ public class Musique {
 	
 	public String toString() {
 		StringBuilder phrase = new StringBuilder();
-		phrase.append("Titre : " + this.titre + "\nAuteur : " + this.auteur + "\ndurée (minutes) :" + this.duree + "\n" + "Liké ? : " + this.isLiked);
+		phrase.append("Titre : " + this.titre + "\nAuteur : " + this.auteur + "\ndurée (minutes) :" + this.duree + "Liké ? : " + this.isLiked + "\n");
 		return phrase.toString();
 	}
 
