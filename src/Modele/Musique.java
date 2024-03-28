@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class Musique {
-	static enum STYLE {POP,ROCK,RAP,ELECTRO,SLAM};
+	static enum STYLE {POP,ROCK,RAP,ELECTRO};
 	public static int ID = 0;
 
 	
 	public int ID_Musique;
-	public ArrayList<STYLE> styles; //Styles de la musique (peut en avoir plusieurs)
+	public STYLE style;
 	public boolean isLiked;
 	private String titre;
 	private String auteur;
@@ -25,11 +25,12 @@ public class Musique {
 		this.isLiked = false;
 		
 	}
-	public Musique(String titre, String auteur, int duree, boolean isLiked) {
+	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style) {
 		this.titre = titre;
 		this.auteur = auteur;
 		this.duree = duree;
 		this.isLiked = isLiked;
+		this.style = style;
 		
 	}
 	
@@ -38,9 +39,6 @@ public class Musique {
 		this.couverture = img;
 	}
 	
-	public void ajouterStyle(STYLE style) {
-		this.styles.add(style);
-	}
 
 	
 	/**
@@ -56,7 +54,7 @@ public class Musique {
 	public static String encoder(Musique m) {
 		//TODO Il faut ajouter les avis/commentaires
 		StringBuilder phrase = new StringBuilder();
-		String[] chaines = {m.titre, m.auteur, String.valueOf(m.duree), String.valueOf(m.isLiked)};
+		String[] chaines = {m.titre, m.auteur, String.valueOf(m.duree), String.valueOf(m.isLiked), m.style.toString()};
 		for (String element : chaines) {
 			for (int i = 0; i < element.length(); i++) {
 	            char caractere = element.charAt(i);
@@ -95,12 +93,12 @@ public class Musique {
 	    	}
 	    }
 		
-	    return new Musique(arguments.get(0), arguments.get(1), Integer.parseInt(arguments.get(2)), Boolean.parseBoolean(arguments.get(3)));
+	    return new Musique(arguments.get(0), arguments.get(1), Integer.parseInt(arguments.get(2)), Boolean.parseBoolean(arguments.get(3)), STYLE.valueOf(arguments.get(4)));
 	}
 	
 	public String toString() {
 		StringBuilder phrase = new StringBuilder();
-		phrase.append("Titre : " + this.titre + "\nAuteur : " + this.auteur + "\ndurée (minutes) :" + this.duree + "Liké ? : " + this.isLiked + "\n");
+		phrase.append("Titre : " + this.titre + "\nAuteur : " + this.auteur + "\ndurée (minutes) :" + this.duree + "\nLiké ? : " + this.isLiked + "\nStyle : " + this.style.toString() + "\n");
 		return phrase.toString();
 	}
 
@@ -120,18 +118,16 @@ public class Musique {
 	}
 	
 	public static void main(String[] args) {
-		Musique m1 = new Musique("Apix", "collander", 140); // créer 4 nouvelle musique
-		Musique m2 = new Musique("Apex", "collander", 136);
-		Musique m3 = new Musique("Apax", "collander", 141);
-		Musique m4 = new Musique("Apox", "collander", 145);
+		Musique m1 = new Musique("Apix", "collander", 140, true, STYLE.POP); // créer 4 nouvelle musique
+		Musique m2 = new Musique("Apex", "collander", 136, false, STYLE.ELECTRO);
+		Musique m3 = new Musique("Apax", "collander", 141, false, STYLE.RAP);
+		Musique m4 = new Musique("Apox", "collander", 145, true, STYLE.ELECTRO);
 		Album a = new Album("Apex le roi");
 		
 		a.ajouterMusique(m1);
 		a.ajouterMusique(m2);
 		a.ajouterMusique(m3);
 		a.ajouterMusique(m4);
-		
-		m2.isLiked = true;
 		
 		String musiquesEncodees = Album.encoderMusique(a);
 		String albumEncode = Album.encoderAlbum(a);
