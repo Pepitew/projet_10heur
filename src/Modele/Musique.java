@@ -2,6 +2,7 @@ package Modele;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class Musique {
 	static enum STYLE {POP,ROCK,RAP,ELECTRO,SLAM};
@@ -13,6 +14,7 @@ public class Musique {
 	private String auteur;
 	private int duree; //En minutes
 	private Image couverture; //on peut changer l'Image
+	public TreeSet<Commentaire> commentaires;
 	
 
 	public Musique(String titre, String auteur, int duree) {
@@ -20,15 +22,17 @@ public class Musique {
 		this.auteur = auteur;
 		this.duree = duree;
 		this.isLiked = false;
+		this.commentaires = new TreeSet<>();
 	}
-	public Musique(String titre, String auteur, int duree, Image couverture) {
+	public Musique(String titre, String auteur, int duree, boolean isLiked) {
 		this.titre = titre;
 		this.auteur = auteur;
 		this.duree = duree;
-		this.couverture = couverture;
-		this.isLiked = false;
+		this.isLiked = isLiked;
+		this.commentaires = new TreeSet<>();
 		
 	}
+	
 
 	public void ajouterImage(Image img) {
 		this.couverture = img;
@@ -36,6 +40,10 @@ public class Musique {
 	
 	public void ajouterStyle(STYLE style) {
 		this.styles.add(style);
+	}
+	
+	public void ajouterCommentaire(Commentaire com) {
+		this.commentaires.add(com);
 	}
 	
 	/**
@@ -51,7 +59,7 @@ public class Musique {
 	public static String encoder(Musique m) {
 		//TODO Il faut ajouter les avis/commentaires
 		StringBuilder phrase = new StringBuilder();
-		String[] chaines = {m.titre, m.auteur, String.valueOf(m.duree)};
+		String[] chaines = {m.titre, m.auteur, String.valueOf(m.duree), String.valueOf(m.isLiked)};
 		for (String element : chaines) {
 			for (int i = 0; i < element.length(); i++) {
 	            char caractere = element.charAt(i);
@@ -90,12 +98,12 @@ public class Musique {
 	    	}
 	    }
 		
-	    return new Musique(arguments.get(0), arguments.get(1), Integer.parseInt(arguments.get(2)));
+	    return new Musique(arguments.get(0), arguments.get(1), Integer.parseInt(arguments.get(2)), Boolean.parseBoolean(arguments.get(3)));
 	}
 	
 	public String toString() {
 		StringBuilder phrase = new StringBuilder();
-		phrase.append("Titre : " + this.titre + "\nAuteur : " + this.auteur + "\ndurée (minutes) :" + this.duree + "\n");
+		phrase.append("Titre : " + this.titre + "\nAuteur : " + this.auteur + "\ndurée (minutes) :" + this.duree + "\n" + "Liké ? : " + this.isLiked);
 		return phrase.toString();
 	}
 
@@ -125,6 +133,8 @@ public class Musique {
 		a.ajouterMusique(m2);
 		a.ajouterMusique(m3);
 		a.ajouterMusique(m4);
+		
+		m2.isLiked = true;
 		
 		String musiquesEncodees = Album.encoderMusique(a);
 		String albumEncode = Album.encoderAlbum(a);

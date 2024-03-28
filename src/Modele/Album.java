@@ -4,12 +4,16 @@ import java.util.ArrayList;
 
 public class Album {
 	
+	public static int ID = 0;
+	public int ID_album;
 	public ArrayList<Musique> liste = new ArrayList<Musique>(); //Liste des musiques
 	private String titre;
 	private int nbMusique = 0;
 	
 	public Album(String titre) {
 		this.titre = titre;
+		this.ID_album = Album.ID;
+		Album.ID++;
 	}
 	
 	
