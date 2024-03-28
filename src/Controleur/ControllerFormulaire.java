@@ -3,6 +3,8 @@ package Controleur;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -118,14 +120,19 @@ public class ControllerFormulaire {
         	anchorPaneImageMusic.setOnMouseEntered(null);
         	anchorPaneImageMusic.setOnMouseExited(null);
         	anchorPaneImageMusic.setStyle("-fx-border-width:0;");
+        	root.getChildren().remove(btnAjouter);
+        	root.getChildren().add(btnAjouter);
       
         }
 	}
 
 	// Permet d'enregistrer des images dans le dossier Images
-	public void saveImage(ActionEvent event) throws IOException {
+	public void saveImage(ActionEvent event) throws IOException{
 		Image image = imageMusic.getImage();
 		if (image != null) {
+			if (! Files.exists(Paths.get("Image"))) {
+				Files.createDirectory(Paths.get("Image"));
+			}
 			ImageIO.write(SwingFXUtils.fromFXImage(image, null),"png", new File("Image/"+imageName));			
 			
 			Parent root = FXMLLoader.load(getClass().getResource("/Vue/Application.fxml"));

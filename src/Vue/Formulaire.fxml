@@ -43,14 +43,14 @@
       <AnchorPane prefHeight="200.0" prefWidth="200.0" />
       <Pane fx:id="paneFakeContainer" style="-fx-background-color: #e6e6e6; -fx-background-radius: 20px;" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="1" GridPane.rowSpan="5" />
       <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#saveImage" text="Ajouter" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
-      <AnchorPane fx:id="anchorPaneImageMusic" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#addImage" onMouseEntered="#growLabel" onMouseExited="#shrinkLabel" prefHeight="160.0" prefWidth="160.0" style="-fx-background-color: white;" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="3">
+      <AnchorPane fx:id="anchorPaneImageMusic" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#growLabel" onMouseExited="#shrinkLabel" prefHeight="120.0" prefWidth="120.0" style="-fx-background-color: white;" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="3">
          <children>
-            <Label fx:id="labelImageMusic" alignment="CENTER" text="Ajouter une image" textAlignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+            <Label fx:id="labelImageMusic" alignment="CENTER" minHeight="40.0" text="Ajouter une image" textAlignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </Label>
-            <ImageView fx:id="imageMusic" fitHeight="160.0" fitWidth="160.0" layoutX="20.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageMusic" fitHeight="160.0" fitWidth="160.0" layoutX="20.0" layoutY="17.0" onMouseClicked="#addImage" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;" />
          </children>
       </AnchorPane>
       <VBox GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="4">
