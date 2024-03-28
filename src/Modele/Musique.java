@@ -139,6 +139,7 @@ public class Musique {
 		
 		String chaine = "";
 		chaine = Musique.encoder(m1) + Musique.encoder(m2) + Musique.encoder(m3) + Musique.encoder(m4); //Sauvegarde les musique dans une chaine de caractere
+		
 		String[] musiques = chaine.split("7c"); // 7c correspond a | en ASCII
 		ArrayList<Musique> nouvellesMusiques = new ArrayList<Musique>(); //liste dans laquelle on contiendra toutes les nouvelles Musiques
 		for (String str : musiques) {

@@ -1,0 +1,49 @@
+/* Fichier css pour javaFx */
+* {
+	-fx-grey-color: #b9b9b9;
+}
+
+#root{
+	-fx-background-color: white;
+}
+
+
+.text-field {
+	-fx-background-color: white;
+	-fx-background-radius: 0;
+	-fx-border-width : 0 0 1 0;
+	-fx-border-color : -fx-grey-color;
+}
+.text-field:focused {
+	-fx-border-color : black;
+}
+
+#btnAjouter {
+    -fx-background-color: #4CAF50; 
+    -fx-text-fill: white; 
+    -fx-font-size: 14px; 
+    -fx-padding: 8px 16px; 
+    -fx-border-radius: 5px; 
+    -fx-cursor: hand; 
+    -fx-border-color: #4CAF50; 
+}
+
+#btnAjouter:hover {
+    -fx-background-color: #45a049; 
+    -fx-border-color: #45a049; 
+}
+
+#btnAjouter:pressed {
+    -fx-background-color: #3e8e41; 
+    -fx-border-color: #3e8e41; 
+}
+
+#anchorPaneImageMusic{
+	-fx-cursor: hand; 
+	-fx-border-color : black;
+}
+
+#anchorPaneImageMusic:pressed{
+	-fx-border-color : grey;
+}
+

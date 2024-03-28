@@ -1,0 +1,30 @@
+.interactif{
+    -fx-cursor: hand; 
+
+}
+	
+#btnAddMusic {
+	-fx-cursor: hand; /* Cursor style */
+    -fx-background-color: #1db954; /* Background color */
+    -fx-background-radius 	: 40px;
+    -fx-text-fill: white; /* Text color */
+    -fx-font-size: 14px; /* Font size */
+    -fx-font-family: "Arial"; /* Font family */
+    -fx-padding: 8px 16px; /* Padding */
+    -fx-border-radius: 40px; /* Border radius */
+    -fx-border-color: #1db954; /* Border color */
+
+}
+
+/* Hover effect */
+#btnAddMusic:hover {
+    -fx-background-color: #1ed760; /* Background color on hover */
+    -fx-border-color: #1ed760; /* Border color on hover */
+    
+}
+
+/* Pressed effect */
+#btnAddMusic:pressed {
+    -fx-background-color: #1aa34a; /* Background color when pressed */
+    -fx-border-color: #1aa34a; /* Border color when pressed */
+}
