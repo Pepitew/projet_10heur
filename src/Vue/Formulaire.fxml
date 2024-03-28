@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -39,26 +40,22 @@
       <RowConstraints minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <VBox GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="2">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+      <Pane fx:id="paneFakeContainer" style="-fx-background-color: #e6e6e6; -fx-background-radius: 20px;" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="1" GridPane.rowSpan="5" />
+      <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#saveImage" text="Ajouter" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+      <AnchorPane fx:id="anchorPaneImageMusic" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#addImage" onMouseEntered="#growLabel" onMouseExited="#shrinkLabel" prefHeight="160.0" prefWidth="160.0" style="-fx-background-color: white;" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="3">
          <children>
-            <TextField fx:id="fieldAuteur" alignment="BOTTOM_LEFT" onMouseClicked="#setLabelColor" prefHeight="30.0" prefWidth="300.0">
+            <Label fx:id="labelImageMusic" alignment="CENTER" text="Ajouter une image" textAlignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
-            </TextField>
-            <Label fx:id="labelAuteur" contentDisplay="TOP" graphicTextGap="0.0" prefWidth="300.0" text="Auteur de la musique" textFill="#000000b2">
-               <font>
-                  <Font name="Verdana" size="12.0" />
-               </font>
-               <padding>
-                  <Insets top="2.0" />
-               </padding>
             </Label>
+            <ImageView fx:id="imageMusic" fitHeight="160.0" fitWidth="160.0" layoutX="20.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
          </children>
-      </VBox>
-      <VBox GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="3">
+      </AnchorPane>
+      <VBox GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="4">
          <children>
-            <TextField fx:id="fieldDuree" alignment="BOTTOM_LEFT" onMouseClicked="#setLabelColor" prefHeight="30.0" prefWidth="300.0">
+            <TextField fx:id="fieldDuree" alignment="BOTTOM_LEFT" onMousePressed="#setLabelColor" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
@@ -73,10 +70,26 @@
             </Label>
          </children>
       </VBox>
-      <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#saveImage" text="Ajouter" textAlignment="CENTER" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="TOP" />
-      <VBox GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="1">
+      <VBox GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="3">
          <children>
-            <TextField fx:id="fieldTitre" onMouseClicked="#setLabelColor" prefHeight="30.0" prefWidth="300.0">
+            <TextField fx:id="fieldAuteur" alignment="BOTTOM_LEFT" onMousePressed="#setLabelColor" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+            </TextField>
+            <Label fx:id="labelAuteur" contentDisplay="TOP" graphicTextGap="0.0" prefWidth="300.0" text="Auteur de la musique" textFill="#000000b2">
+               <font>
+                  <Font name="Verdana" size="12.0" />
+               </font>
+               <padding>
+                  <Insets top="2.0" />
+               </padding>
+            </Label>
+         </children>
+      </VBox>
+      <VBox GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="2">
+         <children>
+            <TextField fx:id="fieldTitre" onMousePressed="#setLabelColor" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
@@ -91,15 +104,5 @@
             </Label>
          </children>
       </VBox>
-      <AnchorPane fx:id="addMusic" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#addImage" onMouseEntered="#growLabel" onMouseExited="#shrinkLabel" prefHeight="160.0" prefWidth="160.0" style="-fx-background-color: white;" GridPane.columnIndex="7" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="3">
-         <children>
-            <Label fx:id="labelAddMusic" alignment="CENTER" text="Ajouter une image" textAlignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-               <font>
-                  <Font name="Verdana" size="12.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="imageMusic" fitHeight="160.0" fitWidth="160.0" layoutX="20.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </AnchorPane>
    </children>
 </GridPane>

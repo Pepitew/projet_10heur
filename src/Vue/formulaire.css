@@ -38,11 +38,12 @@
     -fx-border-color: #3e8e41; 
 }
 
-#addMusic{
+#anchorPaneImageMusic{
 	-fx-cursor: hand; 
 	-fx-border-color : black;
 }
 
-#addMusic:pressed{
+#anchorPaneImageMusic:pressed{
 	-fx-border-color : grey;
 }
+

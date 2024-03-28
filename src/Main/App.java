@@ -18,11 +18,11 @@ public void start(Stage primaryStage) {
 		VueApplication vueApplication = new VueApplication();
 		VueFormulaire vueFormulaire = new VueFormulaire();
 		ControllerFormulaire controllerFormulaire = vueFormulaire.cf;
-	
+		
 		primaryStage.setScene(vueApplication);
 		primaryStage.setResizable(true);
 		primaryStage.getIcons().add(icon);
-		
+		//primaryStage.setMaximized(true); pour lancer la fenêtre en grand
 		primaryStage.show();
 		
 	} catch(Exception e) {

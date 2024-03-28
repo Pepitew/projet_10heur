@@ -16,6 +16,7 @@ public class VueFormulaire extends Scene {
 		// Chargement du fichier FXML et création du root node
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Formulaire.fxml"));
         GridPane root = loader.load();
+        // Récupération du controleur
         this.cf = loader.getController();
         
         // Affectation du noeud racine (root node) à la Scene

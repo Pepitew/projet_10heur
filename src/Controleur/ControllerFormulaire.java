@@ -28,7 +28,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Duration;
 
 public class ControllerFormulaire {
@@ -44,9 +43,9 @@ public class ControllerFormulaire {
 	@FXML
 	private Button btnAjouter;
 	@FXML
-	private AnchorPane addMusic;
+	private AnchorPane anchorPaneImageMusic;
 	@FXML
-	private Label labelAddMusic;
+	private Label labelImageMusic;
 	@FXML 
 	private ImageView imageMusic;
 	
@@ -82,14 +81,14 @@ public class ControllerFormulaire {
 	
 	// effet de grossissement du texte au survol de la souris
 	public void growLabel(MouseEvent m) {
-		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), labelAddMusic);
+		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), labelImageMusic);
         scaleTransition.setToX(1.1); // Mise à l'échelle en direction X
         scaleTransition.setToY(1.1); // Mise à l'échelle en direction Y
         scaleTransition.play();
 	}
 	// retour à la taille normal
 	public void shrinkLabel(MouseEvent m) {
-		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), labelAddMusic);
+		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), labelImageMusic);
         scaleTransition.setToX(1); // Mise à l'échelle en direction X
         scaleTransition.setToY(1); // Mise à l'échelle en direction Y
         scaleTransition.play();
@@ -113,12 +112,12 @@ public class ControllerFormulaire {
         	imageMusic.setImage(image);
         	
         	// modification de l'affichage
-        	labelAddMusic.setTranslateX(-40);
-        	labelAddMusic.setTranslateY(100);
-        	labelAddMusic.setText("Cliquer sur l'image pour la changer");
-        	addMusic.setOnMouseEntered(null);
-        	addMusic.setOnMouseExited(null);
-        	addMusic.setStyle("-fx-border-width:0;");
+        	labelImageMusic.setTranslateX(-40);
+        	labelImageMusic.setTranslateY(100);
+        	labelImageMusic.setText("Cliquer sur l'image pour la changer");
+        	anchorPaneImageMusic.setOnMouseEntered(null);
+        	anchorPaneImageMusic.setOnMouseExited(null);
+        	anchorPaneImageMusic.setStyle("-fx-border-width:0;");
       
         }
 	}
