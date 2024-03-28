@@ -7,7 +7,7 @@ public class Musique {
 	static enum STYLE {POP,ROCK,RAP,ELECTRO,SLAM};
 
 
-	public STYLE[] styles; //Styles de la musique (peut en avoir plusieurs)
+	public ArrayList<STYLE> styles; //Styles de la musique (peut en avoir plusieurs)
 	public boolean isLiked;
 	private String titre;
 	private String auteur;
@@ -32,6 +32,10 @@ public class Musique {
 
 	public void ajouterImage(Image img) {
 		this.couverture = img;
+	}
+	
+	public void ajouterStyle(STYLE style) {
+		this.styles.add(style);
 	}
 	
 	/**
@@ -115,6 +119,24 @@ public class Musique {
 		Musique m2 = new Musique("Apex", "collander", 136);
 		Musique m3 = new Musique("Apax", "collander", 141);
 		Musique m4 = new Musique("Apox", "collander", 145);
+		Album a = new Album("Apex le roi");
+		
+		a.ajouterMusique(m1);
+		a.ajouterMusique(m2);
+		a.ajouterMusique(m3);
+		a.ajouterMusique(m4);
+		
+		String musiquesEncodees = Album.encoderMusique(a);
+		String albumEncode = Album.encoderAlbum(a);
+		
+		System.out.println(musiquesEncodees);
+		System.out.println(albumEncode);
+		
+		
+		Album a2 = Album.decoderAlbum(albumEncode);
+		
+		System.out.println(a2);
+		
 		String chaine = "";
 		chaine = Musique.encoder(m1) + Musique.encoder(m2) + Musique.encoder(m3) + Musique.encoder(m4); //Sauvegarde les musique dans une chaine de caractere
 		String[] musiques = chaine.split("7c"); // 7c correspond a | en ASCII
@@ -123,7 +145,9 @@ public class Musique {
 			nouvellesMusiques.add(Musique.decoder(str));
 		}
 		System.out.println(nouvellesMusiques);
-
+		
+		
+		
 		
 	}
 
