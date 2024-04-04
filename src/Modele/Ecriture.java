@@ -14,50 +14,67 @@ import java.io.File;
 import java.io.FileReader;
 
 public class Ecriture {
-
-	private static String path = "data/info_music/test.txt";
-
-	public static void main(String[] args) {
-		Musique m1 = new Musique("Salut", "je suis l'auteur", 60, false, STYLE.ELECTRO);
-		Musique m2 = new Musique("sdjkfls<d", "je suis l'auteur", 60, false, STYLE.ELECTRO);
-		Musique m3 = new Musique("hjkhj", "je suis l'auteur", 60, false, STYLE.ELECTRO);
-		Musique m4 = new Musique("djkf", "je suis l'auteur", 60, false, STYLE.ELECTRO);
-		Musique m5 = new Musique("gdflknnnbm", "je suis l'auteur", 60, false, STYLE.ELECTRO);
-
-
-
-		Ecriture.enregistrement(m1);
-
+	
+	public static void main (String[] args) {
+		Musique m1 = new Musique("une iezjfhjhdsbg", "leTitre", 658621, false, STYLE.ELECTRO);
+		Musique m2 = new Musique("une zpoiaueriury", "leTitre", 658621, false, STYLE.ROCK);
+		Musique m3 = new Musique("une cvbxcvnxvcnbvxc", "leTitre", 658621, false, STYLE.ELECTRO);
+		Musique m4 = new Musique("ouai c'est micheeeeeel tu donne pas de nouvelle", "leTitre", 658621, false, STYLE.ELECTRO);
+		
+		Ecriture.enregistrement(Musique.encoder(m1));
+		Ecriture.enregistrement(Musique.encoder(m2));
+		Ecriture.enregistrement(Musique.encoder(m3));
+		Ecriture.enregistrement(Musique.encoder(m4));
 	}
 
+	private static String path = "data/info_music/database";
 
-
-	public static void enregistrement(Musique music) {
+	public static void enregistrement(String unString) {
 
 		try {
-			// Creates a FileWriter
+			// Création fileWriter
 			File file = new File(path);
 			System.out.println(path);
 
 			//Création buffered et file writer / reader
-			FileWriter writer = new FileWriter(file);
-			BufferedWriter output = new BufferedWriter(writer);
-
+			if(!file.exists()){
+				file.createNewFile();
+			}
 			FileReader reader = new FileReader(file);
 			BufferedReader fichier = new BufferedReader(reader);
 
+			FileWriter writer = new FileWriter(file);
+			BufferedWriter output = new BufferedWriter(writer);
+			
+			
+			System.out.println(file.exists());
+			
 			// récupération de toutes les données existantes
+			
 			ArrayList<String> data = new ArrayList<>();
 
-			String line = fichier.readLine(); // vaut null si le fichier est vide de base
-
-			while(line != null) {
+			String line = fichier.readLine(); // vaut null si le fichier est vide de base sinon première ligne
+			
+			System.out.println(line);
+			while(true) {
 				System.out.println("lecture de la base de donnée ...");
+				if(line == null) {
+					break;
+				}
 				data.add(line);
+				
+				line = fichier.readLine();
+				
+				System.out.println(line);
 			}
 			
-			System.out.println("fin de lecture");
-			data.add(Musique.encoder(music));
+			//System.out.println("fin de lecture " + data.size() +" nombre de data distincte");
+			data.add(unString); // ajoute la nouvelle musique à la liste.
+
+			
+			
+			
+			
 			for(String ligne : data) {
 				System.out.println("ecriture ..");
 				System.out.println(ligne);
