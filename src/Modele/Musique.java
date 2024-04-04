@@ -2,9 +2,10 @@ package Modele;
 
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.TreeSet;
 
-public class Musique {
+public class Musique implements Comparable<Musique>{
+	
+	
 	static enum STYLE {POP,ROCK,RAP,ELECTRO};
 	public static int ID = 0;
 
@@ -23,6 +24,7 @@ public class Musique {
 		this.auteur = auteur;
 		this.duree = duree;
 		this.isLiked = false;
+		Hierarchie.ajouterMusique(this);
 		
 	}
 	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style) {
@@ -31,6 +33,7 @@ public class Musique {
 		this.duree = duree;
 		this.isLiked = isLiked;
 		this.style = style;
+		Hierarchie.ajouterMusique(this);
 		
 	}
 	
@@ -64,6 +67,7 @@ public class Musique {
 	        }
 			phrase.append(Integer.toHexString((int) ';'));
 		}
+		Hierarchie.retirerMusique(m);
 		phrase.append(Integer.toHexString((int) '|'));
 		return phrase.toString();
 	}
@@ -92,8 +96,9 @@ public class Musique {
 	    		}
 	    	}
 	    }
-		
-	    return new Musique(arguments.get(0), arguments.get(1), Integer.parseInt(arguments.get(2)), Boolean.parseBoolean(arguments.get(3)), STYLE.valueOf(arguments.get(4)));
+		Musique m = new Musique(arguments.get(0), arguments.get(1), Integer.parseInt(arguments.get(2)), Boolean.parseBoolean(arguments.get(3)), STYLE.valueOf(arguments.get(4)));
+		Hierarchie.ajouterMusique(m);
+		return m;
 	}
 	
 	public String toString() {
@@ -116,29 +121,31 @@ public class Musique {
 	public Image getImage() {
 		return this.couverture;
 	}
+	@Override
+	public int compareTo(Musique m) {
+		return this.titre.compareTo(m.titre);
+	}
 	
 	public static void main(String[] args) {
+		Hierarchie h = new Hierarchie();
 		Musique m1 = new Musique("Apix", "collander", 140, true, STYLE.POP); // créer 4 nouvelle musique
 		Musique m2 = new Musique("Apex", "collander", 136, false, STYLE.ELECTRO);
 		Musique m3 = new Musique("Apax", "collander", 141, false, STYLE.RAP);
 		Musique m4 = new Musique("Apox", "collander", 145, true, STYLE.ELECTRO);
-		Album a = new Album("Apex le roi");
 		
-		a.ajouterMusique(m1);
-		a.ajouterMusique(m2);
-		a.ajouterMusique(m3);
-		a.ajouterMusique(m4);
+
+		System.out.println("hierarchie 1 : " + Hierarchie.hierarchie);
+
 		
-		String musiquesEncodees = Album.encoderMusique(a);
-		String albumEncode = Album.encoderAlbum(a);
-		
-		System.out.println(musiquesEncodees);
-		System.out.println(albumEncode);
+		//System.out.println(musiquesEncodees);
+		//System.out.println(albumEncode);
 		
 		
-		Album a2 = Album.decoderAlbum(albumEncode);
 		
-		System.out.println(a2);
+		//System.out.println(a2);
+		
+		System.out.println("Hierarchie 2 : " + Hierarchie.hierarchie);
+
 		
 		String chaine = "";
 		chaine = Musique.encoder(m1) + Musique.encoder(m2) + Musique.encoder(m3) + Musique.encoder(m4); //Sauvegarde les musique dans une chaine de caractere
@@ -148,7 +155,9 @@ public class Musique {
 		for (String str : musiques) {
 			nouvellesMusiques.add(Musique.decoder(str));
 		}
-		System.out.println(nouvellesMusiques);
+		//System.out.println(nouvellesMusiques);
+		
+		System.out.println("Hierarchie 3 : " + Hierarchie.hierarchie);
 		
 		
 		
