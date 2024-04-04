@@ -67,7 +67,6 @@ public class Musique implements Comparable<Musique>{
 	        }
 			phrase.append(Integer.toHexString((int) ';'));
 		}
-		Hierarchie.retirerMusique(m);
 		phrase.append(Integer.toHexString((int) '|'));
 		return phrase.toString();
 	}
@@ -136,20 +135,13 @@ public class Musique implements Comparable<Musique>{
 
 		System.out.println("hierarchie 1 : " + Hierarchie.hierarchie);
 
+		String chaine = Hierarchie.encoder();
 		
-		//System.out.println(musiquesEncodees);
-		//System.out.println(albumEncode);
-		
-		
-		
-		//System.out.println(a2);
 		
 		System.out.println("Hierarchie 2 : " + Hierarchie.hierarchie);
-
 		
-		String chaine = "";
-		chaine = Musique.encoder(m1) + Musique.encoder(m2) + Musique.encoder(m3) + Musique.encoder(m4); //Sauvegarde les musique dans une chaine de caractere
-		
+		System.out.println();
+ 
 		String[] musiques = chaine.split("7c"); // 7c correspond a | en ASCII
 		ArrayList<Musique> nouvellesMusiques = new ArrayList<Musique>(); //liste dans laquelle on contiendra toutes les nouvelles Musiques
 		for (String str : musiques) {
