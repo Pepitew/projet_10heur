@@ -47,7 +47,7 @@ public class Ecriture {
 			BufferedWriter output = new BufferedWriter(writer);
 			
 			
-			System.out.println(file.exists());
+			//System.out.println(file.exists());
 			
 			// récupération de toutes les données existantes
 			
@@ -59,6 +59,7 @@ public class Ecriture {
 			while(true) {
 				System.out.println("lecture de la base de donnée ...");
 				if(line == null) {
+			  data.add(unString); // ajoute la nouvelle musique à la liste.
 					break;
 				}
 				data.add(line);
@@ -69,11 +70,6 @@ public class Ecriture {
 			}
 			
 			//System.out.println("fin de lecture " + data.size() +" nombre de data distincte");
-			data.add(unString); // ajoute la nouvelle musique à la liste.
-
-			
-			
-			
 			
 			for(String ligne : data) {
 				System.out.println("ecriture ..");
