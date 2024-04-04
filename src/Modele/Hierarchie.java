@@ -15,6 +15,18 @@ public class Hierarchie {
 		Hierarchie.hierarchie.remove(m);
 	}
 	
+	public static String encoder() {
+		StringBuilder phrase = new StringBuilder();
+		
+		for (Musique m : Hierarchie.hierarchie) {
+			phrase.append(Musique.encoder(m));
+		}
+		
+		Hierarchie.hierarchie.clear();
+		
+		return phrase.toString();
+	}
+	
 	
 
 
