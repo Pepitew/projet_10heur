@@ -143,11 +143,9 @@ public class Musique implements Comparable<Musique>{
 		System.out.println();
  
 		String[] musiques = chaine.split("7c"); // 7c correspond a | en ASCII
-		ArrayList<Musique> nouvellesMusiques = new ArrayList<Musique>(); //liste dans laquelle on contiendra toutes les nouvelles Musiques
 		for (String str : musiques) {
-			nouvellesMusiques.add(Musique.decoder(str));
+			Musique.decoder(str);
 		}
-		//System.out.println(nouvellesMusiques);
 		
 		System.out.println("Hierarchie 3 : " + Hierarchie.hierarchie);
 		
