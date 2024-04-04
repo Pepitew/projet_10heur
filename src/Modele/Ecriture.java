@@ -1,94 +1,54 @@
 package Modele;
 
-// exemple
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.NumberFormat.Style;
 import java.util.ArrayList;
-
-import Modele.Musique.STYLE;
-
 import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+import Modele.Musique.STYLE;
+
 public class Ecriture {
-	
-	public static void main (String[] args) {
-		Musique m1 = new Musique("une iezjfhjhdsbg", "leTitre", 658621, false, STYLE.ELECTRO);
-		Musique m2 = new Musique("une zpoiaueriury", "leTitre", 658621, false, STYLE.ROCK);
-		Musique m3 = new Musique("une cvbxcvnxvcnbvxc", "leTitre", 658621, false, STYLE.ELECTRO);
-		Musique m4 = new Musique("ouai c'est micheeeeeel tu donne pas de nouvelle", "leTitre", 658621, false, STYLE.ELECTRO);
-		
-		Ecriture.enregistrement(Musique.encoder(m1));
-		Ecriture.enregistrement(Musique.encoder(m2));
-		Ecriture.enregistrement(Musique.encoder(m3));
-		Ecriture.enregistrement(Musique.encoder(m4));
-	}
+    
+    private static String path = "data/info_music/";
 
-	private static String path = "data/info_music/database";
+    public static void main (String[] args) {
+        Musique m1 = new Musique("une iezjfhjhdsbg", "leTitre", 658621, false, STYLE.ELECTRO);
+        Musique m2 = new Musique("une zpoiaueriury", "leTitre", 658621, false, STYLE.ROCK);
+        Musique m3 = new Musique("une cvbxcvnxvcnbvxc", "leTitre", 658621, false, STYLE.ELECTRO);
+        Musique m4 = new Musique("ouai c'est micheeeeeel tu donne pas de nouvelle", "leTitre", 658621, false, STYLE.ELECTRO);
+        
+        enregistrement(Musique.encoder(m1), "database");
+        enregistrement(Musique.encoder(m2), "database");
+        enregistrement(Musique.encoder(m3), "database");
+        enregistrement(Musique.encoder(m4), "database");
+    }
 
-	public static void enregistrement(String unString) {
+    public static void enregistrement(String unString, String fileName) {
 
-		try {
-			// Création fileWriter
-			File file = new File(path);
-			System.out.println(path);
+        try {
+            // Création fileWriter
+            File file = new File(path+fileName);
 
-			//Création buffered et file writer / reader
-			if(!file.exists()){
-				file.createNewFile();
-			}
-			FileReader reader = new FileReader(file);
-			BufferedReader fichier = new BufferedReader(reader);
+            // Création buffered et file writer / reader
+            if(!file.exists()){
+                file.createNewFile();
+            }
+            FileWriter writer = new FileWriter(file, true); // true pour append
+            BufferedWriter output = new BufferedWriter(writer);
+            
+            // Ajout de la nouvelle musique
+            output.write(unString);
+            output.newLine();
+            
+            // Fermeture des flux
+            output.close();
+            writer.close();
 
-			FileWriter writer = new FileWriter(file);
-			BufferedWriter output = new BufferedWriter(writer);
-			
-			
-			//System.out.println(file.exists());
-			
-			// récupération de toutes les données existantes
-			
-			ArrayList<String> data = new ArrayList<>();
-
-			String line = fichier.readLine(); // vaut null si le fichier est vide de base sinon première ligne
-			
-			System.out.println(line);
-			while(true) {
-				System.out.println("lecture de la base de donnée ...");
-				if(line == null) {
-			  data.add(unString); // ajoute la nouvelle musique à la liste.
-					break;
-				}
-				data.add(line);
-				
-				line = fichier.readLine();
-				
-				System.out.println(line);
-			}
-			
-			//System.out.println("fin de lecture " + data.size() +" nombre de data distincte");
-			
-			for(String ligne : data) {
-				System.out.println("ecriture ..");
-				System.out.println(ligne);
-				output.write(ligne);
-				output.newLine();
-			}
-			System.out.println("fin d'enregistrement");
-			
-			output.close();
-			writer.close();
-			reader.close();
-
-		}
-
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

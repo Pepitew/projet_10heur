@@ -133,22 +133,12 @@ public class Musique implements Comparable<Musique>{
 		Musique m4 = new Musique("Apox", "collander", 145, true, STYLE.ELECTRO);
 		
 
-		System.out.println("hierarchie 1 : " + Hierarchie.hierarchie);
-
-		String chaine = Hierarchie.encoder();
+		Hierarchie.encoder();
+		System.out.println(h);
 		
+		Lecture.lire("database");
 		
-		System.out.println("Hierarchie 2 : " + Hierarchie.hierarchie);
-		
-		System.out.println();
- 
-		String[] musiques = chaine.split("7c"); // 7c correspond a | en ASCII
-		for (String str : musiques) {
-			Musique.decoder(str);
-		}
-		
-		System.out.println("Hierarchie 3 : " + Hierarchie.hierarchie);
-		
+		System.out.println(h);
 		
 		
 		
