@@ -136,7 +136,7 @@ public class Musique implements Comparable<Musique>{
 		Hierarchie.encoder();
 		System.out.println(h);
 		
-		Lecture.lire("database");
+		Record.read("database");
 		
 		System.out.println(h);
 		

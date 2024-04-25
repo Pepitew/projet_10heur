@@ -20,7 +20,7 @@ public class Hierarchie {
 		
 		for (Musique m : Hierarchie.hierarchie) {
 			//phrase.append(Musique.encoder(m));
-			Ecriture.enregistrement(Musique.encoder(m), "database");
+			Record.write(Musique.encoder(m), "database");
 		}
 		
 		Hierarchie.hierarchie.clear();
