@@ -15,8 +15,8 @@ public class Musique implements Comparable<Musique>{
 	public boolean isLiked;
 	private String titre;
 	private String auteur;
-	private int duree; //En minutes
-	private Image couverture; //on peut changer l'Image
+	private int duree; //En secondes
+	private String couverture; //chemin de l'image
 	
 
 	public Musique(String titre, String auteur, int duree) {
@@ -38,8 +38,8 @@ public class Musique implements Comparable<Musique>{
 	}
 	
 
-	public void ajouterImage(Image img) {
-		this.couverture = img;
+	public void ajouterImage(String img) {
+		this.couverture = img; //CHemin de l'image
 	}
 	
 
@@ -117,7 +117,7 @@ public class Musique implements Comparable<Musique>{
 	public int getDuree() {
 		return this.duree;
 	}
-	public Image getImage() {
+	public String getImage() {
 		return this.couverture;
 	}
 	@Override

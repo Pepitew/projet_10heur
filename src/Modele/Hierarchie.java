@@ -28,10 +28,23 @@ public class Hierarchie {
 		//return phrase.toString();
 	}
 	
+	public TreeSet<Musique> rechercher(String chaine){
+		TreeSet<Musique> recherche = new TreeSet<>();
+		
+		for (Musique m : Hierarchie.hierarchie) {
+			if (m.getTitre().toLowerCase().contains(chaine.toLowerCase()) || m.getAuteur().toLowerCase().contains(chaine)) {
+				recherche.add(m);
+			}
+		}
+		
+		return recherche;
+	}
+	
 	public String toString() {
 		return Hierarchie.hierarchie.toString();
 		
 	}
+	
 	
 	
 
