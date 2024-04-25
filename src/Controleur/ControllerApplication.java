@@ -78,6 +78,9 @@ public class ControllerApplication {
 	        
 	            //masque l'info-bulle au dessus du slider (lecteur de musique) 
 	            lecteur.getChildrenUnmodifiable().get(3).setOpacity(0);
+	            
+	            //appel de la méthode afficherMusiqueRecommandee()
+	            this.afficherMusiqueRecommandee();
 	        });
 	}
 	// fonction pour faire grossir un élément
@@ -138,6 +141,7 @@ public class ControllerApplication {
     
     //Méthode pour afficher les musiques dans l'onglet recommandation
     private void afficherMusiqueRecommandee() {
-    	recommandationContainer.
+    	recommandationContainer.getChildren().clear();
+    	
     }
 }

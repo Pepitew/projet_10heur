@@ -88,7 +88,7 @@
       </FlowPane>
       <ScrollPane focusTraversable="false" style="-fx-background-color: white;" vbarPolicy="NEVER" GridPane.columnIndex="2" GridPane.columnSpan="10" GridPane.rowIndex="3" GridPane.rowSpan="3">
          <content>
-            <HBox spacing="10.0">
+            <HBox fx:id="recommandationContainer" spacing="10.0">
                <children>
                   <Pane maxHeight="-Infinity" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;">
                      <HBox.margin>
