@@ -138,6 +138,5 @@ public class ControllerApplication {
     
     //Méthode pour afficher les musiques dans l'onglet recommandation
     private void afficherMusiqueRecommandee() {
-    	recommandationContainer.
     }
 }

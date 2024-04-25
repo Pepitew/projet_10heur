@@ -28,11 +28,11 @@ public class Hierarchie {
 		//return phrase.toString();
 	}
 	
-	public TreeSet<Musique> rechercher(String chaine){
+	public static TreeSet<Musique> rechercher(String chaine){
 		TreeSet<Musique> recherche = new TreeSet<>();
 		
 		for (Musique m : Hierarchie.hierarchie) {
-			if (m.getTitre().toLowerCase().contains(chaine.toLowerCase()) || m.getAuteur().toLowerCase().contains(chaine)) {
+			if (m.getTitre().toLowerCase().contains(chaine.toLowerCase()) || m.getAuteur().toLowerCase().contains(chaine.toLowerCase())) {
 				recherche.add(m);
 			}
 		}
