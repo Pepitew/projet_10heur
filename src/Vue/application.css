@@ -1,6 +1,24 @@
 .interactif{
     -fx-cursor: hand; 
+}
 
+Pane:hover > SVGPath{
+	-fx-fill: #1db954;
+	-fx-stroke: #1db954;	
+}
+
+Pane:hover > #previousArrow{
+	-fx-stroke: black;
+}
+
+Pane:hover > #nextArrow{
+	-fx-stroke: black;
+}
+
+ProgressBar{
+	-fx-background-fills: #1db954;
+	-fx-background-color: #1db954;
+	-fx-border-radius: 10px;
 }
 	
 #btnAddMusic {
@@ -18,8 +36,8 @@
 
 /* Hover effect */
 #btnAddMusic:hover {
-    -fx-background-color: #1ed760; /* Background color on hover */
-    -fx-border-color: #1ed760; /* Border color on hover */
+    -fx-background-color: #1ed760; /* Background color au hover */
+    -fx-border-color: #1ed760; /* Border color au hover */
     
 }
 

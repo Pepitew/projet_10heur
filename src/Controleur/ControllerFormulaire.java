@@ -11,10 +11,14 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -39,9 +43,9 @@ public class ControllerFormulaire {
 	@FXML
 	private GridPane root;
 	@FXML
-	private Label labelTitre, labelAuteur, labelDuree;
+	private Label labelMusique,labelTitre, labelGenre, labelAuteur, labelDuree;
 	@FXML
-	private TextField fieldTitre, fieldAuteur, fieldDuree;
+	private TextField fieldTitre, fieldGenre, fieldAuteur, fieldDuree;
 	@FXML
 	private Button btnAjouter;
 	@FXML
@@ -49,7 +53,8 @@ public class ControllerFormulaire {
 	@FXML
 	private Label labelImageMusic;
 	@FXML 
-	private ImageView imageMusic;
+	private ImageView imageMusic, logoMusic;
+
 	
 	 // Création d'un dictionnaire (Map) associant les champs de texte aux labels
     private Map<TextField, Label> labelFieldMap = new HashMap<>();
@@ -57,9 +62,26 @@ public class ControllerFormulaire {
     // action effectué au chargement du fichier FXML
 	@FXML
 	public void initialize() {
-	    labelFieldMap.put(fieldTitre,labelTitre);
+		//labelFieldMap.put(fieldMusique,labelMusique);
+		// Remplir le dictionnaire labelFieldMap
+		labelFieldMap.put(fieldTitre,labelTitre);
+		labelFieldMap.put(fieldGenre,labelGenre);
         labelFieldMap.put(fieldAuteur,labelAuteur);
         labelFieldMap.put(fieldDuree,labelDuree);
+        
+     // Cette méthode attend que la scène soit entièrement chargée avant d'effectué la fonction de callback
+        Platform.runLater(() -> {
+        	// écouteur appelé à chaque fois que la taille change
+        	anchorPaneImageMusic.widthProperty().addListener((obs, oldValue, newValue) -> {
+        		this.imageMusic.setFitWidth(this.anchorPaneImageMusic.getWidth());
+        		this.imageMusic.setFitHeight(this.anchorPaneImageMusic.getHeight()-40);
+        	});
+        	anchorPaneImageMusic.heightProperty().addListener((obs, oldValue, newValue) -> {
+        		this.imageMusic.setFitWidth(this.anchorPaneImageMusic.getWidth());
+        		this.imageMusic.setFitHeight(this.anchorPaneImageMusic.getHeight()-40);        	
+        	});
+        });
+ 
 	}
 	
 	// mets le texte associer à la zone de saisie en noir lorsqu'elle est sélectionnée
@@ -82,15 +104,23 @@ public class ControllerFormulaire {
 	}
 	
 	// effet de grossissement du texte au survol de la souris
-	public void growLabel(MouseEvent m) {
-		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), labelImageMusic);
+	public void grow(MouseEvent m) {
+		Node target = (Node) m.getTarget();
+		if (target instanceof AnchorPane) {
+			target = labelImageMusic;
+		}
+		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), target);
         scaleTransition.setToX(1.1); // Mise à l'échelle en direction X
         scaleTransition.setToY(1.1); // Mise à l'échelle en direction Y
         scaleTransition.play();
 	}
 	// retour à la taille normal
-	public void shrinkLabel(MouseEvent m) {
-		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), labelImageMusic);
+	public void shrink(MouseEvent m) {
+		Node target = (Node) m.getTarget();
+		if (target instanceof AnchorPane) {
+			target = labelImageMusic;
+		}
+		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), target);
         scaleTransition.setToX(1); // Mise à l'échelle en direction X
         scaleTransition.setToY(1); // Mise à l'échelle en direction Y
         scaleTransition.play();
@@ -114,12 +144,16 @@ public class ControllerFormulaire {
         	imageMusic.setImage(image);
         	
         	// modification de l'affichage
-        	labelImageMusic.setTranslateX(-40);
-        	labelImageMusic.setTranslateY(100);
+        	
+        	anchorPaneImageMusic.setTopAnchor(labelImageMusic, null);
+        	anchorPaneImageMusic.setBottomAnchor(labelImageMusic,0.0);
         	labelImageMusic.setText("Cliquer sur l'image pour la changer");
+        	labelImageMusic.setAlignment(Pos.CENTER_LEFT);
+        	
         	anchorPaneImageMusic.setOnMouseEntered(null);
         	anchorPaneImageMusic.setOnMouseExited(null);
-        	anchorPaneImageMusic.setStyle("-fx-border-width:0;");
+        	anchorPaneImageMusic.setOnMouseClicked(null);
+        	anchorPaneImageMusic.setStyle("-fx-border-width:0;-fx-cursor:default;");
         	root.getChildren().remove(btnAjouter);
         	root.getChildren().add(btnAjouter);
       

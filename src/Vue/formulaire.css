@@ -40,9 +40,16 @@
 
 #anchorPaneImageMusic{
 	-fx-border-color : black;
+	-fx-cursor : hand;
 }
 
 #anchorPaneImageMusic:pressed{
 	-fx-border-color : grey;
 }
+
+#logoMusic{
+	-fx-cursor : hand;
+}
+
+
 
