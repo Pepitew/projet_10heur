@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 import Modele.Record;
 
 //Application est un classe javaFx qui permet d'afficher la fenêtre de base de l'app, 
-//la méthode start est appelé au démarrage de l'app
 public class App extends Application {
+//la méthode start est appelé au démarrage de l'app
 @Override
 public void start(Stage primaryStage) {
 	// charger les données des musiques du dossier info_music
@@ -20,11 +20,10 @@ public void start(Stage primaryStage) {
 	
 	try {
 		Image icon = new Image("file:../../Logo/logo.png");
-		// Instanciation de la vue et du controleur
+		// Instanciation des vues  
 		VueApplication vueApplication = new VueApplication();
 		VueFormulaire vueFormulaire = new VueFormulaire();
-		ControllerFormulaire controllerFormulaire = vueFormulaire.cf;
-		
+		// paramétrage du Stage
 		primaryStage.setScene(vueApplication);
 		primaryStage.setResizable(true);
 		primaryStage.getIcons().add(icon);

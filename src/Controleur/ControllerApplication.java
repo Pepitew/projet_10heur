@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXSlider;
 
+import Modele.Hierarchie;
+import Modele.Musique;
+import Vue.VueMusique;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ScaleTransition;
@@ -22,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -142,6 +146,16 @@ public class ControllerApplication {
     //Méthode pour afficher les musiques dans l'onglet recommandation
     private void afficherMusiqueRecommandee() {
     	recommandationContainer.getChildren().clear();
-    	
+    	for(Musique m : Hierarchie.hierarchie) {
+    		VueMusique p = null;
+			try {
+				p = new VueMusique(m.getImage(), m.getTitre());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+    		recommandationContainer.getChildren().add(p.getRoot());
+    	}
     }
 }
