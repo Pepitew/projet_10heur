@@ -4,14 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="190.0" prefWidth="190.0" style="-fx-background-color: #E6E6E6;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controleur.ControllerMusique">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#lireMusique" prefHeight="190.0" prefWidth="190.0" style="-fx-background-color: #E6E6E6;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controleur.ControllerMusique">
    <children>
-      <Label fx:id="labelTitre" alignment="CENTER" layoutX="65.0" layoutY="177.0" text="Nom musique" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
-         <font>
-            <Font size="16.0" />
-         </font></Label>
+      <Label fx:id="labelTitre" layoutX="65.0" layoutY="177.0" prefHeight="30.0" prefWidth="150.0" text="Nom musique super long et pas vraiment cool" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
       <ImageView fx:id="couvertureMusique" fitHeight="150.0" fitWidth="150.0" layoutX="2.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0" />
    </children>
    <cursor>

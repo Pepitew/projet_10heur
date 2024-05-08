@@ -21,8 +21,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -37,6 +40,8 @@ public class ControllerApplication {
 	@FXML
 	ImageView logo;
 	@FXML
+	ImageView imageViewMusiqueEnCours;
+	@FXML
 	SVGPath play, previousArrow, nextArrow,	like;
 	@FXML
 	Button btnAddMusic;
@@ -47,19 +52,29 @@ public class ControllerApplication {
 	@FXML
 	Label timeMaxLabel, timeCurrentLabel;
 	@FXML
+	Label labelNomMusiqueEnCours;
+	@FXML
+	Label labelAuteurMusiqueEnCours;
+	@FXML
+	Label labelGenreMusiqueEnCours;
+	@FXML
 	HBox recommandationContainer;
 	@FXML
 	ScrollPane scrollPaneRecommandations;
+	@FXML
+	TextField textFieldRechercher;
+			  
 	
 	Timeline timelineBtnAddMusic;
 	Stage stage;
+
 	
 	// initialize() est appelée dès le chargement du fichier fxml
 	@FXML
 	public void initialize() {
 		// Cette méthode attend que la scène soit entièrement chargée avant d'effectué la fonction de callback
 		 Platform.runLater(() -> {
-	            this.stage = (Stage) this.root.getScene().getWindow();
+			 this.stage = (Stage) this.root.getScene().getWindow();
 	            // écouteur sur la largeur de flowPaneLogo pour définir la largeur du logo en fonction de la taille de la fenêtre
 	            this.flowPaneLogo.widthProperty().addListener((obs, oldValue, newValue)->{
 	            	this.logo.setFitWidth(this.flowPaneLogo.getWidth()*0.4);
@@ -85,8 +100,9 @@ public class ControllerApplication {
 	            //masque l'info-bulle au dessus du slider (lecteur de musique) 
 	            lecteur.getChildrenUnmodifiable().get(3).setOpacity(0);
 	            
-	            //appel de la méthode afficherMusiqueRecommandee()
+	            //appel de méthode nécessaire pour un affichage correct au lancement
 	            this.afficherMusiqueRecommandee();
+	            this.afficherMusiqueEnCours(null);
 	        });
 	}
 	// méthode pour faire grossir un élément
@@ -159,6 +175,30 @@ public class ControllerApplication {
     		recommandationContainer.getChildren().add(v.getRoot());
     	}
     	
-    	recommandationContainer.applyCss();;
+    	recommandationContainer.applyCss();
+    }
+    
+
+    
+    // Méthode pour afficher la musique en cours
+    void afficherMusiqueEnCours(Musique m) {
+    	// en attendant la méthode qui permet de récupérer la musique en cours...
+    	if(m == null) {
+    		m = Hierarchie.hierarchie.first();
+    	}
+    	imageViewMusiqueEnCours.setImage(new Image("file:"+m.getImage()));
+    	labelNomMusiqueEnCours.setText("Titre - "+m.getTitre());
+    	labelAuteurMusiqueEnCours.setText("Artiste - "+m.getAuteur());
+    	labelGenreMusiqueEnCours.setText("Genre - "+m.getStyle().toString());
+    }
+    
+
+    
+    //Méthode pour afficher la recherche de musique
+    @FXML
+    private void afficherRechercheMusique() {
+    	for(Musique m : Hierarchie.rechercher(textFieldRechercher.getText())) {
+    		System.out.println(m.getAuteur()+" : "+m.getTitre());    		
+    	}
     }
 }

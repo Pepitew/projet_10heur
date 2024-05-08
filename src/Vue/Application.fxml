@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
@@ -71,9 +72,55 @@
             </Button>
          </children>
       </FlowPane>
+      <ScrollPane hbarPolicy="NEVER" style="-fx-border-color: black; -fx-border-width: 0 0 0 1;" GridPane.columnIndex="9" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="9">
+         <content>
+            <VBox fx:id="musiqueEnCours">
+               <children>
+                  <ImageView fx:id="imageViewMusiqueEnCours" fitHeight="230.0" fitWidth="230.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Label fx:id="labelNomMusiqueEnCours" alignment="CENTER" contentDisplay="TOP" text="Nom Musique" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="labelAuteurMusiqueEnCours" alignment="CENTER" contentDisplay="TOP" text="Nom Auteur" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="labelGenreMusiqueEnCours" alignment="CENTER" contentDisplay="TOP" text="Genre Musique" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
       <FlowPane alignment="CENTER_LEFT" prefWrapLength="0.0" GridPane.columnIndex="2" GridPane.columnSpan="6" GridPane.rowSpan="2">
          <children>
-            <TextField maxWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Rechercher" style="-fx-background-color: #e6e6e6;">
+            <TextField fx:id="textFieldRechercher" maxWidth="-Infinity" onAction="#afficherRechercheMusique" onKeyTyped="#afficherRechercheMusique" prefHeight="40.0" prefWidth="250.0" promptText="Rechercher" style="-fx-background-color: #e6e6e6;">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -86,7 +133,7 @@
             </TextField>
          </children>
       </FlowPane>
-      <ScrollPane fx:id="scrollPaneRecommandations" focusTraversable="false" hbarPolicy="NEVER" style="-fx-background: white; -fx-background-color: white; -fx-border-color: white;" vbarPolicy="NEVER" vmax="0.0" GridPane.columnIndex="2" GridPane.columnSpan="7" GridPane.rowIndex="3" GridPane.rowSpan="4">
+      <ScrollPane fx:id="scrollPaneRecommandations" focusTraversable="false" style="-fx-background: white; -fx-background-color: white; -fx-border-color: white;" vbarPolicy="NEVER" vmax="0.0" GridPane.columnIndex="2" GridPane.columnSpan="7" GridPane.rowIndex="3" GridPane.rowSpan="4">
          <content>
             <HBox fx:id="recommandationContainer" focusTraversable="true" spacing="10.0" style="-fx-background-color: white;">
                <children>
@@ -124,14 +171,6 @@
       <AnchorPane layoutX="10.0" layoutY="360.0" GridPane.columnIndex="2" GridPane.columnSpan="7" GridPane.rowIndex="7" GridPane.rowSpan="4">
          <children>
             <Label alignment="CENTER" contentDisplay="TOP" style="-fx-border-color: black; -fx-border-width: 1 0 0 0;" text="Résultats du filtrage" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-         </children></AnchorPane>
-      <AnchorPane layoutX="316.0" layoutY="360.0" style="-fx-border-color: black; -fx-border-width: 0 0 0 1;" GridPane.columnIndex="9" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="9">
-         <children>
-            <Label alignment="CENTER" contentDisplay="TOP" style="-fx-border-color: black; -fx-border-width: 1 0 0 0;" text="Musique en cours" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="24.0" />
                </font>
@@ -190,6 +229,7 @@
          </children>
       </FlowPane>
       <Separator style="-fx-background-color: black;" GridPane.columnIndex="2" GridPane.columnSpan="10" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
       
    </children>
 </GridPane>

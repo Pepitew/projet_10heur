@@ -120,6 +120,9 @@ public class Musique implements Comparable<Musique>{
 	public String getImage() {
 		return this.couverture;
 	}
+	public STYLE getStyle() {
+		return this.style;
+	}
 	@Override
 	public int compareTo(Musique m) {
 		return this.titre.compareTo(m.titre);

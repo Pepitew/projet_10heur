@@ -18,7 +18,7 @@ public class VueFormulaire extends Scene {
         GridPane root = loader.load();
         // Récupération du controleur
         this.cf = loader.getController();
-        
+      
         // Affectation du noeud racine (root node) à la Scene
         this.setRoot(root);
 	}
