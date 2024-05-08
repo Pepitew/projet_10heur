@@ -20,12 +20,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -48,6 +48,8 @@ public class ControllerApplication {
 	Label timeMaxLabel, timeCurrentLabel;
 	@FXML
 	HBox recommandationContainer;
+	@FXML
+	ScrollPane scrollPaneRecommandations;
 	
 	Timeline timelineBtnAddMusic;
 	Stage stage;
@@ -87,7 +89,7 @@ public class ControllerApplication {
 	            this.afficherMusiqueRecommandee();
 	        });
 	}
-	// fonction pour faire grossir un élément
+	// méthode pour faire grossir un élément
 	public void grow(MouseEvent m) {
 		Node target = (Node) m.getTarget();
 		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), target);
@@ -96,7 +98,7 @@ public class ControllerApplication {
         
         scaleTransition.play();
 	}
-	// fonction pour revenir à la taille standard d'un élément
+	// méthode pour revenir à la taille standard d'un élément
 	public void shrink(MouseEvent m) {
 		Node target = (Node) m.getTarget();
 		
@@ -147,15 +149,16 @@ public class ControllerApplication {
     private void afficherMusiqueRecommandee() {
     	recommandationContainer.getChildren().clear();
     	for(Musique m : Hierarchie.hierarchie) {
-    		VueMusique p = null;
+    		VueMusique v = null;
 			try {
-				p = new VueMusique(m.getImage(), m.getTitre());
+				v = new VueMusique(m.getImage(), m.getTitre(), m.getAuteur());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-    		recommandationContainer.getChildren().add(p.getRoot());
+    		recommandationContainer.getChildren().add(v.getRoot());
     	}
+    	
+    	recommandationContainer.applyCss();;
     }
 }

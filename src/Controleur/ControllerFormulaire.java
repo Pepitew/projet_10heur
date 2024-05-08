@@ -10,6 +10,9 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import Modele.Hierarchie;
+import Modele.Musique;
+import Modele.Record;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -160,24 +163,37 @@ public class ControllerFormulaire {
         }
 	}
 
-	// Permet d'enregistrer des images dans le dossier Images
-	public void saveImage(ActionEvent event) throws IOException{
+	// Permet d'enregister la musique dans la Hiérarchie
+	public void saveMusique(ActionEvent event) throws IOException{
+		// enregister l'image de la musique en local
 		Image image = imageMusic.getImage();
 		if (image != null) {
-			if (! Files.exists(Paths.get("Image"))) {
-				Files.createDirectory(Paths.get("Image"));
+			if (! Files.exists(Paths.get("data/Image"))) {
+				Files.createDirectory(Paths.get("data/Image"));
 			}
-			ImageIO.write(SwingFXUtils.fromFXImage(image, null),"png", new File("Image/"+imageName));			
+			ImageIO.write(SwingFXUtils.fromFXImage(image, null),"png", new File("data/Image/"+imageName));			
 			
-			Parent root = FXMLLoader.load(getClass().getResource("/Vue/Application.fxml"));
-			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-			Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-			stage.setScene(scene);
-			
-			stage.show();	
-
-			System.out.println("Image ajouter avec succès");
 		}
+		// créer une nouvelle musique
+		String titre = fieldTitre.getText();
+		String auteur = fieldAuteur.getText();
+		int duree = Integer.valueOf(fieldDuree.getText());
+		String couverture = "data/Image/"+imageName;
+		Musique.STYLE style = Musique.STYLE.valueOf(fieldGenre.getText()); 
+				
+		Musique m = new Musique(titre,auteur,duree,false,style,couverture);
+		Hierarchie.hierarchie.add(m);
+		Hierarchie.encoder();
+		Record.read("database");
+		// changer de scene
+		Parent root = FXMLLoader.load(getClass().getResource("/Vue/Application.fxml"));
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		
+		Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
+		stage.setScene(scene);
+		
+		stage.show();	
+		
 	}
 }

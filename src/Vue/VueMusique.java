@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 public class VueMusique extends Scene{
 	
 	public ControllerMusique cm;
-	public VueMusique(String imagePath, String titre) throws IOException {
+	public VueMusique(String imagePath, String titre, String auteur) throws IOException {
 		super(new Pane());
 		// Chargement du fichier FXML et création du root node
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Musique.fxml"));
@@ -23,8 +23,7 @@ public class VueMusique extends Scene{
         // Récupération du controleur
         this.cm = loader.getController();
         
-        
-        cm.afficherMusique( imagePath, titre);        	
+        cm.afficherMusique(imagePath, titre, auteur);        	
         
         
 	}

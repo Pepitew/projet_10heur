@@ -52,7 +52,7 @@
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E6E6E6; -fx-border-width: 0 1 0 0; -fx-border-color: black;" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="5">
          <children>
-            <Label alignment="CENTER" layoutY="20.0" prefHeight="30.0" style="-fx-background-color: #ffffff0b;" text="Vos Playlist" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label alignment="CENTER" layoutY="20.0" prefHeight="30.0" style="-fx-background-color: #ffffff0b;" text="Vos Playlists" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font name="Verdana Italic" size="18.0" />
                </font>
@@ -86,27 +86,27 @@
             </TextField>
          </children>
       </FlowPane>
-      <ScrollPane focusTraversable="false" style="-fx-background-color: white;" vbarPolicy="NEVER" GridPane.columnIndex="2" GridPane.columnSpan="10" GridPane.rowIndex="3" GridPane.rowSpan="3">
+      <ScrollPane fx:id="scrollPaneRecommandations" focusTraversable="false" hbarPolicy="NEVER" style="-fx-background: white; -fx-background-color: white; -fx-border-color: white;" vbarPolicy="NEVER" vmax="0.0" GridPane.columnIndex="2" GridPane.columnSpan="7" GridPane.rowIndex="3" GridPane.rowSpan="4">
          <content>
-            <HBox fx:id="recommandationContainer" spacing="10.0">
+            <HBox fx:id="recommandationContainer" focusTraversable="true" spacing="10.0" style="-fx-background-color: white;">
                <children>
-                  <Pane maxHeight="-Infinity" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;">
+                  <Pane maxHeight="-Infinity" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: black;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
                   </Pane>
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: blue;" />
-                  <Pane layoutX="210.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: GREEN;" />
-                  <Pane layoutX="410.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: RED;" />
-                  <Pane layoutX="410.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: GREEN;" />
-                  <Pane layoutX="610.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: RED;" />
-                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" />
-                  <Pane layoutX="176.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: blue;" />
+                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: blue;" />
+                  <Pane layoutX="210.0" layoutY="10.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: GREEN;" />
+                  <Pane layoutX="410.0" layoutY="10.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: RED;" />
+                  <Pane layoutX="410.0" layoutY="10.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: GREEN;" />
+                  <Pane layoutX="610.0" layoutY="10.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: RED;" />
+                  <Pane layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: black;" />
+                  <Pane layoutX="176.0" layoutY="10.0" prefHeight="150.0" prefWidth="150.0" style="-fx-background-color: blue;" />
                </children>
             </HBox>
          </content>
          <GridPane.margin>
-            <Insets left="20.0" right="20.0" />
+            <Insets left="10.0" right="10.0" />
          </GridPane.margin>
       </ScrollPane>
       <AnchorPane style="-fx-border-width: 1 1 0 0; -fx-border-color: black; -fx-background-color: #e6e6e6;" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="4">
@@ -123,15 +123,15 @@
       </AnchorPane>
       <AnchorPane layoutX="10.0" layoutY="360.0" GridPane.columnIndex="2" GridPane.columnSpan="7" GridPane.rowIndex="7" GridPane.rowSpan="4">
          <children>
-            <Label alignment="CENTER" contentDisplay="TOP" style="-fx-border-color: black; -fx-border-width: 1 1 0 0;" text="Résultats du filtrage" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label alignment="CENTER" contentDisplay="TOP" style="-fx-border-color: black; -fx-border-width: 1 0 0 0;" text="Résultats du filtrage" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
          </children></AnchorPane>
-      <AnchorPane layoutX="316.0" layoutY="360.0" GridPane.columnIndex="9" GridPane.columnSpan="3" GridPane.rowIndex="7" GridPane.rowSpan="4">
+      <AnchorPane layoutX="316.0" layoutY="360.0" style="-fx-border-color: black; -fx-border-width: 0 0 0 1;" GridPane.columnIndex="9" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="9">
          <children>
-            <Label alignment="CENTER" contentDisplay="TOP" style="-fx-border-color: black; -fx-border-width: 1 0 0 0;" text="Image de la musique en cours" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label alignment="CENTER" contentDisplay="TOP" style="-fx-border-color: black; -fx-border-width: 1 0 0 0;" text="Musique en cours" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="24.0" />
                </font>

@@ -1,6 +1,5 @@
 package Main;
 
-import Controleur.ControllerFormulaire;
 import Modele.Hierarchie;
 import Modele.Musique;
 import Vue.VueApplication;
@@ -17,6 +16,11 @@ public class App extends Application {
 public void start(Stage primaryStage) {
 	// charger les données des musiques du dossier info_music
 	Record.read("database");
+	for(Musique m : Hierarchie.hierarchie) {
+	
+		System.out.println(m);
+		
+	}
 	
 	try {
 		Image icon = new Image("file:../../Logo/logo.png");
@@ -27,7 +31,7 @@ public void start(Stage primaryStage) {
 		primaryStage.setScene(vueApplication);
 		primaryStage.setResizable(true);
 		primaryStage.getIcons().add(icon);
-		//primaryStage.setMaximized(true); pour lancer la fenêtre en grand
+		primaryStage.setMaximized(true); 
 		primaryStage.show();
 		
 	} catch(Exception e) {

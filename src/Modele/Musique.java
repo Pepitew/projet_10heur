@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Musique implements Comparable<Musique>{
 	
 	
-	static enum STYLE {POP,ROCK,RAP,ELECTRO};
+	public static enum STYLE {POP,ROCK,RAP,ELECTRO};
 	public static int ID = 0;
 
 	
@@ -102,7 +102,7 @@ public class Musique implements Comparable<Musique>{
 	}
 	public String toString() {
 		StringBuilder phrase = new StringBuilder();
-		phrase.append("Titre : " + this.titre + "\nAuteur : " + this.auteur + "\ndurée (secondes) :" + this.duree + "\nLiké ? : " + this.isLiked + "\nStyle : " + this.style.toString() + "\nChemin de l'image " + this.couverture);
+		phrase.append("Titre : " + this.titre + "\nAuteur : " + this.auteur + "\ndurée (secondes) :" + this.duree + "\nLiké ? : " + this.isLiked + "\nStyle : " + this.style.toString() + "\nChemin de l'image : " + this.couverture);
 		return phrase.toString();
 	}
 
