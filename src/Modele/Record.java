@@ -79,4 +79,14 @@ public class Record {
             e.printStackTrace();
         }
     }
+    /*
+     * ecrire une méthode qui permet de supprimer la data base
+     */
+
+
+     /*
+      * ecrire une méthode qui permet de supprimer une musique de la data base
+      */
+
+      
 }
