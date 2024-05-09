@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import Controleur.ControllerApplication;
 import Controleur.ControllerFormulaire;
+import Main.App;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -21,6 +22,14 @@ public class VueApplication extends Scene{
         this.ca = loader.getController();
         // Affectation du noeud racine (root node) à la Scene
         this.setRoot(root);
+        
+        this.setOnMouseClicked(event -> {
+        	this.viderRechercheTextField();
+        });
 	}
-
+	
+	public void viderRechercheTextField() {
+		this.ca.textFieldRechercher.setText("");
+		this.ca.afficherRechercheMusique();
+	}
 }

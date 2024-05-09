@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXSlider;
 import Modele.Hierarchie;
 import Modele.Musique;
 import Vue.VueMusique;
+import Vue.VueResultatsRecherche;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ScaleTransition;
@@ -25,10 +26,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -50,20 +51,16 @@ public class ControllerApplication {
 	@FXML
 	JFXSlider lecteur;
 	@FXML
-	Label timeMaxLabel, timeCurrentLabel;
-	@FXML
-	Label labelNomMusiqueEnCours;
-	@FXML
-	Label labelAuteurMusiqueEnCours;
-	@FXML
-	Label labelGenreMusiqueEnCours;
+	Label timeMaxLabel, timeCurrentLabel, labelNomMusiqueEnCours ,labelAuteurMusiqueEnCours,labelGenreMusiqueEnCours;
 	@FXML
 	HBox recommandationContainer;
 	@FXML
+	VBox vboxRecherche;
+	@FXML
 	ScrollPane scrollPaneRecommandations;
 	@FXML
-	TextField textFieldRechercher;
-			  
+	public TextField textFieldRechercher;
+
 	
 	Timeline timelineBtnAddMusic;
 	Stage stage;
@@ -94,18 +91,18 @@ public class ControllerApplication {
 	    	            		new KeyValue(btnAddMusic.prefWidthProperty(), 200))
 	    	        );
 	            
-	            // affiche le temps de la musique
-	            timeMaxLabel.setText(formatTime(lecteur.getMax()));
-	        
 	            //masque l'info-bulle au dessus du slider (lecteur de musique) 
 	            lecteur.getChildrenUnmodifiable().get(3).setOpacity(0);
 	            
 	            //appel de méthode nécessaire pour un affichage correct au lancement
 	            this.afficherMusiqueRecommandee();
 	            this.afficherMusiqueEnCours(null);
+	            this.afficherRechercheMusique();
+	            
+	            
 	        });
 	}
-	// méthode pour faire grossir un élément
+	/** méthode pour faire grossir un élément **/
 	public void grow(MouseEvent m) {
 		Node target = (Node) m.getTarget();
 		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), target);
@@ -114,7 +111,7 @@ public class ControllerApplication {
         
         scaleTransition.play();
 	}
-	// méthode pour revenir à la taille standard d'un élément
+	/** méthode pour revenir à la taille standard d'un élément **/
 	public void shrink(MouseEvent m) {
 		Node target = (Node) m.getTarget();
 		
@@ -125,7 +122,7 @@ public class ControllerApplication {
         scaleTransition.play();
 	}
 	
-	// méthode pour agrandir le bouton qui ajoute une musique
+	/** méthode pour agrandir le bouton qui ajoute une musique **/
 	public void growBtnAddMusic(MouseEvent m) {
 		timelineBtnAddMusic.setRate(1);
 		timelineBtnAddMusic.play();
@@ -134,7 +131,7 @@ public class ControllerApplication {
 			btnAddMusic.setText("Ajouter une musique");
 		});
 		}
-	// méthode pour revenir à la taille normal du bouton qui ajoute une musique
+	/** méthode pour revenir à la taille normal du bouton qui ajoute une musique **/
 	public void shrinkBtnAddMusic(MouseEvent m) {
 		timelineBtnAddMusic.setRate(-1);
         timelineBtnAddMusic.play();
@@ -142,7 +139,7 @@ public class ControllerApplication {
 			btnAddMusic.setText("+");
 		});
 	}
-	// méthode pour changer la vue pour celle du formulaire
+	/** méthode pour changer la vue pour celle du formulaire **/
 	public void moveToFormulaire(ActionEvent event) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("/Vue/Formulaire.fxml"));
 		
@@ -150,18 +147,18 @@ public class ControllerApplication {
 		stage.setScene(scene);
 		stage.show();
 	}
-	// méthode pour mettre à jour le temps du lecteur de musique
+	/** méthode pour mettre à jour le temps du lecteur de musique **/
 	public void lecteurChange() {
 		timeCurrentLabel.setText(formatTime(lecteur.getValue()));
 	}
-	  // Méthode pour formater le temps au format "min:sec"
+	/** Méthode pour formater le temps au format "min:sec"**/
     private String formatTime(double seconds) {
         int minutes = (int) seconds / 60;
         int remainingSeconds = (int) seconds % 60;
         return String.format("%d:%02d", minutes, remainingSeconds);
     }
     
-    //Méthode pour afficher les musiques dans l'onglet recommandation
+    /** Méthode pour afficher les musiques dans l'onglet recommandation **/
     private void afficherMusiqueRecommandee() {
     	recommandationContainer.getChildren().clear();
     	for(Musique m : Hierarchie.hierarchie) {
@@ -174,14 +171,14 @@ public class ControllerApplication {
 			}
     		recommandationContainer.getChildren().add(v.getRoot());
     	}
-    	
+    	// permet de mettre à jour l'affichage
     	recommandationContainer.applyCss();
     }
     
 
     
-    // Méthode pour afficher la musique en cours
-    void afficherMusiqueEnCours(Musique m) {
+    /** Méthode pour afficher la musique en cours **/
+    public void afficherMusiqueEnCours(Musique m) {
     	// en attendant la méthode qui permet de récupérer la musique en cours...
     	if(m == null) {
     		m = Hierarchie.hierarchie.first();
@@ -190,15 +187,25 @@ public class ControllerApplication {
     	labelNomMusiqueEnCours.setText("Titre - "+m.getTitre());
     	labelAuteurMusiqueEnCours.setText("Artiste - "+m.getAuteur());
     	labelGenreMusiqueEnCours.setText("Genre - "+m.getStyle().toString());
+    	// affiche le temps de la musique en cours au niveau du slider
+    	lecteur.setMax(m.getDuree());
+        timeMaxLabel.setText(formatTime(lecteur.getMax()));
     }
     
 
     
-    //Méthode pour afficher la recherche de musique
+    /** Méthode pour afficher le résultat de la recherche de musique **/
     @FXML
-    private void afficherRechercheMusique() {
-    	for(Musique m : Hierarchie.rechercher(textFieldRechercher.getText())) {
-    		System.out.println(m.getAuteur()+" : "+m.getTitre());    		
+    public void afficherRechercheMusique() {
+    	vboxRecherche.getChildren().clear();    		
+    	
+    	int indice = 0;
+    	
+    	if (textFieldRechercher.getText() != "") {
+	    	for(Musique m : Hierarchie.rechercher(textFieldRechercher.getText())) {
+	    		vboxRecherche.getChildren().add(new VueResultatsRecherche(m.getTitre(),m.getAuteur(),indice));
+	    		indice++;
+	    	}
     	}
     }
 }

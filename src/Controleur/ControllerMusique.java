@@ -37,6 +37,6 @@ public class ControllerMusique {
     	String nomMusique = ((Label) musiqueChoisi.getChildren().get(0)).getText().split(" - ")[0];
     	Musique musique_a_lire = Hierarchie.rechercher(nomMusique).first();
     	
-    	App.ca.afficherMusiqueEnCours(musique_a_lire);
+    	App.va.ca.afficherMusiqueEnCours(musique_a_lire);
     }
 }

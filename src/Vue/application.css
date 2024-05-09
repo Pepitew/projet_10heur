@@ -2,6 +2,7 @@
     -fx-cursor: hand; 
 }
 
+
 Pane:hover > SVGPath{
 	-fx-fill: #1db954;
 	-fx-stroke: #1db954;	
