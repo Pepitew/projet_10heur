@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.jfoenix.controls.JFXSlider;
 
+import Main.App;
 import Modele.Hierarchie;
 import Modele.Musique;
 import Vue.VueMusique;
@@ -63,7 +64,6 @@ public class ControllerApplication {
 
 	
 	Timeline timelineBtnAddMusic;
-	Stage stage;
 
 	
 	// initialize() est appelée dès le chargement du fichier fxml
@@ -71,7 +71,6 @@ public class ControllerApplication {
 	public void initialize() {
 		// Cette méthode attend que la scène soit entièrement chargée avant d'effectué la fonction de callback
 		 Platform.runLater(() -> {
-			 this.stage = (Stage) this.root.getScene().getWindow();
 	            // écouteur sur la largeur de flowPaneLogo pour définir la largeur du logo en fonction de la taille de la fenêtre
 	            this.flowPaneLogo.widthProperty().addListener((obs, oldValue, newValue)->{
 	            	this.logo.setFitWidth(this.flowPaneLogo.getWidth()*0.4);
@@ -95,10 +94,9 @@ public class ControllerApplication {
 	            lecteur.getChildrenUnmodifiable().get(3).setOpacity(0);
 	            
 	            //appel de méthode nécessaire pour un affichage correct au lancement
-	            this.afficherMusiqueRecommandee();
-	            this.afficherMusiqueEnCours(null);
-	            this.afficherRechercheMusique();
-	            
+        		this.afficherMusiqueRecommandee();
+        		this.afficherMusiqueEnCours(null);
+        		this.afficherRechercheMusique();	            
 	            
 	        });
 	}
@@ -141,11 +139,9 @@ public class ControllerApplication {
 	}
 	/** méthode pour changer la vue pour celle du formulaire **/
 	public void moveToFormulaire(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/Vue/Formulaire.fxml"));
+		App.changerDeScene(App.nomScene.Formulaire);
+		App.vf.cf.addMusique();
 		
-		Scene scene = new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight());
-		stage.setScene(scene);
-		stage.show();
 	}
 	/** méthode pour mettre à jour le temps du lecteur de musique **/
 	public void lecteurChange() {
@@ -159,7 +155,7 @@ public class ControllerApplication {
     }
     
     /** Méthode pour afficher les musiques dans l'onglet recommandation **/
-    private void afficherMusiqueRecommandee() {
+    public void afficherMusiqueRecommandee() {
     	recommandationContainer.getChildren().clear();
     	for(Musique m : Hierarchie.hierarchie) {
     		VueMusique v = null;
@@ -180,16 +176,18 @@ public class ControllerApplication {
     /** Méthode pour afficher la musique en cours **/
     public void afficherMusiqueEnCours(Musique m) {
     	// en attendant la méthode qui permet de récupérer la musique en cours...
-    	if(m == null) {
-    		m = Hierarchie.hierarchie.first();
+    	if(! Hierarchie.hierarchie.isEmpty()) {
+    		if(m == null) {
+    			m = Hierarchie.hierarchie.first();
+    		}
+    		imageViewMusiqueEnCours.setImage(new Image("file:"+m.getImage()));
+    		labelNomMusiqueEnCours.setText("Titre - "+m.getTitre());
+    		labelAuteurMusiqueEnCours.setText("Artiste - "+m.getAuteur());
+    		labelGenreMusiqueEnCours.setText("Genre - "+m.getStyle().toString());
+    		// affiche le temps de la musique en cours au niveau du slider
+    		lecteur.setMax(m.getDuree());
+    		timeMaxLabel.setText(formatTime(lecteur.getMax()));    		
     	}
-    	imageViewMusiqueEnCours.setImage(new Image("file:"+m.getImage()));
-    	labelNomMusiqueEnCours.setText("Titre - "+m.getTitre());
-    	labelAuteurMusiqueEnCours.setText("Artiste - "+m.getAuteur());
-    	labelGenreMusiqueEnCours.setText("Genre - "+m.getStyle().toString());
-    	// affiche le temps de la musique en cours au niveau du slider
-    	lecteur.setMax(m.getDuree());
-        timeMaxLabel.setText(formatTime(lecteur.getMax()));
     }
     
 
