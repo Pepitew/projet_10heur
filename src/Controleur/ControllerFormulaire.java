@@ -27,12 +27,10 @@ import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -41,9 +39,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class ControllerFormulaire {
@@ -51,13 +49,16 @@ public class ControllerFormulaire {
 	String nomImage;
 	String nomMusique;
 	AudioFile audioFile;
+	
 	// Variable associée au fichier FXML
 	@FXML
 	private GridPane root;
 	@FXML
 	private Label labelMusique,labelTitre, labelGenre, labelAuteur, labelDuree;
 	@FXML
-	private TextField fieldTitre, fieldGenre, fieldAuteur, fieldDuree;
+	private TextField fieldTitre, fieldAuteur, fieldDuree;
+	@FXML
+	private ChoiceBox<Musique.STYLE> choiceBoxGenre;
 	@FXML
 	private Button btnAjouter;
 	@FXML
@@ -69,7 +70,7 @@ public class ControllerFormulaire {
 
 	
 	 // Création d'un dictionnaire (Map) associant les champs de texte aux labels
-    private Map<TextField, Label> labelFieldMap = new HashMap<>();
+    private Map<Node, Label> labelFieldMap = new HashMap<>();
 	
     // action effectué au chargement du fichier FXML
 	@FXML
@@ -77,7 +78,7 @@ public class ControllerFormulaire {
 		//labelFieldMap.put(fieldMusique,labelMusique);
 		// Remplir le dictionnaire labelFieldMap
 		labelFieldMap.put(fieldTitre,labelTitre);
-		labelFieldMap.put(fieldGenre,labelGenre);
+		labelFieldMap.put(choiceBoxGenre,labelGenre);
         labelFieldMap.put(fieldAuteur,labelAuteur);
         labelFieldMap.put(fieldDuree,labelDuree);
         
@@ -92,6 +93,10 @@ public class ControllerFormulaire {
         		this.imageMusic.setFitWidth(this.anchorPaneImageMusic.getWidth());
         		this.imageMusic.setFitHeight(this.anchorPaneImageMusic.getHeight()-40);        	
         	});
+        
+        	// ajouter les genres musicaux à la boite à choix	
+        	choiceBoxGenre.getItems().addAll(Musique.STYLE.values());
+        	choiceBoxGenre.getValue();
         });
 	}
 	
@@ -104,7 +109,7 @@ public class ControllerFormulaire {
 		else {
 			target = (TextField)((Pane)m.getTarget()).getParent();
 		}
-		for (TextField textField : labelFieldMap.keySet()) {
+		for (Node textField : labelFieldMap.keySet()) {
 			if (target == textField) {
 				labelFieldMap.get(target).setTextFill(Paint.valueOf("black"));
 			}
@@ -193,14 +198,12 @@ public class ControllerFormulaire {
             	Tag tag = audioFile.getTag(); 
             	nomMusique = tag.getFirst(FieldKey.TITLE); 
             	Artwork artwork = tag.getFirstArtwork(); 
-            	String genre = tag.getFirst(FieldKey.GENRE); 
             	String artist = tag.getFirst(FieldKey.ARTIST); 
             	int durationSeconds = audioFile.getAudioHeader().getTrackLength(); 
             	
             	// on les assignes au champ de saisi et au lecteur d'image
             	this.fieldTitre.setText(nomMusique);
             	this.fieldAuteur.setText(artist);
-            	this.fieldGenre.setText(genre);
             	this.fieldDuree.setText(String.valueOf(durationSeconds));
             	
             	if (artwork != null) {
@@ -252,7 +255,7 @@ public class ControllerFormulaire {
 		String auteur = fieldAuteur.getText();
 		int duree = Integer.valueOf(fieldDuree.getText());
 		String couverture = "data/Image/"+nomImage;
-		Musique.STYLE style = Musique.STYLE.valueOf(fieldGenre.getText()); 
+		Musique.STYLE style = choiceBoxGenre.getValue(); 
 				
 		Musique m = new Musique(titre,auteur,duree,false,style,couverture);
 		Hierarchie.hierarchie.add(m);
