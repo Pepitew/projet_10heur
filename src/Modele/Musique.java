@@ -8,6 +8,7 @@ public class Musique implements Comparable<Musique>{
 	
 	public static enum STYLE {POP,ROCK,RAP,ELECTRO,METAL};
 	public static int ID = 0;
+	public static Musique musiqueJouée;
 
 	
 	public int ID_Musique;

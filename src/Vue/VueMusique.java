@@ -2,34 +2,67 @@ package Vue;
 
 import java.io.IOException;
 
-import Controleur.ControllerMusique;
+import Main.App;
+import Modele.Hierarchie;
+import Modele.Musique;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
-public class VueMusique extends Scene{
+public class VueMusique extends AnchorPane{
 	public int id;
-	public String nomMusique;
-	public ControllerMusique cm;
-	public VueMusique(String imagePath, String nomMusique, String auteur, int id) throws IOException {
+	public String titre;
+	public AnchorPane root;
+	
+	private Label labelTitre;
+    private ImageView couvertureMusique;
+	
+	public VueMusique(String imagePath, String titre, String auteur, int id) {
 		super(new Pane());
 		
 		this.id = id;
-		this.nomMusique = nomMusique;
-		// Chargement du fichier FXML et création du root node
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("Musique.fxml"));
-        AnchorPane root = loader.load();
+		this.titre = titre;
+
+		// configuration du AnchorPanel
+		this.setPrefSize(190, 190);
+		this.setStyle("-fx-background-color : #e6e6e6");
+		
+		// configuration du label
+		labelTitre = new Label();
+        labelTitre.setPrefHeight(30.0);
+        labelTitre.setPrefWidth(150.0);
+        labelTitre.setText(titre+" - "+auteur);
+        AnchorPane.setBottomAnchor(labelTitre, 0.0);
+        AnchorPane.setLeftAnchor(labelTitre, 20.0);
+        AnchorPane.setRightAnchor(labelTitre, 20.0);
         
-        // Affectation du noeud racine (root node) à la Scene
-        this.setRoot(root);
-     
-        // Récupération du controleur
-        this.cm = loader.getController();
-        
-        cm.afficherMusique(imagePath, nomMusique, auteur);   
-        
-        
-	}
-	
+        // configuration de l'ImageView
+        couvertureMusique = new ImageView();
+        couvertureMusique.setImage(new Image("file:"+imagePath));
+        couvertureMusique.setFitHeight(150.0);
+        couvertureMusique.setFitWidth(150.0);
+        couvertureMusique.setPickOnBounds(true);
+        couvertureMusique.setPreserveRatio(true);
+        AnchorPane.setLeftAnchor(couvertureMusique, 20.0);
+        AnchorPane.setRightAnchor(couvertureMusique, 20.0);
+        AnchorPane.setTopAnchor(couvertureMusique, 10.0);
+
+        // Ajout des éléments au conteneur AnchorPane
+        getChildren().addAll(labelTitre, couvertureMusique);
+
+        // Définition du curseur
+        setCursor(Cursor.HAND);
+  
+        // ajout d'un écouteur d'évènement
+        this.setOnMousePressed(event -> {
+        	Musique musique_a_lire = Hierarchie.rechercher(titre).first();
+        	Musique.musiqueJouée = musique_a_lire;
+        	App.va.ca.afficherMusiqueEnCours();
+        });
+        }
 }

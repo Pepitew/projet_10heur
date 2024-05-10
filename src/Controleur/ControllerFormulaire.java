@@ -329,8 +329,6 @@ public class ControllerFormulaire {
 				
 		Musique m = new Musique(titre,auteur,duree,false,style,couverture);
 		Hierarchie.hierarchie.add(m);
-		Hierarchie.encoder();
-		Record.read("database");
 		
 		// changer de scene
 		App.changerDeScene(App.nomScene.Application);

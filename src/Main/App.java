@@ -41,7 +41,12 @@ public class App extends Application {
 			primaryStage.setMinHeight(580);
 			primaryStage.setMinWidth(1000);
 			primaryStage.show();
-			
+
+			// évènement sur la fermeture de l'app
+			primaryStage.setOnCloseRequest(event -> {
+				Hierarchie.encoder();
+				Record.read("database");
+	        });
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

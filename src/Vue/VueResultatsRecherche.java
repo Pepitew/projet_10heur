@@ -60,7 +60,8 @@ public class VueResultatsRecherche extends Label {
 	
 	private void lireMusique() {
 		Musique musique_a_lire = Hierarchie.rechercher(nomMusique).first();
-		App.va.ca.afficherMusiqueEnCours(musique_a_lire);
+		Musique.musiqueJouée = musique_a_lire;
+		App.va.ca.afficherMusiqueEnCours();
 		App.va.viderRechercheTextField();
 	}
 }

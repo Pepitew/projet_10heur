@@ -14,12 +14,11 @@ import javafx.animation.KeyValue;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -32,7 +31,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class ControllerApplication {
@@ -86,16 +84,17 @@ public class ControllerApplication {
 	            
 	            timelineBtnAddMusic.getKeyFrames().addAll(
 	    	            new KeyFrame(Duration.ZERO, 
-	    	            		new KeyValue(btnAddMusic.prefWidthProperty(), btnAddMusic.getPrefWidth())),	    	            new KeyFrame(Duration.seconds(0.4), 
+	    	            		new KeyValue(btnAddMusic.prefWidthProperty(), btnAddMusic.getPrefWidth())), new KeyFrame(Duration.seconds(0.4), 
 	    	            		new KeyValue(btnAddMusic.prefWidthProperty(), 200))
 	    	        );
 	            
 	            //masque l'info-bulle au dessus du slider (lecteur de musique) 
 	            lecteur.getChildrenUnmodifiable().get(3).setOpacity(0);
 	            
+	            
 	            //appel de méthode nécessaire pour un affichage correct au lancement
         		this.afficherMusiqueRecommandee();
-        		this.afficherMusiqueEnCours(null);
+        		this.afficherMusiqueEnCours();
         		this.afficherRechercheMusique();	            
 	            
 	        });
@@ -157,37 +156,30 @@ public class ControllerApplication {
     
     /** Méthode pour afficher les musiques dans l'onglet recommandation **/
     public void afficherMusiqueRecommandee() {
+    	VueMusique v;
     	recommandationContainer.getChildren().clear();
-    	for(Musique m : Hierarchie.hierarchie) {
-    		VueMusique v = null;
-			try {
-				v = new VueMusique(m.getImage(), m.getTitre(), m.getAuteur(), m.ID_Musique);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		recommandationContainer.getChildren().add(v.getRoot());
+    	for(Musique m : Hierarchie.hierarchie) {			
+			v = new VueMusique(m.getImage(), m.getTitre(), m.getAuteur(), m.ID_Musique);
+    		recommandationContainer.getChildren().add(v);
     	}
-    	// permet de mettre à jour l'affichage
-    	recommandationContainer.applyCss();
     }
     
-
-    
     /** Méthode pour afficher la musique en cours **/
-    public void afficherMusiqueEnCours(Musique m) {
+    public void afficherMusiqueEnCours() {
     	// en attendant la méthode qui permet de récupérer la musique en cours...
     	if(! Hierarchie.hierarchie.isEmpty()) {
-    		if(m == null) {
-    			m = Hierarchie.hierarchie.first();
+    		if(Musique.musiqueJouée == null) {
+    			Musique.musiqueJouée = Hierarchie.hierarchie.first();
     		}
-    		imageViewMusiqueEnCours.setImage(new Image("file:"+m.getImage()));
-    		labelNomMusiqueEnCours.setText("Titre - "+m.getTitre());
-    		labelAuteurMusiqueEnCours.setText("Artiste - "+m.getAuteur());
-    		labelGenreMusiqueEnCours.setText("Genre - "+m.getStyle().toString());
+    		imageViewMusiqueEnCours.setImage(new Image("file:"+Musique.musiqueJouée.getImage()));
+    		labelNomMusiqueEnCours.setText("Titre - "+Musique.musiqueJouée.getTitre());
+    		labelAuteurMusiqueEnCours.setText("Artiste - "+Musique.musiqueJouée.getAuteur());
+    		labelGenreMusiqueEnCours.setText("Genre - "+Musique.musiqueJouée.getStyle().toString());
     		// affiche le temps de la musique en cours au niveau du slider
-    		lecteur.setMax(m.getDuree());
-    		timeMaxLabel.setText(formatTime(lecteur.getMax()));    		
+    		lecteur.setMax(Musique.musiqueJouée.getDuree());
+    		timeMaxLabel.setText(formatTime(lecteur.getMax()));    	
+    		
+    		afficherAttributLike();
     	}
     }
     
@@ -205,6 +197,24 @@ public class ControllerApplication {
 	    		vboxRecherche.getChildren().add(new VueResultatsRecherche(m.getTitre(),m.getAuteur(),indice));
 	    		indice++;
 	    	}
+    	}
+    }
+    
+    /** Méthode pour liker / unliker une musique **/
+    @FXML
+    public void modifierAttributLike() {
+    	Musique.musiqueJouée.isLiked = ! Musique.musiqueJouée.isLiked;
+    	afficherAttributLike();
+    }
+    
+    /** Méthode qui colorie le bouton like selon si la musique est likée ou non**/
+    public void afficherAttributLike() {
+    	if(Musique.musiqueJouée.isLiked) {
+    		like.setStyle("-fx-fill: #1db954;\r\n"
+    				+ "	-fx-stroke: #1db954;");
+    	}
+    	else {
+    		like.setStyle(null);
     	}
     }
 }
