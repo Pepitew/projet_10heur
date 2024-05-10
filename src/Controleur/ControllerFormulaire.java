@@ -310,7 +310,9 @@ public class ControllerFormulaire {
 				if (! Files.exists(Paths.get("data/Musique"))) {
 					Files.createDirectory(Paths.get("data/Musique"));
 				}
-				AudioFileIO.writeAs(audioFile, "data/Musique/"+nomMusique);
+				if(! Files.exists(Paths.get("data/Musique/"+nomMusique+".mp3"))) {
+					AudioFileIO.writeAs(audioFile, "data/Musique/"+nomMusique);					
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

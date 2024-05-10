@@ -161,7 +161,7 @@ public class ControllerApplication {
     	for(Musique m : Hierarchie.hierarchie) {
     		VueMusique v = null;
 			try {
-				v = new VueMusique(m.getImage(), m.getTitre(), m.getAuteur());
+				v = new VueMusique(m.getImage(), m.getTitre(), m.getAuteur(), m.ID_Musique);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

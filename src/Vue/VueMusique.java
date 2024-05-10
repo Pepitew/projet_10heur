@@ -9,10 +9,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class VueMusique extends Scene{
-	
+	public int id;
+	public String nomMusique;
 	public ControllerMusique cm;
-	public VueMusique(String imagePath, String titre, String auteur) throws IOException {
+	public VueMusique(String imagePath, String nomMusique, String auteur, int id) throws IOException {
 		super(new Pane());
+		
+		this.id = id;
+		this.nomMusique = nomMusique;
 		// Chargement du fichier FXML et création du root node
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Musique.fxml"));
         AnchorPane root = loader.load();
@@ -23,7 +27,7 @@ public class VueMusique extends Scene{
         // Récupération du controleur
         this.cm = loader.getController();
         
-        cm.afficherMusique(imagePath, titre, auteur);        	
+        cm.afficherMusique(imagePath, nomMusique, auteur);   
         
         
 	}

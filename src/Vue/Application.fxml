@@ -21,7 +21,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="root" prefHeight="540.0" prefWidth="1000.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controleur.ControllerApplication">
+<GridPane fx:id="root" minHeight="540.0" minWidth="1000.0" prefHeight="540.0" prefWidth="1000.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controleur.ControllerApplication">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />

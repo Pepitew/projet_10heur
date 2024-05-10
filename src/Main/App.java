@@ -38,6 +38,8 @@ public class App extends Application {
 			primaryStage.setResizable(true);
 			primaryStage.getIcons().add(icon);
 			primaryStage.setMaximized(true); 
+			primaryStage.setMinHeight(580);
+			primaryStage.setMinWidth(1000);
 			primaryStage.show();
 			
 		} catch(Exception e) {
