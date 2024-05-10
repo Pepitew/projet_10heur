@@ -1,5 +1,6 @@
 package Main;
 
+import Modele.Hierarchie;
 import Modele.Record;
 import Vue.VueApplication;
 import Vue.VueFormulaire;
@@ -22,7 +23,7 @@ public class App extends Application {
 		App.primaryStage = primaryStage;
 		// charger les données des musiques du dossier info_music
 		Record.read("database");
-	
+		
 		try {
 			Image icon = new Image("file:../../Logo/logo.png");
 			// Instanciation des vues  

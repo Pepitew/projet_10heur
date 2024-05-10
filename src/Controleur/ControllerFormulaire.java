@@ -3,7 +3,6 @@ package Controleur;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -21,9 +20,12 @@ import org.jaudiotagger.tag.images.Artwork;
 import Main.App;
 import Modele.Hierarchie;
 import Modele.Musique;
+import Modele.Musique.STYLE;
 import Modele.Record;
 import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,13 +35,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
@@ -67,10 +69,13 @@ public class ControllerFormulaire {
 	private Label labelImageMusic;
 	@FXML 
 	private ImageView imageMusic, logoMusic;
+	@FXML
+	private Pane paneFlecheRetour;
+	
 
 	
 	 // Création d'un dictionnaire (Map) associant les champs de texte aux labels
-    private Map<Node, Label> labelFieldMap = new HashMap<>();
+    private Map<TextField, Label> labelFieldMap = new HashMap<>();
 	
     // action effectué au chargement du fichier FXML
 	@FXML
@@ -78,7 +83,6 @@ public class ControllerFormulaire {
 		//labelFieldMap.put(fieldMusique,labelMusique);
 		// Remplir le dictionnaire labelFieldMap
 		labelFieldMap.put(fieldTitre,labelTitre);
-		labelFieldMap.put(choiceBoxGenre,labelGenre);
         labelFieldMap.put(fieldAuteur,labelAuteur);
         labelFieldMap.put(fieldDuree,labelDuree);
         
@@ -97,19 +101,41 @@ public class ControllerFormulaire {
         	// ajouter les genres musicaux à la boite à choix	
         	choiceBoxGenre.getItems().addAll(Musique.STYLE.values());
         	choiceBoxGenre.getValue();
+        	
+        	// écouteur sur l'imageView qui contient la couverture de la musique
+        	imageMusic.imageProperty().addListener(new ChangeListener<Image>() {
+				@Override
+				public void changed(ObservableValue<? extends Image> observer, Image oldImage, Image newImage) {
+					verifierSaisie();
+				}
+        	});
+        	// écouteur sur la liste à choix
+        	choiceBoxGenre.valueProperty().addListener(new ChangeListener<Musique.STYLE>() {
+				@Override
+				public void changed(ObservableValue<? extends STYLE> arg0, STYLE arg1, STYLE arg2) {
+					verifierSaisie();
+				}
+			});
+        	
+        	// définit l'action de la flèche retour
+        	paneFlecheRetour.setOnMouseClicked(event -> {
+        		App.changerDeScene(App.nomScene.Application);
+        	});
+        	
+        	// action nécessaire pour un affichage correcte au lancement de l'app
+        	verifierSaisie();
+        	
         });
 	}
 	
 	/** mets le texte associer à la zone de saisie en noir lorsqu'elle est sélectionnée **/
 	public void setLabelColor(MouseEvent m) {
-		TextField target;
+		TextField target = null;
 		if (m.getTarget() instanceof TextField) {
 			target = (TextField) m.getTarget();	
 		}
-		else {
-			target = (TextField)((Pane)m.getTarget()).getParent();
-		}
-		for (Node textField : labelFieldMap.keySet()) {
+	
+		for (TextField textField : labelFieldMap.keySet()) {
 			if (target == textField) {
 				labelFieldMap.get(target).setTextFill(Paint.valueOf("black"));
 			}
@@ -232,24 +258,66 @@ public class ControllerFormulaire {
         }
 	}
 	
+	/** Vérifie que tous les champs soient remplit, qu'une image a été ajoutée et qu'une musique a été chargée**/
+	public void verifierSaisie(){
+		Tooltip tooltip = new Tooltip("Il faut que tous les champs soient remplit pour pouvoir ajouter une musique !");
+		tooltip.setShowDelay(javafx.util.Duration.millis(100));
+		if(fieldTitre.getText() == "" || fieldAuteur.getText() == "" || fieldDuree.getText() == "" || choiceBoxGenre.getValue() == null || imageMusic.getImage() == null || audioFile == null) {
+			if(btnAjouter.getStyleClass().contains("btnAble")) {
+				btnAjouter.getStyleClass().remove("btnAble");				
+				btnAjouter.getStyleClass().add("btnDisable");				
+			}
+			//ajout d'une info bulle sur le bouton valider
+			Tooltip.install(btnAjouter, tooltip);
+			// retire l'action du bouton
+			btnAjouter.setOnAction(null);
+		}
+		else {
+			if(btnAjouter.getStyleClass().contains("btnDisable")) {
+				btnAjouter.getStyleClass().remove("btnDisable");
+				btnAjouter.getStyleClass().add("btnAble");
+			}
+			Tooltip.uninstall(btnAjouter, tooltip);
+			//ajout de l'action du bouton 
+			btnAjouter.setOnAction(event -> {saveMusique(event);});
+			}
+		}
+	
+	/** Vide les champs de saisie du formulaire**/
+	public void viderChampsSaisie() {
+		fieldTitre.setText("");
+		fieldAuteur.setText("");
+		fieldDuree.setText("");
+		choiceBoxGenre.setValue(null);
+		imageMusic.setImage(null);
+		audioFile = null;
+	}
+	
 	/** Permet d'enregister la musique dans la Hiérarchie 
 	 * @throws CannotWriteException **/
-	public void saveMusique(ActionEvent event) throws IOException, CannotWriteException{
-		// enregister l'image de la musique en local
-		Image image = imageMusic.getImage();
-		if (image != null) {
-			if (! Files.exists(Paths.get("data/Image"))) {
-				Files.createDirectory(Paths.get("data/Image"));
+	public void saveMusique(ActionEvent event) {
+		try {			
+			// enregister l'image de la musique en local
+			Image image = imageMusic.getImage();
+			if (image != null) {
+				if (! Files.exists(Paths.get("data/Image"))) {
+					Files.createDirectory(Paths.get("data/Image"));
+				}
+				ImageIO.write(SwingFXUtils.fromFXImage(image, null),"png", new File("data/Image/"+nomImage));			
 			}
-			ImageIO.write(SwingFXUtils.fromFXImage(image, null),"png", new File("data/Image/"+nomImage));			
-		}
-		// enregister la musique en local
-		if (audioFile != null) {
-			if (! Files.exists(Paths.get("data/Musique"))) {
-				Files.createDirectory(Paths.get("data/Musique"));
+			// enregister la musique en local
+			if (audioFile != null) {
+				if (! Files.exists(Paths.get("data/Musique"))) {
+					Files.createDirectory(Paths.get("data/Musique"));
+				}
+				AudioFileIO.writeAs(audioFile, "data/Musique/"+nomMusique);
 			}
-			AudioFileIO.writeAs(audioFile, "data/Musique/"+nomMusique);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
+		
+		
 		// créer une nouvelle musique
 		String titre = fieldTitre.getText();
 		String auteur = fieldAuteur.getText();

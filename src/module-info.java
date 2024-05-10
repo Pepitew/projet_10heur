@@ -7,6 +7,7 @@ module projet_10heur {
 	requires com.jfoenix;
 	requires javafx.swing;
 	requires jaudiotagger;
+	requires javafx.base;
 	
 	
 	opens Main to javafx.graphics;
