@@ -18,24 +18,34 @@
 	-fx-border-color : black;
 }
 
-#btnAjouter {
-    -fx-background-color: #4CAF50; 
+#btnAjouter{
     -fx-text-fill: white; 
     -fx-font-size: 14px; 
     -fx-padding: 8px 16px; 
     -fx-border-radius: 5px; 
+	
+}
+
+.btnAble {
+    -fx-background-color: #4CAF50; 
     -fx-cursor: hand; 
     -fx-border-color: #4CAF50; 
 }
 
-#btnAjouter:hover {
+.btnAble:hover {
     -fx-background-color: #45a049; 
     -fx-border-color: #45a049; 
 }
 
-#btnAjouter:pressed {
+.btnAble:pressed {
     -fx-background-color: #3e8e41; 
     -fx-border-color: #3e8e41; 
+}
+
+.btnDisable{
+	-fx-background-color: #6a916b; 
+    -fx-cursor: default ; 
+    -fx-border-color: #6a916b; 
 }
 
 #anchorPaneImageMusic{

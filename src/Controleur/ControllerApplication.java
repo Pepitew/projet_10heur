@@ -140,6 +140,7 @@ public class ControllerApplication {
 	/** méthode pour changer la vue pour celle du formulaire **/
 	public void moveToFormulaire(ActionEvent event) throws IOException {
 		App.changerDeScene(App.nomScene.Formulaire);
+		App.vf.cf.viderChampsSaisie();
 		App.vf.cf.addMusique();
 		
 	}

@@ -3,6 +3,7 @@
 <!-- Ce fichier est généré automatiquement par sceneBuilder -->
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
@@ -16,6 +17,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
 <GridPane fx:id="root" prefHeight="450.0" prefWidth="800.0" stylesheets="@formulaire.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controleur.ControllerFormulaire">
@@ -44,7 +46,7 @@
    </rowConstraints>
    <children>
       <Pane fx:id="paneFakeContainer" style="-fx-background-color: #e6e6e6; -fx-background-radius: 20px;" GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.rowIndex="1" GridPane.rowSpan="5" />
-      <Button fx:id="btnAjouter" mnemonicParsing="false" onAction="#saveMusique" text="Ajouter" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+      <Button fx:id="btnAjouter" mnemonicParsing="false" styleClass="btnDisable" text="Ajouter" textAlignment="CENTER" GridPane.columnIndex="7" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets right="20.0" />
          </GridPane.margin></Button>
@@ -73,7 +75,7 @@
       </HBox>
       <VBox alignment="BOTTOM_LEFT" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="1">
          <children>
-            <TextField fx:id="fieldTitre" onMousePressed="#setLabelColor" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;">
+            <TextField fx:id="fieldTitre" onKeyTyped="#verifierSaisie" onMousePressed="#setLabelColor" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
@@ -93,7 +95,7 @@
       </VBox>
       <VBox alignment="BOTTOM_LEFT" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="2">
          <children>
-            <TextField fx:id="fieldAuteur" alignment="BOTTOM_LEFT" onMousePressed="#setLabelColor" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;">
+            <TextField fx:id="fieldAuteur" alignment="BOTTOM_LEFT" onKeyTyped="#verifierSaisie" onMousePressed="#setLabelColor" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
@@ -126,7 +128,7 @@
       </VBox>
       <VBox alignment="BOTTOM_LEFT" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="4">
          <children>
-            <TextField fx:id="fieldDuree" alignment="BOTTOM_LEFT" onMousePressed="#setLabelColor" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;">
+            <TextField fx:id="fieldDuree" alignment="BOTTOM_LEFT" onKeyTyped="#verifierSaisie" onMousePressed="#setLabelColor" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
@@ -154,5 +156,17 @@
             <Insets right="20.0" top="20.0" />
          </GridPane.margin>
       </AnchorPane>
+      <Pane fx:id="paneFlecheRetour" maxHeight="25.0" maxWidth="25.0" onMouseEntered="#grow" onMouseExited="#shrink" prefHeight="50.0" prefWidth="50.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <children>
+            <SVGPath content="M9.53 2.47a.75.75 0 0 1 0 1.06L4.81 8.25H15a6.75 6.75 0 0 1 0 13.5h-3a.75.75 0 0 1 0-1.5h3a5.25 5.25 0 1 0 0-10.5H4.81l4.72 4.72a.75.75 0 1 1-1.06 1.06l-6-6a.75.75 0 0 1 0-1.06l6-6a.75.75 0 0 1 1.06 0Z">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </SVGPath>
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Pane>
    </children>
 </GridPane>
