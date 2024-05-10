@@ -140,7 +140,7 @@ public class Musique implements Comparable<Musique>{
 		
 		Record.read("database");
 		
-		System.out.println(Hierarchie.rechercher("apex"));
+		System.out.println(Hierarchie.rechercher(""));
 		
 		
 	}
