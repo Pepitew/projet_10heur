@@ -8,6 +8,11 @@ Pane:hover > SVGPath{
 	-fx-stroke: #1db954;
 	}
 	
+Pane:hover > #pause{
+	-fx-fill : transparent;
+	-fx-stroke: #5c5c5c; 
+}
+	
 
 Pane:hover > #previousArrow{
 	-fx-fill: black;

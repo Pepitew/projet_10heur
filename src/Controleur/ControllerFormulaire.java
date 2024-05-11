@@ -328,8 +328,11 @@ public class ControllerFormulaire {
 		Musique.STYLE style = choiceBoxGenre.getValue(); 
 				
 		Musique m = new Musique(titre,auteur,duree,false,style,couverture);
-		Hierarchie.hierarchie.add(m);
 		
+		// l'ajouter à l'ensemble des musiques
+		Hierarchie.hierarchie.add(m);
+		// sauvegarder les données
+		App.save();
 		// changer de scene
 		App.changerDeScene(App.nomScene.Application);
 		

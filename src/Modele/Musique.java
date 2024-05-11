@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Musique implements Comparable<Musique>{
 	
 	
-	public static enum STYLE {POP,ROCK,RAP,ELECTRO,METAL};
+	public static enum STYLE {POP,ROCK,RAP,ELECTRO,METAL,PHONK,PUNK};
 	public static int ID = 0;
 	public static Musique musiqueJouée;
 

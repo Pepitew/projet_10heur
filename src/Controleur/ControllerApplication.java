@@ -8,24 +8,25 @@ import Main.App;
 import Modele.Hierarchie;
 import Modele.Musique;
 import Vue.VueMusique;
+import Vue.VueOptionsFiltrage;
 import Vue.VueResultatsRecherche;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -42,7 +43,7 @@ public class ControllerApplication {
 	@FXML
 	ImageView imageViewMusiqueEnCours;
 	@FXML
-	SVGPath play, previousArrow, nextArrow,	like;
+	SVGPath play, previousArrow, nextArrow,	like, pause;
 	@FXML
 	Button btnAddMusic;
 	@FXML 
@@ -59,6 +60,9 @@ public class ControllerApplication {
 	ScrollPane scrollPaneRecommandations;
 	@FXML
 	public TextField textFieldRechercher;
+	@FXML
+	AnchorPane placeHolderOptionsFiltrage;
+
 
 	
 	Timeline timelineBtnAddMusic;
@@ -92,11 +96,24 @@ public class ControllerApplication {
 	            lecteur.getChildrenUnmodifiable().get(3).setOpacity(0);
 	            
 	            
+	            
 	            //appel de méthode nécessaire pour un affichage correct au lancement
         		this.afficherMusiqueRecommandee();
         		this.afficherMusiqueEnCours();
-        		this.afficherRechercheMusique();	            
-	            
+        		this.afficherRechercheMusique();	           
+        		
+    		   // mise en place de la vue options filtrage
+    		   root.getChildren().remove(placeHolderOptionsFiltrage);
+    		   root.add(App.vof, 0, 7);
+    		   GridPane.setRowSpan(App.vof, 4);
+    		   GridPane.setColumnSpan(App.vof, 2);
+    		   
+    		   /** TEST **/
+    		   //ajout d'un évènement sur la hbox recommandationContainer pour défiler au scroll de la souris
+    		   recommandationContainer.setOnScroll(event -> {
+    	            scrollPaneRecommandations.setHvalue(scrollPaneRecommandations.getHvalue()+event.getDeltaY()/recommandationContainer.getChildren().size()/10);
+    		   });
+    	        /** TEST **/
 	        });
 	}
 	/** méthode pour faire grossir un élément **/
@@ -215,6 +232,18 @@ public class ControllerApplication {
     	}
     	else {
     		like.setStyle(null);
+    	}
+    }
+    
+    /** Méthode pour changer le logo play / pause**/
+    public void afficherLogoLectureOuPause() {
+    	if(play.isVisible()) {
+    		play.setVisible(false);
+    		pause.setVisible(true);
+    	}
+    	else if(pause.isVisible()) {
+    		pause.setVisible(false);
+    		play.setVisible(true);
     	}
     }
 }
