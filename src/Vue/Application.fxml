@@ -22,7 +22,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="root" minHeight="540.0" minWidth="1500.0" prefHeight="540.0" prefWidth="1000.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controleur.ControllerApplication">
+<GridPane fx:id="root" prefHeight="540.0" prefWidth="1000.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controleur.ControllerApplication">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
@@ -52,7 +52,7 @@
       <RowConstraints minHeight="10.0" percentHeight="20.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <ScrollPane hbarPolicy="NEVER" style="-fx-border-color: black; -fx-border-width: 1 0 0 1;" GridPane.columnIndex="9" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="9">
+      <ScrollPane fx:id="placeHolderMusiqueEnCours" hbarPolicy="NEVER" style="-fx-border-color: black; -fx-border-width: 1 0 0 1;" GridPane.columnIndex="9" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="9">
          <content>
             <VBox>
                <children>

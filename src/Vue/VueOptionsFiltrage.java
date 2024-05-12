@@ -25,7 +25,8 @@ public class VueOptionsFiltrage extends AnchorPane{
     FlowPane flowPane = new FlowPane();
     
 	public VueOptionsFiltrage() {
-		 this.setStyle("-fx-border-width: 1 1 0 0; -fx-border-color: black; -fx-background-color: #e6e6e6;");
+		super();
+		this.setStyle("-fx-border-width: 1 1 0 0; -fx-border-color: black; -fx-background-color: #e6e6e6;");
 	        
 		 	// configuration Label
 	        labelOptions.setStyle("-fx-background-color: #ffffff0b;");

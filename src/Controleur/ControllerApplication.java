@@ -49,15 +49,15 @@ public class ControllerApplication {
 	@FXML 
 	FlowPane flowPaneLogo;
 	@FXML
-	JFXSlider lecteur;
+	public JFXSlider lecteur;
 	@FXML
-	Label timeMaxLabel, timeCurrentLabel, labelNomMusiqueEnCours ,labelAuteurMusiqueEnCours,labelGenreMusiqueEnCours;
+	public Label timeMaxLabel, timeCurrentLabel, labelNomMusiqueEnCours ,labelAuteurMusiqueEnCours,labelGenreMusiqueEnCours;
 	@FXML
 	HBox recommandationContainer;
 	@FXML
 	VBox vboxRecherche;
 	@FXML
-	ScrollPane scrollPaneRecommandations;
+	ScrollPane scrollPaneRecommandations, placeHolderMusiqueEnCours;
 	@FXML
 	public TextField textFieldRechercher;
 	@FXML
@@ -97,9 +97,9 @@ public class ControllerApplication {
 	            
 	            
 	            
-	            //appel de méthode nécessaire pour un affichage correct au lancement
+	           //appel de méthode nécessaire pour un affichage correct au lancement
         		this.afficherMusiqueRecommandee();
-        		this.afficherMusiqueEnCours();
+        		App.vmec.afficherMusiqueEnCours();
         		this.afficherRechercheMusique();	           
         		
     		   // mise en place de la vue options filtrage
@@ -108,12 +108,17 @@ public class ControllerApplication {
     		   GridPane.setRowSpan(App.vof, 4);
     		   GridPane.setColumnSpan(App.vof, 2);
     		   
-    		   /** TEST **/
+    		   // mise en place de la vue musique en cours
+    		   root.getChildren().remove(placeHolderMusiqueEnCours);
+    		   root.add(App.vmec, 9, 2);
+    		   GridPane.setRowSpan(App.vmec, 9);
+    		   GridPane.setColumnSpan(App.vmec, 3);
+	
     		   //ajout d'un évènement sur la hbox recommandationContainer pour défiler au scroll de la souris
     		   recommandationContainer.setOnScroll(event -> {
     	            scrollPaneRecommandations.setHvalue(scrollPaneRecommandations.getHvalue()+event.getDeltaY()/recommandationContainer.getChildren().size()/10);
     		   });
-    	        /** TEST **/
+    	       
 	        });
 	}
 	/** méthode pour faire grossir un élément **/
@@ -165,7 +170,7 @@ public class ControllerApplication {
 		timeCurrentLabel.setText(formatTime(lecteur.getValue()));
 	}
 	/** Méthode pour formater le temps au format "min:sec"**/
-    private String formatTime(double seconds) {
+    public String formatTime(double seconds) {
         int minutes = (int) seconds / 60;
         int remainingSeconds = (int) seconds % 60;
         return String.format("%d:%02d", minutes, remainingSeconds);
@@ -181,24 +186,6 @@ public class ControllerApplication {
     	}
     }
     
-    /** Méthode pour afficher la musique en cours **/
-    public void afficherMusiqueEnCours() {
-    	// en attendant la méthode qui permet de récupérer la musique en cours...
-    	if(! Hierarchie.hierarchie.isEmpty()) {
-    		if(Musique.musiqueJouée == null) {
-    			Musique.musiqueJouée = Hierarchie.hierarchie.first();
-    		}
-    		imageViewMusiqueEnCours.setImage(new Image("file:"+Musique.musiqueJouée.getImage()));
-    		labelNomMusiqueEnCours.setText("Titre - "+Musique.musiqueJouée.getTitre());
-    		labelAuteurMusiqueEnCours.setText("Artiste - "+Musique.musiqueJouée.getAuteur());
-    		labelGenreMusiqueEnCours.setText("Genre - "+Musique.musiqueJouée.getStyle().toString());
-    		// affiche le temps de la musique en cours au niveau du slider
-    		lecteur.setMax(Musique.musiqueJouée.getDuree());
-    		timeMaxLabel.setText(formatTime(lecteur.getMax()));    	
-    		
-    		afficherAttributLike();
-    	}
-    }
     
 
     

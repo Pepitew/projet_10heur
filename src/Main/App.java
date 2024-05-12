@@ -4,6 +4,7 @@ import Modele.Hierarchie;
 import Modele.Record;
 import Vue.VueApplication;
 import Vue.VueFormulaire;
+import Vue.VueMusiqueEnCours;
 import Vue.VueOptionsFiltrage;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ public class App extends Application {
 	public static VueApplication va;
 	public static VueFormulaire vf;
 	public static VueOptionsFiltrage vof;
+	public static VueMusiqueEnCours vmec;
 	public static Stage primaryStage;
 	@Override
 	public void start(Stage primaryStage) {
@@ -32,6 +34,7 @@ public class App extends Application {
 			App.va = new VueApplication();
 			App.vf = new VueFormulaire();
 			App.vof = new VueOptionsFiltrage();
+			App.vmec = new VueMusiqueEnCours();
 			
 			// paramétrage du Stage
 			primaryStage.setScene(App.va);

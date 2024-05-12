@@ -21,15 +21,16 @@ public class Hierarchie {
 	
 	public static void encoder() {
 		//StringBuilder phrase = new StringBuilder();
-		
+		String[] desString = new String[Hierarchie.hierarchie.size()];
+		int indice = 0;
 		for (Musique m : Hierarchie.hierarchie) {
 			//phrase.append(Musique.encoder(m));
-			Record.write(Musique.encoder(m), "database");
+			desString[indice] = Musique.encoder(m);
+			indice++;
 		}
-		
+		Record.write(desString, "database");
 		Hierarchie.hierarchie.clear();
-		
-		//return phrase.toString();
+		Musique.ID = 0;
 	}
 	
 	public static TreeSet<Musique> rechercher(String chaine){
