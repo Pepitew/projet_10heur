@@ -28,7 +28,11 @@ public class Musique implements Comparable<Musique>{
 		Hierarchie.ajouterMusique(this);
 		
 	}
+	
 	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture) {
+		this.ID_Musique = Musique.ID;
+		Musique.changeID(ID_Musique++);		
+		
 		this.titre = titre;
 		this.auteur = auteur;
 		this.duree = duree;
@@ -38,10 +42,14 @@ public class Musique implements Comparable<Musique>{
 		Hierarchie.ajouterMusique(this);
 		
 	}
-	
+		
 
 	public void ajouterImage(String img) {
 		this.couverture = img; //CHemin de l'image
+	}
+	
+	public static void changeID(int ID) {
+		Musique.ID = ID;
 	}
 	
 
@@ -106,6 +114,7 @@ public class Musique implements Comparable<Musique>{
 		phrase.append("Titre : " + this.titre + "\nAuteur : " + this.auteur + "\ndurée (secondes) :" + this.duree + "\nLiké ? : " + this.isLiked + "\nStyle : " + this.style.toString() + "\nChemin de l'image : " + this.couverture);
 		return phrase.toString();
 	}
+	
 
 	
 
@@ -126,7 +135,7 @@ public class Musique implements Comparable<Musique>{
 	}
 	@Override
 	public int compareTo(Musique m) {
-		return this.titre.compareTo(m.titre);
+		return this.ID_Musique - m.ID_Musique;
 	}
 	
 	public static void main(String[] args) {
