@@ -21,6 +21,9 @@ public class Musique implements Comparable<Musique>{
 	
 
 	public Musique(String titre, String auteur, int duree) {
+		this.ID_Musique = Musique.ID;
+		Musique.changeID(ID_Musique++);	
+		
 		this.titre = titre;
 		this.auteur = auteur;
 		this.duree = duree;
@@ -135,7 +138,9 @@ public class Musique implements Comparable<Musique>{
 	}
 	@Override
 	public int compareTo(Musique m) {
-		return this.ID_Musique - m.ID_Musique;
+		System.out.println(this.ID_Musique);
+		System.out.println(m.ID_Musique);
+		return m.ID_Musique - this.ID_Musique;
 	}
 	
 	public static void main(String[] args) {
@@ -145,12 +150,12 @@ public class Musique implements Comparable<Musique>{
 		Musique m3 = new Musique("Apax", "collander", 141, false, STYLE.RAP, "/tata/quebec/pétoche");
 		Musique m4 = new Musique("Apox", "collander", 145, true, STYLE.ELECTRO, "");
 		
-
+		System.out.println(h);
 		Hierarchie.encoder();
 		
 		Record.read("database");
 		
-		System.out.println(Hierarchie.rechercher(""));
+		System.out.println(h);
 		
 		
 	}
