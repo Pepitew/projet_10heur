@@ -43,10 +43,11 @@ public class App extends Application {
 			// paramétrage du Stage
 			primaryStage.setScene(App.va);
 			primaryStage.setResizable(true);
-			primaryStage.getIcons().add(icon);
-			primaryStage.setMaximized(true); 
+			primaryStage.getIcons().add(icon); 
 			primaryStage.setMinHeight(580);
 			primaryStage.setMinWidth(1000);
+			primaryStage.setMaxHeight(830);
+			primaryStage.setMaxWidth(1550);
 			primaryStage.show();
 
 			// évènement sur la fermeture de l'app
