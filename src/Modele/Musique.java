@@ -91,7 +91,7 @@ public class Musique implements Comparable<Musique>{
 	public static String encoder(Musique m) {
 		//TODO Il faut ajouter les avis/commentaires
 		StringBuilder phrase = new StringBuilder();
-		String[] chaines = {m.titre, m.auteur, String.valueOf(m.duree), String.valueOf(m.isLiked), m.style.toString(), m.couverture};
+		String[] chaines = {m.titre, m.auteur, String.valueOf(m.duree), String.valueOf(m.isLiked), m.style.toString(), m.couverture, m.musiquePath, m.album};
 		for (String element : chaines) {
 			for (int i = 0; i < element.length(); i++) {
 	            char caractere = element.charAt(i);
@@ -129,7 +129,7 @@ public class Musique implements Comparable<Musique>{
 	    		}
 	    	}
 	    }
-		Musique m = new Musique(arguments.get(0), arguments.get(1), Integer.parseInt(arguments.get(2)), Boolean.parseBoolean(arguments.get(3)), STYLE.valueOf(arguments.get(4)), arguments.get(5));
+		Musique m = new Musique(arguments.get(0), arguments.get(1), Integer.parseInt(arguments.get(2)), Boolean.parseBoolean(arguments.get(3)), STYLE.valueOf(arguments.get(4)), arguments.get(5), arguments.get(6), arguments.get(7));
 		Hierarchie.ajouterMusique(m);
 		return m;
 	}
