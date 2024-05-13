@@ -20,19 +20,6 @@ public class Musique implements Comparable<Musique>{
 	private String musiquePath; //chemin vers la musique
 	private String album; //nom de l'album
 
-	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture) {
-		this.ID_Musique = Musique.ID;
-		Musique.changeID();
-		
-		this.titre = titre;
-		this.auteur = auteur;
-		this.duree = duree;
-		this.isLiked = isLiked;
-		this.style = style;
-		this.couverture = couverture;
-		Hierarchie.ajouterMusique(this);
-		
-	}
 	
 	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture, String musiquePath, String album) {
 		this.ID_Musique = Musique.ID;
@@ -167,11 +154,12 @@ public class Musique implements Comparable<Musique>{
 	
 	public static void main(String[] args) {
 		Hierarchie h = new Hierarchie();
+		/*
 		Musique m1 = new Musique("Apix", "collander", 140, true, STYLE.POP, "/tata/quebec"); // créer 4 nouvelle musique
 		Musique m2 = new Musique("Apex", "collander", 136, false, STYLE.ELECTRO, "/tata/quebec/calisse");
 		Musique m3 = new Musique("Apax", "collander", 141, false, STYLE.RAP, "/tata/quebec/pétoche");
 		Musique m4 = new Musique("Apox", "collander", 145, true, STYLE.ELECTRO, "");
-		
+		*/
 		System.out.println(h);
 		Hierarchie.encoder();
 		
