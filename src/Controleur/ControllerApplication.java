@@ -83,10 +83,6 @@ public class ControllerApplication {
 	            //masque l'info-bulle au dessus du slider (lecteur de musique) 
 	            lecteur.getChildrenUnmodifiable().get(3).setOpacity(0);
 
-	           //appel de méthode nécessaire pour un affichage correct au lancement
-        		App.vmec.afficherMusiqueEnCours();
-        		this.afficherRechercheMusique();	           
-        		
     		   // mise en place de la vue options filtrage
     		   root.getChildren().remove(placeHolderOptionsFiltrage);
     		   root.add(App.vof, 0, 7);
@@ -112,8 +108,11 @@ public class ControllerApplication {
     		   root.add(like, 2, 7);
     		   like.toBack();
     		   /** TEST **/
-    	
-    	       
+    		   Platform.runLater(() -> {
+	    		   //appel de méthode nécessaire pour un affichage correct au lancement
+	    		   App.vmec.afficherMusiqueEnCours();
+	    		   this.afficherRechercheMusique();	
+    		   });
 	        });
 	}
 	
@@ -179,7 +178,7 @@ public class ControllerApplication {
     	
     	if (textFieldRechercher.getText() != "") {
 	    	for(Musique m : Hierarchie.rechercher(textFieldRechercher.getText())) {
-	    		vboxRecherche.getChildren().add(new VueResultatsRecherche(m.getTitre(),m.getAuteur(),indice));
+	    		vboxRecherche.getChildren().add(new VueResultatsRecherche(m,indice));
 	    		indice++;
 	    	}
     	}
@@ -190,6 +189,12 @@ public class ControllerApplication {
     public void modifierAttributLike() {
     	Musique.musiqueJouée.isLiked = ! Musique.musiqueJouée.isLiked;
     	afficherAttributLike();
+    	if (Musique.musiqueJouée.isLiked) {
+    		Playlist.mesPlaylist.get("Musiques likées").add(Musique.musiqueJouée);
+    	}
+    	else {
+    		Playlist.mesPlaylist.get("Musiques likées").remove(Musique.musiqueJouée);
+    	}
     }
     
     /** Méthode qui colorie le bouton like selon si la musique est likée ou non**/

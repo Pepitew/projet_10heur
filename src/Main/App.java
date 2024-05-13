@@ -35,11 +35,11 @@ public class App extends Application {
 		try {
 			Image icon = new Image("file:../../Logo/logo.png");
 			// Instanciation et Récupération des vues
-			App.va = new VueApplication();
 			App.vf = new VueFormulaire();
 			App.vof = new VueOptionsFiltrage();
 			App.vmec = new VueMusiqueEnCours();
 			App.vl = new VueLogo();
+			App.va = new VueApplication();
 			
 			// paramétrage du Stage
 			primaryStage.setScene(App.va);

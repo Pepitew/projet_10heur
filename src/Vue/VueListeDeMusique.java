@@ -1,7 +1,6 @@
 package Vue;
 
 import java.util.Collection;
-import java.util.TreeSet;
 
 import Modele.Musique;
 import Modele.Playlist;
@@ -11,13 +10,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 public class VueListeDeMusique extends ScrollPane {
+	private HBox recommandationContainer;
 	private static VueListeDeMusique playlist;
 	private static String nomPlaylist;
-	private HBox recommandationContainer;
 	
     
     public VueListeDeMusique(Collection<Musique> ensembleMusique, boolean isPlaylist) {
-        loadComponents(ensembleMusique);
+    	this.recommandationContainer = new HBox();
+    	loadComponents(ensembleMusique);
         setupLayout();
  	   //ajout d'un évènement sur la hbox recommandationContainer pour défiler au scroll de la souris
 	   recommandationContainer.setOnScroll(event -> {
@@ -25,11 +25,12 @@ public class VueListeDeMusique extends ScrollPane {
 	   });
 	   if(isPlaylist) {
 		   VueListeDeMusique.playlist = this;
+		   VueListeDeMusique.nomPlaylist = ((Playlist) ensembleMusique).getName();
 	   }
 }
     
     private void loadComponents(Collection<Musique> ensembleMusique) {
-        recommandationContainer = new HBox();
+        recommandationContainer.getChildren().clear();
         for(Musique m : ensembleMusique) {
         	VueMusique v = new VueMusique(m.getImage(), m.getTitre(), m.getAuteur(), m.ID_Musique);
     		recommandationContainer.getChildren().add(v);
@@ -53,6 +54,7 @@ public class VueListeDeMusique extends ScrollPane {
     /** Mets à jour les musiques afficher dans l'onglet d'affichage des playlists si la playlist mise à jour est celle affichée**/
     public static void miseAJourAffichagePlaylist() {
     	if(VueListeDeMusique.playlist != null) {
+    	
     		playlist.loadComponents(Playlist.mesPlaylist.get(VueListeDeMusique.nomPlaylist));
     	}
     }

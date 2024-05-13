@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 public class VueMusiqueEnCours extends ScrollPane {
     private VBox content;
@@ -19,6 +20,7 @@ public class VueMusiqueEnCours extends ScrollPane {
     private Label labelNomMusiqueEnCours;
     private Label labelAuteurMusiqueEnCours;
     private Label labelGenreMusiqueEnCours;
+    private Label labelAlbumMusiqueEnCours;
       
     public VueMusiqueEnCours() {
         super();
@@ -59,6 +61,12 @@ public class VueMusiqueEnCours extends ScrollPane {
         labelAuteurMusiqueEnCours.setPadding(padding);
         content.getChildren().add(labelAuteurMusiqueEnCours);
 
+        // Création et configuration de labelAlbumMusiqueEnCours
+        labelAlbumMusiqueEnCours = new Label("Album Musique");
+        labelAlbumMusiqueEnCours.setFont(new javafx.scene.text.Font(24.0));
+        labelAlbumMusiqueEnCours.setPadding(padding);
+        content.getChildren().add(labelAlbumMusiqueEnCours);
+        
         // Création et configuration de labelGenreMusiqueEnCours
         labelGenreMusiqueEnCours = new Label("Genre Musique");
         labelGenreMusiqueEnCours.setFont(new javafx.scene.text.Font(24.0));
@@ -82,6 +90,7 @@ public class VueMusiqueEnCours extends ScrollPane {
     		labelNomMusiqueEnCours.setText("Titre - "+Musique.musiqueJouée.getTitre());
     		labelAuteurMusiqueEnCours.setText("Artiste - "+Musique.musiqueJouée.getAuteur());
     		labelGenreMusiqueEnCours.setText("Genre - "+Musique.musiqueJouée.getStyle().toString());
+    		labelAlbumMusiqueEnCours.setText("Album - "+Musique.musiqueJouée.getAlbum());
     		// affiche le temps de la musique en cours au niveau du slider
     		App.va.ca.lecteur.setMax(Musique.musiqueJouée.getDuree());
     		App.va.ca.lecteur.setValue(0);
@@ -93,7 +102,7 @@ public class VueMusiqueEnCours extends ScrollPane {
     		
     		// gérer la taille du text
     		this.layout();
-    		gérerTailleTextLabel();    			
+    		gérerTailleTextLabel(); 
     	}
     }
     
@@ -102,7 +111,7 @@ public class VueMusiqueEnCours extends ScrollPane {
     	double tailleAenlever = 0;
     	double newSizeFont = 24;
     	boolean tailleRetrecit = false;
-    	Label[] labels = {labelNomMusiqueEnCours, labelAuteurMusiqueEnCours, labelGenreMusiqueEnCours};
+    	Label[] labels = {labelNomMusiqueEnCours, labelAuteurMusiqueEnCours, labelGenreMusiqueEnCours, labelAlbumMusiqueEnCours};
 
     	for( Label l : labels) {
     			tailleAenlever = Math.floor((imageViewMusiqueEnCours.getFitWidth() - l.getWidth())/16.8 );
@@ -112,9 +121,11 @@ public class VueMusiqueEnCours extends ScrollPane {
     			
     	}
     	if (newSizeFont > 10) {
-    		labelNomMusiqueEnCours.setFont(new javafx.scene.text.Font(newSizeFont));
-    		labelAuteurMusiqueEnCours.setFont(new javafx.scene.text.Font(newSizeFont));
-    		labelGenreMusiqueEnCours.setFont(new javafx.scene.text.Font(newSizeFont));
+    		Font font = new javafx.scene.text.Font(newSizeFont);
+    		labelNomMusiqueEnCours.setFont(font);
+    		labelAuteurMusiqueEnCours.setFont(font);
+    		labelGenreMusiqueEnCours.setFont(font);
+    		labelAlbumMusiqueEnCours.setFont(font);
     	}
 	}
 }

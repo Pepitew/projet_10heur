@@ -7,16 +7,18 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 
 public class VueResultatsRecherche extends Label {
-	private int indice;
+	private int indiceList;
+	private Musique musique;
 	private String nomMusique;
 	
-	public VueResultatsRecherche(String nomMusique, String auteurMusique, int indice) {
+	public VueResultatsRecherche(Musique m ,int indiceList) {
 		super();
-		this.indice = indice;
-		this.nomMusique = nomMusique;
+		this.indiceList = indiceList;
+		this.musique = m;
+		this.nomMusique = m.getTitre();
 		
 		// définir la couleur du fond en fonction de l'indice
-		if(indice % 2 == 0) {
+		if(indiceList % 2 == 0) {
 			this.setStyle("-fx-background-color : #f2f2f2");
 		}
 		else {
@@ -25,7 +27,7 @@ public class VueResultatsRecherche extends Label {
 		// mise en forme
 		this.setPadding(new Insets(0,0,0,10));
 		this.setPrefSize(300, 35);
-		this.setText(nomMusique+" - "+auteurMusique);
+		this.setText(nomMusique+" - "+m.getAuteur());
 		
 		// assombri le fond du label au survol de la souris
 		this.setOnMouseEntered(event ->{
@@ -41,7 +43,7 @@ public class VueResultatsRecherche extends Label {
 	}
 	
 	private void assombrirBackground() {
-		if(indice % 2 == 0) {
+		if(indiceList % 2 == 0) {
 			this.setStyle("-fx-background-color : #dadada");
 		}
 		else {
@@ -50,7 +52,7 @@ public class VueResultatsRecherche extends Label {
 	}
 	
 	private void eclaircirBackground() {
-		if(indice % 2 == 0) {
+		if(indiceList % 2 == 0) {
 			this.setStyle("-fx-background-color : #f2f2f2");
 		}
 		else {
@@ -59,8 +61,7 @@ public class VueResultatsRecherche extends Label {
 	}
 	
 	private void lireMusique() {
-		Musique musique_a_lire = Hierarchie.rechercher(nomMusique).first();
-		Musique.musiqueJouée = musique_a_lire;
+		Musique.musiqueJouée = musique;
 		App.vmec.afficherMusiqueEnCours();
 		App.va.viderRechercheTextField();
 	}

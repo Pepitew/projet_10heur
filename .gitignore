@@ -2,6 +2,4 @@
 /.settings
 .project
 .classpath
-/data/Image
-/data/info_music
-/data/Musique
+/data

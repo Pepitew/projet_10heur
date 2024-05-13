@@ -53,13 +53,16 @@ public class Playlist implements Collection<Musique> {
 
     @Override
     public boolean add(Musique e) {
+    	this.liste.add(e);
     	VueListeDeMusique.miseAJourAffichagePlaylist();
-        return this.liste.add(e);
+        return true;
     }
 
     @Override
     public boolean remove(Object o) {
-        return this.liste.remove(o);
+    	this.liste.remove(o);
+    	VueListeDeMusique.miseAJourAffichagePlaylist();
+        return true;
     }
 
     @Override
