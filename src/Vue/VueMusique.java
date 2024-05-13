@@ -23,7 +23,7 @@ public class VueMusique extends AnchorPane{
     private ImageView couvertureMusique;
 	
 	public VueMusique(String imagePath, String titre, String auteur, int id) {
-		super(new Pane());
+		super();
 		
 		this.id = id;
 		this.titre = titre;
@@ -62,7 +62,7 @@ public class VueMusique extends AnchorPane{
         this.setOnMousePressed(event -> {
         	Musique musique_a_lire = Hierarchie.rechercher(titre).first();
         	Musique.musiqueJouée = musique_a_lire;
-        	App.va.ca.afficherMusiqueEnCours();
+        	App.vmec.afficherMusiqueEnCours();
         });
         }
 }

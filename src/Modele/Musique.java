@@ -1,6 +1,5 @@
 package Modele;
 
-import java.awt.Image;
 import java.util.ArrayList;
 
 public class Musique implements Comparable<Musique>{
@@ -18,7 +17,9 @@ public class Musique implements Comparable<Musique>{
 	private String auteur;
 	private int duree; //En secondes
 	private String couverture; //chemin de l'image
-	
+	private String musiquePath; //chemin vers la musique
+	private String album; //nom de l'album
+
 
 	public Musique(String titre, String auteur, int duree) {
 		this.ID_Musique = Musique.ID;
@@ -32,9 +33,10 @@ public class Musique implements Comparable<Musique>{
 		
 	}
 	
+
 	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture) {
 		this.ID_Musique = Musique.ID;
-		Musique.changeID(ID_Musique++);		
+		Musique.changeID();
 		
 		this.titre = titre;
 		this.auteur = auteur;
@@ -45,8 +47,44 @@ public class Musique implements Comparable<Musique>{
 		Hierarchie.ajouterMusique(this);
 		
 	}
+	
+	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture, String musiquePath, String album) {
+		this.ID_Musique = Musique.ID;
+		Musique.changeID();
 		
-
+		this.titre = titre;
+		this.auteur = auteur;
+		this.duree = duree;
+		this.isLiked = isLiked;
+		this.style = style;
+		this.couverture = couverture;
+		this.musiquePath = musiquePath;
+		this.album = album;
+		
+		
+		Hierarchie.ajouterMusique(this);
+		
+	}
+	
+	public void changeMusique(String path) {
+		this.musiquePath = path;
+	}
+	
+	public String getMusicPath() {
+		return this.musiquePath;
+	}
+	
+	public void changeAlbum(String album) {
+		this.album = album;
+	}
+	
+	public String getAlbum() {
+		return this.album;
+	}
+	
+	public static void changeID() {
+		Musique.ID = Musique.ID+1;
+	}
 	public void ajouterImage(String img) {
 		this.couverture = img; //CHemin de l'image
 	}
@@ -138,9 +176,7 @@ public class Musique implements Comparable<Musique>{
 	}
 	@Override
 	public int compareTo(Musique m) {
-		System.out.println(this.ID_Musique);
-		System.out.println(m.ID_Musique);
-		return m.ID_Musique - this.ID_Musique;
+		return this.ID_Musique - m.ID_Musique;
 	}
 	
 	public static void main(String[] args) {

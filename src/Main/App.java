@@ -4,7 +4,10 @@ import Modele.Hierarchie;
 import Modele.Record;
 import Vue.VueApplication;
 import Vue.VueFormulaire;
+import Vue.VueLogo;
+import Vue.VueMusiqueEnCours;
 import Vue.VueOptionsFiltrage;
+import Vue.VueResultatsRecherche;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -19,6 +22,8 @@ public class App extends Application {
 	public static VueApplication va;
 	public static VueFormulaire vf;
 	public static VueOptionsFiltrage vof;
+	public static VueMusiqueEnCours vmec;
+	public static VueLogo vl;
 	public static Stage primaryStage;
 	@Override
 	public void start(Stage primaryStage) {
@@ -32,14 +37,17 @@ public class App extends Application {
 			App.va = new VueApplication();
 			App.vf = new VueFormulaire();
 			App.vof = new VueOptionsFiltrage();
+			App.vmec = new VueMusiqueEnCours();
+			App.vl = new VueLogo();
 			
 			// paramétrage du Stage
 			primaryStage.setScene(App.va);
 			primaryStage.setResizable(true);
-			primaryStage.getIcons().add(icon);
-			primaryStage.setMaximized(true); 
+			primaryStage.getIcons().add(icon); 
 			primaryStage.setMinHeight(580);
 			primaryStage.setMinWidth(1000);
+			primaryStage.setMaxHeight(830);
+			primaryStage.setMaxWidth(1550);
 			primaryStage.show();
 
 			// évènement sur la fermeture de l'app

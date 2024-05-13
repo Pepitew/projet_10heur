@@ -31,5 +31,6 @@ public class VueApplication extends Scene{
 	public void viderRechercheTextField() {
 		this.ca.textFieldRechercher.setText("");
 		this.ca.afficherRechercheMusique();
+		App.vl.requestFocus();
 	}
 }

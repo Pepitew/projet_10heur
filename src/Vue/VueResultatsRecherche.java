@@ -11,7 +11,7 @@ public class VueResultatsRecherche extends Label {
 	private String nomMusique;
 	
 	public VueResultatsRecherche(String nomMusique, String auteurMusique, int indice) {
-		
+		super();
 		this.indice = indice;
 		this.nomMusique = nomMusique;
 		
@@ -24,7 +24,7 @@ public class VueResultatsRecherche extends Label {
 		}
 		// mise en forme
 		this.setPadding(new Insets(0,0,0,10));
-		this.setPrefSize(250, 30);
+		this.setPrefSize(300, 35);
 		this.setText(nomMusique+" - "+auteurMusique);
 		
 		// assombri le fond du label au survol de la souris
@@ -61,7 +61,7 @@ public class VueResultatsRecherche extends Label {
 	private void lireMusique() {
 		Musique musique_a_lire = Hierarchie.rechercher(nomMusique).first();
 		Musique.musiqueJouée = musique_a_lire;
-		App.va.ca.afficherMusiqueEnCours();
+		App.vmec.afficherMusiqueEnCours();
 		App.va.viderRechercheTextField();
 	}
 }
