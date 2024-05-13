@@ -103,12 +103,12 @@ public class ControllerApplication {
     		   /** TEST **/
     		   // mise en place de la vue liste de Musique
     		   root.getChildren().remove(scrollPaneRecommandations);
-    		   VueListeDeMusique playlist = new VueListeDeMusique(Playlist.mesPlaylist.get("Recommandation"), true);
+    		   VueListeDeMusique playlist = new VueListeDeMusique(Playlist.mesPlaylist.get("Musiques likées"), true);
     		   root.add(playlist, 2, 3);
     		   playlist.toBack();
     		   // mise en place de la vue resultat filtre
     		   root.getChildren().remove(placeholderAnchorResultatFiltrage);
-    		   VueListeDeMusique like = new VueListeDeMusique(Playlist.mesPlaylist.get("Musiques likées"), false);
+    		   VueListeDeMusique like = new VueListeDeMusique(Playlist.mesPlaylist.get("Recommandation"), false);
     		   root.add(like, 2, 7);
     		   like.toBack();
     		   /** TEST **/

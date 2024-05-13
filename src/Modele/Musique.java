@@ -20,19 +20,6 @@ public class Musique implements Comparable<Musique>{
 	private String musiquePath; //chemin vers la musique
 	private String album; //nom de l'album
 
-	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture) {
-		this.ID_Musique = Musique.ID;
-		Musique.changeID();
-		
-		this.titre = titre;
-		this.auteur = auteur;
-		this.duree = duree;
-		this.isLiked = isLiked;
-		this.style = style;
-		this.couverture = couverture;
-		Hierarchie.ajouterMusique(this);
-		
-	}
 	
 	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture, String musiquePath, String album) {
 		this.ID_Musique = Musique.ID;
@@ -71,9 +58,12 @@ public class Musique implements Comparable<Musique>{
 	public static void changeID() {
 		Musique.ID = Musique.ID+1;
 	}
-
 	public void ajouterImage(String img) {
 		this.couverture = img; //CHemin de l'image
+	}
+	
+	public static void changeID(int ID) {
+		Musique.ID = ID;
 	}
 	
 
@@ -91,7 +81,7 @@ public class Musique implements Comparable<Musique>{
 	public static String encoder(Musique m) {
 		//TODO Il faut ajouter les avis/commentaires
 		StringBuilder phrase = new StringBuilder();
-		String[] chaines = {m.titre, m.auteur, String.valueOf(m.duree), String.valueOf(m.isLiked), m.style.toString(), m.couverture};
+		String[] chaines = {m.titre, m.auteur, String.valueOf(m.duree), String.valueOf(m.isLiked), m.style.toString(), m.couverture, m.musiquePath, m.album};
 		for (String element : chaines) {
 			for (int i = 0; i < element.length(); i++) {
 	            char caractere = element.charAt(i);
@@ -129,7 +119,7 @@ public class Musique implements Comparable<Musique>{
 	    		}
 	    	}
 	    }
-		Musique m = new Musique(arguments.get(0), arguments.get(1), Integer.parseInt(arguments.get(2)), Boolean.parseBoolean(arguments.get(3)), STYLE.valueOf(arguments.get(4)), arguments.get(5));
+		Musique m = new Musique(arguments.get(0), arguments.get(1), Integer.parseInt(arguments.get(2)), Boolean.parseBoolean(arguments.get(3)), STYLE.valueOf(arguments.get(4)), arguments.get(5), arguments.get(6), arguments.get(7));
 		Hierarchie.ajouterMusique(m);
 		return m;
 	}
@@ -138,6 +128,7 @@ public class Musique implements Comparable<Musique>{
 		phrase.append("Titre : " + this.titre + "\nAuteur : " + this.auteur + "\ndurée (secondes) :" + this.duree + "\nLiké ? : " + this.isLiked + "\nStyle : " + this.style.toString() + "\nChemin de l'image : " + this.couverture);
 		return phrase.toString();
 	}
+	
 
 	
 
@@ -163,17 +154,18 @@ public class Musique implements Comparable<Musique>{
 	
 	public static void main(String[] args) {
 		Hierarchie h = new Hierarchie();
+		/*
 		Musique m1 = new Musique("Apix", "collander", 140, true, STYLE.POP, "/tata/quebec"); // créer 4 nouvelle musique
 		Musique m2 = new Musique("Apex", "collander", 136, false, STYLE.ELECTRO, "/tata/quebec/calisse");
 		Musique m3 = new Musique("Apax", "collander", 141, false, STYLE.RAP, "/tata/quebec/pétoche");
 		Musique m4 = new Musique("Apox", "collander", 145, true, STYLE.ELECTRO, "");
-		
-
+		*/
+		System.out.println(h);
 		Hierarchie.encoder();
 		
 		Record.read("database");
 		
-		System.out.println(Hierarchie.rechercher(""));
+		System.out.println(h);
 		
 		
 	}

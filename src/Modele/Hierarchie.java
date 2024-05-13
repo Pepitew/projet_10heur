@@ -45,7 +45,7 @@ public class Hierarchie {
 		
 		return recherche;
 	}
-	
+
 	public static TreeSet<Musique> rechercher(STYLE genre, String artiste, String album) {
 		TreeSet<Musique> recherche = new TreeSet<>();
 		
@@ -109,8 +109,10 @@ public class Hierarchie {
 				drapeau = auteurFav.get(auteur);
 			}
 		}
-		TreeSet<Musique> recherche = Hierarchie.rechercher(auteurMax);
-		for (int i = 0; i < 10; i++) {
+
+		TreeSet<Musique> recherche = Hierarchie.rechercher(null, auteurMax, null);
+		for (int i = 0; i < 5; i++) {
+
 			if (recherche.size() != 0) {
 				reco.add(recherche.first());
 				reco.remove(reco.first());
