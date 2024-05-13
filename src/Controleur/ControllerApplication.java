@@ -147,7 +147,7 @@ public class ControllerApplication {
         
         timelineBtnAddMusic.getKeyFrames().addAll(
 	            new KeyFrame(Duration.ZERO, 
-	            		new KeyValue(btnAddMusic.prefWidthProperty(), 200)), new KeyFrame(Duration.seconds(0.4), 
+	            		new KeyValue(btnAddMusic.prefWidthProperty(), btnAddMusic.getPrefWidth())), new KeyFrame(Duration.seconds(0.4), 
 	            		new KeyValue(btnAddMusic.prefWidthProperty(), btnAddMusic.getPrefHeight()))
 	        );
 		
