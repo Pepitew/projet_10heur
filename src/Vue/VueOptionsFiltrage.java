@@ -1,5 +1,6 @@
 package Vue;
 
+import Main.App;
 import Modele.Hierarchie;
 import Modele.Musique;
 import javafx.beans.value.ChangeListener;
@@ -12,6 +13,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
 public class VueOptionsFiltrage extends AnchorPane{
@@ -48,19 +50,21 @@ public class VueOptionsFiltrage extends AnchorPane{
         flowPane.setVgap(vGap);
         flowPane.setAlignment(Pos.CENTER);
         flowPane.getChildren().addAll(choiceBoxGenre, choiceBoxAuteur, choiceBoxAlbum);
-        
         AnchorPane.setTopAnchor(flowPane, labelOptions.getPrefHeight() + vGap);
         AnchorPane.setLeftAnchor(flowPane, 0.0);
         AnchorPane.setRightAnchor(flowPane, 0.0);
         
+        // ajouts des enfants
         this.getChildren().addAll(labelOptions, flowPane);
+        
+        // place dans la grille
+        GridPane.setRowSpan(this, 4);
+		GridPane.setColumnSpan(this, 2);
         
         chargerOptions();
 	}
-	
+	/** Permet de modifier les options dans les choices box**/
 	public void chargerOptions() {
-	
-        
         
         // définit le texte par défaut de choiceBoxGenre + remplit les valeurs
         ObservableList<String> listeGenre = FXCollections.observableArrayList("Trier par genre");

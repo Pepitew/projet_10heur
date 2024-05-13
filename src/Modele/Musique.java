@@ -79,7 +79,6 @@ public class Musique implements Comparable<Musique>{
 	 * @return
 	 */
 	public static String encoder(Musique m) {
-		//TODO Il faut ajouter les avis/commentaires
 		StringBuilder phrase = new StringBuilder();
 		String[] chaines = {m.titre, m.auteur, String.valueOf(m.duree), String.valueOf(m.isLiked), m.style.toString(), m.couverture, m.musiquePath, m.album};
 		for (String element : chaines) {
@@ -153,6 +152,7 @@ public class Musique implements Comparable<Musique>{
 	}
 	
 	public static void main(String[] args) {
+		@SuppressWarnings("unused")
 		Hierarchie h = new Hierarchie();
 		/*
 		Musique m1 = new Musique("Apix", "collander", 140, true, STYLE.POP, "/tata/quebec"); // créer 4 nouvelle musique
@@ -160,7 +160,6 @@ public class Musique implements Comparable<Musique>{
 		Musique m3 = new Musique("Apax", "collander", 141, false, STYLE.RAP, "/tata/quebec/pétoche");
 		Musique m4 = new Musique("Apox", "collander", 145, true, STYLE.ELECTRO, "");
 		*/
-		System.out.println(h);
 		Hierarchie.encoder();
 		
 		Record.read("database");
