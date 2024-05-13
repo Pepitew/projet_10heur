@@ -1,6 +1,5 @@
 package Modele;
 
-import java.awt.Image;
 import java.util.ArrayList;
 
 public class Musique implements Comparable<Musique>{
@@ -21,6 +20,9 @@ public class Musique implements Comparable<Musique>{
 	
 
 	public Musique(String titre, String auteur, int duree) {
+		this.ID_Musique = Musique.ID;
+		Musique.changeID();
+		
 		this.titre = titre;
 		this.auteur = auteur;
 		this.duree = duree;
@@ -29,6 +31,9 @@ public class Musique implements Comparable<Musique>{
 		
 	}
 	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture) {
+		this.ID_Musique = Musique.ID;
+		Musique.changeID();
+		
 		this.titre = titre;
 		this.auteur = auteur;
 		this.duree = duree;
@@ -39,6 +44,9 @@ public class Musique implements Comparable<Musique>{
 		
 	}
 	
+	public static void changeID() {
+		Musique.ID = Musique.ID++;
+	}
 
 	public void ajouterImage(String img) {
 		this.couverture = img; //CHemin de l'image
@@ -126,6 +134,7 @@ public class Musique implements Comparable<Musique>{
 	}
 	@Override
 	public int compareTo(Musique m) {
+		//return this.ID_Musique - m.ID_Musique;
 		return this.titre.compareTo(m.titre);
 	}
 	
