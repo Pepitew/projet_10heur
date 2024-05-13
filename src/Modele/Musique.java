@@ -19,17 +19,6 @@ public class Musique implements Comparable<Musique>{
 	private String couverture; //chemin de l'image
 	
 
-	public Musique(String titre, String auteur, int duree) {
-		this.ID_Musique = Musique.ID;
-		Musique.changeID();
-		
-		this.titre = titre;
-		this.auteur = auteur;
-		this.duree = duree;
-		this.isLiked = false;
-		Hierarchie.ajouterMusique(this);
-		
-	}
 	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture) {
 		this.ID_Musique = Musique.ID;
 		Musique.changeID();

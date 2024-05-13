@@ -22,32 +22,32 @@ public class Record {
 	 */
 	
 	public static void write(String[] desString, String fileName) {
-		// Création fileWriter
-		try { 
-			File file = new File(path+fileName);
-			FileWriter writer = new FileWriter(file); 
-			writer.write("");
-			writer.close();
-			writer = new FileWriter(file, true); 
-			BufferedWriter output = new BufferedWriter(writer);
-		
-			// Création buffered et file writer / reader
-			if(!file.exists()){
-				file.createNewFile();
-			}
-		
-			for (String unString : desString) {     
-	           // Ajout de la nouvelle musique
-	            output.write(unString);
-	            output.newLine();
-			}
-	            // Fermeture des flux
-	            output.close();
-	            writer.close();
-	
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
+        // Création fileWriter
+        try { 
+            File file = new File(path+fileName);
+            FileWriter writer = new FileWriter(file); 
+            writer.write("");
+            writer.close();
+            writer = new FileWriter(file, true); 
+            BufferedWriter output = new BufferedWriter(writer);
+        
+            // Création buffered et file writer / reader
+            if(!file.exists()){
+                file.createNewFile();
+            }
+        
+            for (String unString : desString) {     
+               // Ajout de la nouvelle musique
+                output.write(unString);
+                output.newLine();
+            }
+                // Fermeture des flux
+                output.close();
+                writer.close();
+    
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 	
 	/* 
