@@ -34,7 +34,7 @@ public class Musique implements Comparable<Musique>{
 	}
 	
 	public static void changeID() {
-		Musique.ID = Musique.ID++;
+		Musique.ID = Musique.ID+1;
 	}
 
 	public void ajouterImage(String img) {
@@ -123,8 +123,7 @@ public class Musique implements Comparable<Musique>{
 	}
 	@Override
 	public int compareTo(Musique m) {
-		//return this.ID_Musique - m.ID_Musique;
-		return this.titre.compareTo(m.titre);
+		return this.ID_Musique - m.ID_Musique;
 	}
 	
 	public static void main(String[] args) {
