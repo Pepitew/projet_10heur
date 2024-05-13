@@ -128,12 +128,12 @@
       </VBox>
       <VBox alignment="BOTTOM_LEFT" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="4">
          <children>
-            <TextField fx:id="fieldDuree" alignment="BOTTOM_LEFT" onKeyTyped="#verifierSaisie" onMousePressed="#setLabelColor" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;">
+            <TextField fx:id="fieldAlbum" alignment="BOTTOM_LEFT" onKeyTyped="#verifierSaisie" onMousePressed="#setLabelColor" prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
             </TextField>
-            <Label fx:id="labelDuree" contentDisplay="TOP" graphicTextGap="0.0" prefWidth="300.0" text="Durée de la musique" textFill="#000000b2">
+            <Label fx:id="labelAlbum" contentDisplay="TOP" graphicTextGap="0.0" prefWidth="300.0" text="Album de la musique" textFill="#000000b2">
                <font>
                   <Font name="Verdana" size="12.0" />
                </font>
