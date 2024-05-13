@@ -17,7 +17,8 @@ public class Musique implements Comparable<Musique>{
 	private String auteur;
 	private int duree; //En secondes
 	private String couverture; //chemin de l'image
-	
+	private String musiquePath; //chemin vers la musique
+	private String album; //nom de l'album
 
 	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture) {
 		this.ID_Musique = Musique.ID;
@@ -31,6 +32,40 @@ public class Musique implements Comparable<Musique>{
 		this.couverture = couverture;
 		Hierarchie.ajouterMusique(this);
 		
+	}
+	
+	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture, String musiquePath, String album) {
+		this.ID_Musique = Musique.ID;
+		Musique.changeID();
+		
+		this.titre = titre;
+		this.auteur = auteur;
+		this.duree = duree;
+		this.isLiked = isLiked;
+		this.style = style;
+		this.couverture = couverture;
+		this.musiquePath = musiquePath;
+		this.album = album;
+		
+		
+		Hierarchie.ajouterMusique(this);
+		
+	}
+	
+	public void changeMusique(String path) {
+		this.musiquePath = path;
+	}
+	
+	public String getMusicPath() {
+		return this.musiquePath;
+	}
+	
+	public void changeAlbum(String album) {
+		this.album = album;
+	}
+	
+	public String getAlbum() {
+		return this.album;
 	}
 	
 	public static void changeID() {
