@@ -20,16 +20,17 @@ public class Hierarchie {
 	}
 	
 	public static void encoder() {
-		//StringBuilder phrase = new StringBuilder();
-		
-		for (Musique m : Hierarchie.hierarchie) {
-			//phrase.append(Musique.encoder(m));
-			Record.write(Musique.encoder(m), "database");
-		}
-		
-		Hierarchie.hierarchie.clear();
-		
-		//return phrase.toString();
+	    //StringBuilder phrase = new StringBuilder();
+	    String[] desString = new String[Hierarchie.hierarchie.size()];
+	    int indice = 0;
+	    for (Musique m : Hierarchie.hierarchie) {
+	        //phrase.append(Musique.encoder(m));
+	        desString[indice] = Musique.encoder(m);
+	        indice++;
+	    }
+	    Record.write(desString, "database");
+	    Hierarchie.hierarchie.clear();
+	    Musique.ID = 0;
 	}
 	
 	public static TreeSet<Musique> rechercher(String chaine){
