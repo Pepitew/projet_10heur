@@ -60,9 +60,6 @@ public class Hierarchie {
 				recherche.add(m);
 			}
 		}
-		
-		
-		
 		return recherche;
 	}
 	

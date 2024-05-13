@@ -32,7 +32,7 @@ public class VueListeDeMusique extends ScrollPane {
     private void loadComponents(Collection<Musique> ensembleMusique) {
         recommandationContainer.getChildren().clear();
         for(Musique m : ensembleMusique) {
-        	VueMusique v = new VueMusique(m.getImage(), m.getTitre(), m.getAuteur(), m.ID_Musique);
+        	VueMusique v = new VueMusique(m);
     		recommandationContainer.getChildren().add(v);
         }
 

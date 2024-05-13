@@ -8,7 +8,6 @@ import Main.App;
 import Modele.Hierarchie;
 import Modele.Musique;
 import Modele.Playlist;
-import Vue.VueMusique;
 import Vue.VueListeDeMusique;
 import Vue.VueResultatsRecherche;
 import javafx.animation.KeyFrame;
