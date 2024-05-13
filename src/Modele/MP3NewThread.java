@@ -5,19 +5,13 @@ import java.io.FileInputStream;
 import javazoom.jl.player.Player;
 
 public class MP3NewThread {
-    private String filename;
-    private Player player;
-    private FileInputStream fis;
-    private boolean paused;
-
-    public MP3NewThread(String filename) {
-        this.filename = filename;
-        this.paused = false;
-    }
+    static private Player player;
+    static private FileInputStream fis;
+    private static boolean paused;
 
     
     //méthode play()
-    public void play() {
+    public static void play(String filename) {
         Thread playerThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -46,18 +40,18 @@ public class MP3NewThread {
         playerThread.start();
     }
     // méthode : pause() et resume()
-    public void pause() {
+    public static void pause() {
         paused = true;
     }
 
-    public void resume() {
+    public static void resume() {
         paused = false;
     }
     //EXEMPLE
     public static void main(String[] args) {
         // Remplacer "chemin/vers/ton/fichier.mp3" par le chemin de ton fichier MP3
-    	MP3NewThread mp3Player = new MP3NewThread("data/Musique/SINS.mp3");
-    	mp3Player.play();
+    	MP3NewThread.play("data/Musique/SINS.mp3");
+    
         /*
         // Mettre en pause la lecture pendant quelques secondes
     	mp3Player.pause();

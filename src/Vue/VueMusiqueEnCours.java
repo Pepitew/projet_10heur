@@ -61,7 +61,7 @@ public class VueMusiqueEnCours extends ScrollPane {
         		gérerTailleTextLabel();
         	}
         });
-        /** TEST **/ 
+
         //Création et configuration de anchorPane
         AnchorPane ap = new AnchorPane();
         ap.getChildren().add(imageViewMusiqueEnCours);
@@ -93,7 +93,6 @@ public class VueMusiqueEnCours extends ScrollPane {
         	containerLogo.setStyle("-fx-background-color: #e6e6e6; -fx-background-radius: 20; -fx-border-color : #5c5c5c; -fx-border-radius : 20;");
     	});
         
-        /** FIN TEST **/
 
         // Création et configuration de labelNomMusiqueEnCours 
         labelNomMusiqueEnCours = new Label("Nom Musique");

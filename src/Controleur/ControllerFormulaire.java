@@ -327,7 +327,7 @@ public class ControllerFormulaire {
 		String auteur = fieldAuteur.getText();
 		String album = fieldAlbum.getText();
 		String couverture = "data/Image/"+nomImage;
-		String mp3 = "data/Musique/"+nomMusique;
+		String mp3 = "data/Musique/"+nomMusique+".mp3";
 		Musique.STYLE style = choiceBoxGenre.getValue(); 
 				
 		Musique m = new Musique(titre,auteur,dureeMusique,false,style,couverture,mp3,album);
