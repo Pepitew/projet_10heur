@@ -1,13 +1,12 @@
 package Controleur;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 
 import com.jfoenix.controls.JFXSlider;
 
 import Main.App;
 import Modele.Hierarchie;
-import Modele.MP3NewThread;
+import Modele.MP3Player;
 import Modele.Musique;
 import Modele.Playlist;
 import Vue.VueListeDeMusique;
@@ -214,13 +213,12 @@ public class ControllerApplication {
     	if(play.isVisible()) {
     		play.setVisible(false);
     		pause.setVisible(true);
-    		MP3NewThread.play(Musique.musiqueJouée.getMusicPath());
+    		MP3Player.play(Musique.musiqueJouée.getMusicPath());
     	}
     	else if(pause.isVisible()) {
     		pause.setVisible(false);
     		play.setVisible(true);
-    		System.out.println("coucou");
-    		MP3NewThread.pause();
+    		MP3Player.close();
     	}
     }
 }
