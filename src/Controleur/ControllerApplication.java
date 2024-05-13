@@ -45,7 +45,7 @@ public class ControllerApplication {
 	@FXML
 	SVGPath play, previousArrow, nextArrow,	like, pause;
 	@FXML
-	Button btnAddMusic;
+	public Button btnAddMusic;
 	@FXML 
 	FlowPane flowPaneLogo;
 	@FXML
@@ -57,7 +57,7 @@ public class ControllerApplication {
 	@FXML
 	VBox vboxRecherche;
 	@FXML
-	ScrollPane scrollPaneRecommandations, placeHolderMusiqueEnCours;
+	public ScrollPane scrollPaneRecommandations, placeHolderMusiqueEnCours, scrollPaneResultatsRecherche;
 	@FXML
 	public TextField textFieldRechercher;
 	@FXML
@@ -83,14 +83,7 @@ public class ControllerApplication {
 	            	this.logo.setFitHeight(this.flowPaneLogo.getHeight()*0.9);
 	            });
 	            
-	            //initialisation de la timeline qui sert à resize le btn qui ajouter une musique
-	            timelineBtnAddMusic = new Timeline();
-	            
-	            timelineBtnAddMusic.getKeyFrames().addAll(
-	    	            new KeyFrame(Duration.ZERO, 
-	    	            		new KeyValue(btnAddMusic.prefWidthProperty(), btnAddMusic.getPrefWidth())), new KeyFrame(Duration.seconds(0.4), 
-	    	            		new KeyValue(btnAddMusic.prefWidthProperty(), 200))
-	    	        );
+	        
 	            
 	            //masque l'info-bulle au dessus du slider (lecteur de musique) 
 	            lecteur.getChildrenUnmodifiable().get(3).setOpacity(0);
@@ -107,13 +100,20 @@ public class ControllerApplication {
     		   root.add(App.vof, 0, 7);
     		   GridPane.setRowSpan(App.vof, 4);
     		   GridPane.setColumnSpan(App.vof, 2);
+    		   App.vof.toBack();
     		   
     		   // mise en place de la vue musique en cours
     		   root.getChildren().remove(placeHolderMusiqueEnCours);
     		   root.add(App.vmec, 9, 2);
     		   GridPane.setRowSpan(App.vmec, 9);
     		   GridPane.setColumnSpan(App.vmec, 3);
-	
+    		    /** TEST **/
+    		   // mise en place de la vue logo
+    		   root.getChildren().remove(flowPaneLogo);
+    		   root.add(App.vl, 0, 0);
+    		   GridPane.setRowSpan(App.vl, 2);
+    		   GridPane.setColumnSpan(App.vl, 2);
+    		   /** TEST **/
     		   //ajout d'un évènement sur la hbox recommandationContainer pour défiler au scroll de la souris
     		   recommandationContainer.setOnScroll(event -> {
     	            scrollPaneRecommandations.setHvalue(scrollPaneRecommandations.getHvalue()+event.getDeltaY()/recommandationContainer.getChildren().size()/10);
@@ -121,28 +121,17 @@ public class ControllerApplication {
     	       
 	        });
 	}
-	/** méthode pour faire grossir un élément **/
-	public void grow(MouseEvent m) {
-		Node target = (Node) m.getTarget();
-		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), target);
-        scaleTransition.setToX(1.1);
-        scaleTransition.setToY(1.1);
-        
-        scaleTransition.play();
-	}
-	/** méthode pour revenir à la taille standard d'un élément **/
-	public void shrink(MouseEvent m) {
-		Node target = (Node) m.getTarget();
-		
-		ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(0.4), target);
-        scaleTransition.setToX(1);
-        scaleTransition.setToY(1);
-        
-        scaleTransition.play();
-	}
 	
 	/** méthode pour agrandir le bouton qui ajoute une musique **/
 	public void growBtnAddMusic(MouseEvent m) {
+		//initialisation de la timeline qui sert à resize le btn qui ajouter une musique
+        timelineBtnAddMusic = new Timeline();
+        
+        timelineBtnAddMusic.getKeyFrames().addAll(
+	            new KeyFrame(Duration.ZERO, 
+	            		new KeyValue(btnAddMusic.prefWidthProperty(), btnAddMusic.getPrefWidth())), new KeyFrame(Duration.seconds(0.4), 
+	            		new KeyValue(btnAddMusic.prefWidthProperty(), 200))
+	        );
 		timelineBtnAddMusic.setRate(1);
 		timelineBtnAddMusic.play();
 		btnAddMusic.setText("Ajouter une musique");
@@ -152,7 +141,16 @@ public class ControllerApplication {
 		}
 	/** méthode pour revenir à la taille normal du bouton qui ajoute une musique **/
 	public void shrinkBtnAddMusic(MouseEvent m) {
-		timelineBtnAddMusic.setRate(-1);
+	    
+		//initialisation de la timeline qui sert à resize le btn qui ajouter une musique
+        timelineBtnAddMusic = new Timeline();
+        
+        timelineBtnAddMusic.getKeyFrames().addAll(
+	            new KeyFrame(Duration.ZERO, 
+	            		new KeyValue(btnAddMusic.prefWidthProperty(), 200)), new KeyFrame(Duration.seconds(0.4), 
+	            		new KeyValue(btnAddMusic.prefWidthProperty(), btnAddMusic.getPrefHeight()))
+	        );
+		
         timelineBtnAddMusic.play();
         timelineBtnAddMusic.setOnFinished(event -> {
 			btnAddMusic.setText("+");

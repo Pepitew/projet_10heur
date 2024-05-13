@@ -24,7 +24,7 @@ public class VueResultatsRecherche extends Label {
 		}
 		// mise en forme
 		this.setPadding(new Insets(0,0,0,10));
-		this.setPrefSize(250, 30);
+		this.setPrefSize(300, 35);
 		this.setText(nomMusique+" - "+auteurMusique);
 		
 		// assombri le fond du label au survol de la souris

@@ -26,36 +26,36 @@ public class VueOptionsFiltrage extends AnchorPane{
     
 	public VueOptionsFiltrage() {
 		super();
-		this.setStyle("-fx-border-width: 1 1 0 0; -fx-border-color: black; -fx-background-color: #e6e6e6;");
-	        
-		 	// configuration Label
-	        labelOptions.setStyle("-fx-background-color: #ffffff0b;");
-	        labelOptions.setAlignment(Pos.CENTER);
-	        labelOptions.setFont(Font.font("Verdana Italic", 18));
-	        labelOptions.setPadding(new Insets(10, 0, 10, 0));
-	        labelOptions.setPrefHeight(30.0);
-	        AnchorPane.setLeftAnchor(labelOptions, 0.0);
-	        AnchorPane.setRightAnchor(labelOptions, 0.0);
-	        AnchorPane.setTopAnchor(labelOptions, 0.0);
-	        
-	    	// configuration choiceBox
-	        choiceBoxGenre.setPrefWidth(widthChoiceBox);
-	        choiceBoxAuteur.setPrefWidth(widthChoiceBox);
-	        choiceBoxAlbum.setPrefWidth(widthChoiceBox);
-	        
-	        // configuration flowPane
-	        flowPane.setPrefWrapLength(widthChoiceBox);
-	        flowPane.setVgap(vGap);
-	        flowPane.setAlignment(Pos.CENTER);
-	        flowPane.getChildren().addAll(choiceBoxGenre, choiceBoxAuteur, choiceBoxAlbum);
-	        
-	        AnchorPane.setTopAnchor(flowPane, labelOptions.getPrefHeight() + vGap);
-	        AnchorPane.setLeftAnchor(flowPane, 0.0);
-	        AnchorPane.setRightAnchor(flowPane, 0.0);
-	        
-	        this.getChildren().addAll(labelOptions, flowPane);
-	        
-	        chargerOptions();
+		this.setStyle("-fx-border-width: 0 1 0 0; -fx-border-color: black; -fx-background-color: #e6e6e6;");
+       
+	 	// configuration Label
+        labelOptions.setStyle("-fx-background-color: #ffffff0b;");
+        labelOptions.setAlignment(Pos.CENTER);
+        labelOptions.setFont(Font.font("Verdana Italic", 18));
+        labelOptions.setPadding(new Insets(10, 0, 10, 0));
+        labelOptions.setPrefHeight(30.0);
+        AnchorPane.setLeftAnchor(labelOptions, 0.0);
+        AnchorPane.setRightAnchor(labelOptions, 0.0);
+        AnchorPane.setTopAnchor(labelOptions, 0.0);
+        
+    	// configuration choiceBox
+        choiceBoxGenre.setPrefWidth(widthChoiceBox);
+        choiceBoxAuteur.setPrefWidth(widthChoiceBox);
+        choiceBoxAlbum.setPrefWidth(widthChoiceBox);
+        
+        // configuration flowPane
+        flowPane.setPrefWrapLength(widthChoiceBox);
+        flowPane.setVgap(vGap);
+        flowPane.setAlignment(Pos.CENTER);
+        flowPane.getChildren().addAll(choiceBoxGenre, choiceBoxAuteur, choiceBoxAlbum);
+        
+        AnchorPane.setTopAnchor(flowPane, labelOptions.getPrefHeight() + vGap);
+        AnchorPane.setLeftAnchor(flowPane, 0.0);
+        AnchorPane.setRightAnchor(flowPane, 0.0);
+        
+        this.getChildren().addAll(labelOptions, flowPane);
+        
+        chargerOptions();
 	}
 	
 	public void chargerOptions() {

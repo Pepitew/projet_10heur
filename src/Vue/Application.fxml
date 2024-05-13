@@ -22,7 +22,7 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<GridPane fx:id="root" prefHeight="540.0" prefWidth="1000.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controleur.ControllerApplication">
+<GridPane fx:id="root" prefHeight="680.0" prefWidth="1200.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controleur.ControllerApplication">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
@@ -98,28 +98,16 @@
             </VBox>
          </content>
       </ScrollPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E6E6E6; -fx-border-width: 0 1 0 0; -fx-border-color: black;" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="5">
-         <children>
-            <Label alignment="CENTER" layoutY="20.0" prefHeight="30.0" style="-fx-background-color: #ffffff0b;" text="Vos Playlists" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <font>
-                  <Font name="Verdana Italic" size="18.0" />
-               </font>
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
-            </Label>
-         </children>
-      </AnchorPane>
       <FlowPane alignment="CENTER_RIGHT" GridPane.columnIndex="8" GridPane.columnSpan="4" GridPane.rowSpan="2">
          <children>
-            <Button fx:id="btnAddMusic" alignment="CENTER" mnemonicParsing="false" onAction="#moveToFormulaire" onMouseEntered="#growBtnAddMusic" onMouseExited="#shrinkBtnAddMusic" prefHeight="40.0" prefWidth="40.0" text="+">
+            <Button fx:id="btnAddMusic" alignment="CENTER" minHeight="42.0" minWidth="42.0" mnemonicParsing="false" onAction="#moveToFormulaire" onMouseEntered="#growBtnAddMusic" onMouseExited="#shrinkBtnAddMusic" prefHeight="50.0" prefWidth="50.0" text="+">
                <FlowPane.margin>
                   <Insets right="40.0" />
                </FlowPane.margin>
             </Button>
          </children>
       </FlowPane>
-      <ScrollPane fx:id="scrollPaneRecommandations" focusTraversable="false" style="-fx-background: white; -fx-background-color: white; -fx-border-color: white;" vbarPolicy="NEVER" vmax="0.0" GridPane.columnIndex="2" GridPane.columnSpan="7" GridPane.rowIndex="3" GridPane.rowSpan="4">
+      <ScrollPane fx:id="scrollPaneRecommandations" focusTraversable="false" style="-fx-background: white; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0 0 1 0;" vbarPolicy="NEVER" vmax="0.0" GridPane.columnIndex="2" GridPane.columnSpan="7" GridPane.rowIndex="3" GridPane.rowSpan="4">
          <content>
             <HBox fx:id="recommandationContainer" focusTraversable="true" spacing="10.0" style="-fx-background-color: white;">
                <children>
@@ -139,10 +127,13 @@
             </HBox>
          </content>
          <GridPane.margin>
-            <Insets left="10.0" right="10.0" />
+            <Insets />
          </GridPane.margin>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
       </ScrollPane>
-      <AnchorPane fx:id="placeHolderOptionsFiltrage" style="-fx-border-width: 1 1 0 0; -fx-border-color: black; -fx-background-color: #e6e6e6;" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="4">
+      <AnchorPane fx:id="placeHolderOptionsFiltrage" style="-fx-border-width: 0 1 0 0; -fx-border-color: black; -fx-background-color: #e6e6e6;" GridPane.columnSpan="2" GridPane.rowIndex="7" GridPane.rowSpan="4">
          <children>
             <Label alignment="CENTER" layoutX="22.0" layoutY="18.0" prefHeight="30.0" style="-fx-background-color: #ffffff0b;" text="Options filtrage" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
@@ -163,7 +154,7 @@
       </AnchorPane>
       <AnchorPane layoutX="10.0" layoutY="360.0" GridPane.columnIndex="2" GridPane.columnSpan="7" GridPane.rowIndex="7" GridPane.rowSpan="4">
          <children>
-            <Label alignment="CENTER" contentDisplay="TOP" style="-fx-border-color: black; -fx-border-width: 1 0 0 0;" text="Résultats du filtrage" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label alignment="CENTER" contentDisplay="TOP" style="-fx-border-color: black; -fx-border-width: 0 0 0 0;" text="Résultats du filtrage" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font size="24.0" />
                </font>
@@ -214,9 +205,9 @@
          </children>
       </AnchorPane>
       <Button fx:id="BtnLogo" mnemonicParsing="false" opacity="0.0" prefHeight="100.0" prefWidth="100.0" text="Logo" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
-      <FlowPane fx:id="flowPaneLogo" alignment="CENTER" style="-fx-border-color: black; -fx-border-width: 0 1 1 0; -fx-background-color: #e6e6e6;" GridPane.columnSpan="2" GridPane.rowSpan="2">
+      <FlowPane fx:id="flowPaneLogo" alignment="CENTER" style="-fx-border-color: black; -fx-border-width: 0 1 0 0; -fx-background-color: #e6e6e6;" GridPane.columnSpan="2" GridPane.rowSpan="2">
          <children>
-            <ImageView fx:id="logo" fitHeight="70.0" fitWidth="70.0" onMouseEntered="#grow" onMouseExited="#shrink" pickOnBounds="true" preserveRatio="true" styleClass="interactif">
+            <ImageView fx:id="logo" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" styleClass="interactif">
                <image>
                   <Image url="@../../Logo/logo_10Heur.png" />
                </image>
@@ -228,31 +219,31 @@
       </FlowPane>
       <AnchorPane GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowSpan="2">
          <children>
-            <ScrollPane hbarPolicy="NEVER" maxHeight="150.0" minHeight="0.0" style="-fx-background: white; -fx-background-color: white; -fx-border-width: 0;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="59.0">
+            <ScrollPane fx:id="scrollPaneResultatsRecherche" hbarPolicy="NEVER" maxHeight="150.0" minHeight="0.0" style="-fx-background: white; -fx-background-color: white; -fx-border-width: 0;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="59.0">
                <content>
                   <VBox fx:id="vboxRecherche">
                      <children>
-                        <Label prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #f2f2f2;" text="Label">
+                        <Label prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" text="Label">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
                         </Label>
-                        <Label prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #e6e6e6;" text="Label">
+                        <Label prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;" text="Label">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
                         </Label>
-                        <Label prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #f2f2f2;" text="Label">
+                        <Label prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" text="Label">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
                         </Label>
-                        <Label prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #e6e6e6;" text="Label">
+                        <Label prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #e6e6e6;" text="Label">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
                         </Label>
-                        <Label prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #f2f2f2;" text="Label">
+                        <Label prefHeight="30.0" prefWidth="300.0" style="-fx-background-color: #f2f2f2;" text="Label">
                            <padding>
                               <Insets left="10.0" />
                            </padding>
@@ -264,7 +255,7 @@
                   </VBox>
                </content>
             </ScrollPane>
-            <TextField fx:id="textFieldRechercher" maxWidth="-Infinity" onAction="#afficherRechercheMusique" onKeyTyped="#afficherRechercheMusique" prefHeight="40.0" prefWidth="250.0" promptText="Rechercher" style="-fx-background-color: #e6e6e6;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <TextField fx:id="textFieldRechercher" maxWidth="-Infinity" minHeight="40.0" minWidth="250.0" onAction="#afficherRechercheMusique" onKeyTyped="#afficherRechercheMusique" prefHeight="40.0" prefWidth="300.0" promptText="Rechercher" style="-fx-background-color: #e6e6e6;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -272,6 +263,18 @@
                   <Insets left="10.0" />
                </padding>
             </TextField>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E6E6E6; -fx-border-width: 1 1 1 0; -fx-border-color: black;" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="5">
+         <children>
+            <Label alignment="CENTER" layoutY="20.0" prefHeight="30.0" style="-fx-background-color: #ffffff0b;" text="Vos Playlists" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font name="Verdana Italic" size="18.0" />
+               </font>
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </Label>
          </children>
       </AnchorPane>
       
