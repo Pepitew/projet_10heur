@@ -32,6 +32,19 @@ public class Hierarchie {
 	    Hierarchie.hierarchie.clear();
 	    Musique.ID = 0;
 	}
+	
+	public static TreeSet<Musique> rechercher(String chaine){
+		TreeSet<Musique> recherche = new TreeSet<>();
+		
+		
+		for (Musique m : Hierarchie.hierarchie) {
+			if (m.getTitre().toLowerCase().contains(chaine.toLowerCase()) || m.getAuteur().toLowerCase().contains(chaine.toLowerCase())) {
+				recherche.add(m);
+			}
+		}
+		
+		return recherche;
+	}
 
 	public static TreeSet<Musique> rechercher(STYLE genre, String artiste, String album) {
 		TreeSet<Musique> recherche = new TreeSet<>();
