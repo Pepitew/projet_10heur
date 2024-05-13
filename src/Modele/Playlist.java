@@ -1,16 +1,21 @@
 package Modele;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+
+import Vue.VueListeDeMusique;
 
 
 public class Playlist implements Collection<Musique> {
     private String name;
     private ArrayList<Musique> liste;
+    public static HashMap<String, Playlist> mesPlaylist = new HashMap<String, Playlist>();
 
     public Playlist(String name) {
         this.name = name;
         this.liste = new ArrayList<Musique>();
+        Playlist.mesPlaylist.put(name, this);
     }
     
     public String getName() {
@@ -48,6 +53,7 @@ public class Playlist implements Collection<Musique> {
 
     @Override
     public boolean add(Musique e) {
+    	VueListeDeMusique.miseAJourAffichagePlaylist();
         return this.liste.add(e);
     }
 

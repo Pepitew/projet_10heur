@@ -1,13 +1,14 @@
 package Main;
 
 import Modele.Hierarchie;
+import Modele.Musique;
+import Modele.Playlist;
 import Modele.Record;
 import Vue.VueApplication;
 import Vue.VueFormulaire;
 import Vue.VueLogo;
 import Vue.VueMusiqueEnCours;
 import Vue.VueOptionsFiltrage;
-import Vue.VueResultatsRecherche;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -30,7 +31,7 @@ public class App extends Application {
 		App.primaryStage = primaryStage;
 		// charger les données des musiques du dossier info_music
 		Record.read("database");
-	
+		this.testPlaylist();
 		try {
 			Image icon = new Image("file:../../Logo/logo.png");
 			// Instanciation et Récupération des vues
@@ -69,7 +70,6 @@ public class App extends Application {
 		Scene scene = new Scene(new Pane());
 		if (nomScene == App.nomScene.Application) {
 			scene = App.va.getRoot().getScene();
-			App.va.ca.afficherMusiqueRecommandee();
 		}
 		if(nomScene == App.nomScene.Formulaire){
 			scene = App.vf.getRoot().getScene();
@@ -85,5 +85,23 @@ public class App extends Application {
 		Hierarchie.encoder();
 		Record.read("database");
 		App.vof.chargerOptions();
+	} 
+	
+	/** TEST PLAYLIST **/
+	public void testPlaylist() {
+		Playlist playlistRecommandation = new Playlist("Recommandation"); 
+		System.out.println(Hierarchie.recommandation());
+		for(Musique m : Hierarchie.recommandation()) {
+			playlistRecommandation.add(m);
+		}
+		Playlist.mesPlaylist.put("Recommandation", playlistRecommandation);
+		Playlist jaime = new Playlist("Musiques likées");
+		for(Musique m : Hierarchie.hierarchie) {
+			if(m.isLiked) {
+				jaime.add(m);				
+			}
+		}
+		Playlist.mesPlaylist.put("Musiques likées", jaime);
 	}
+	/** FIN TEST PLAYLIST**/
 }

@@ -89,7 +89,7 @@ public class Hierarchie {
 			}
 		}
 		TreeSet<Musique> recherche = Hierarchie.rechercher(auteurMax);
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 10; i++) {
 			if (recherche.size() != 0) {
 				reco.add(recherche.first());
 				reco.remove(reco.first());

@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class VueMusiqueEnCours extends ScrollPane {
@@ -63,6 +64,10 @@ public class VueMusiqueEnCours extends ScrollPane {
         labelGenreMusiqueEnCours.setFont(new javafx.scene.text.Font(24.0));
         labelGenreMusiqueEnCours.setPadding(padding);
         content.getChildren().add(labelGenreMusiqueEnCours);    
+        
+        // affichage dans la grille
+        GridPane.setRowSpan(this, 9);
+		GridPane.setColumnSpan(this, 3);
     }
     
     /** Méthode pour afficher la musique en cours 

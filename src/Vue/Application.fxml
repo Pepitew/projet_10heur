@@ -100,7 +100,7 @@
       </ScrollPane>
       <FlowPane alignment="CENTER_RIGHT" GridPane.columnIndex="8" GridPane.columnSpan="4" GridPane.rowSpan="2">
          <children>
-            <Button fx:id="btnAddMusic" alignment="CENTER" minHeight="42.0" minWidth="42.0" mnemonicParsing="false" onAction="#moveToFormulaire" onMouseEntered="#growBtnAddMusic" onMouseExited="#shrinkBtnAddMusic" prefHeight="50.0" prefWidth="50.0" text="+">
+            <Button fx:id="btnAddMusic" alignment="CENTER" minHeight="42.0" minWidth="42.0" mnemonicParsing="false" onAction="#moveToFormulaire" onMouseEntered="#growBtnAddMusic" onMouseExited="#shrinkBtnAddMusic" prefHeight="42.0" prefWidth="42.0" text="+">
                <FlowPane.margin>
                   <Insets right="40.0" />
                </FlowPane.margin>
@@ -143,16 +143,60 @@
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </Label>
-            <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutX="8.0" layoutY="45.0" prefWrapLength="150.0" vgap="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" layoutX="8.0" layoutY="45.0" prefWrapLength="150.0" vgap="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                <children>
-                  <ChoiceBox fx:id="choiceBoxGenre" prefWidth="150.0" />
-                  <ChoiceBox fx:id="choiceBoxAuteur" prefWidth="150.0" />
-                  <ChoiceBox fx:id="choiceBoxAlbum" prefWidth="150.0" />
+                  <ChoiceBox fx:id="choiceBoxGenre" prefHeight="30.0" prefWidth="220.0">
+                     <FlowPane.margin>
+                        <Insets />
+                     </FlowPane.margin>
+                  </ChoiceBox>
+                  <AnchorPane>
+                     <children>
+                        <ScrollPane fx:id="scrollPaneResultatsRecherche1" hbarPolicy="NEVER" maxHeight="150.0" minHeight="0.0" style="-fx-background: white; -fx-background-color: white; -fx-border-width: 0;" visible="false" AnchorPane.topAnchor="41.0">
+                           <content>
+                              <VBox fx:id="vboxRecherche1">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                        <TextField fx:id="textFieldRechercher1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#afficherRechercheMusique" onKeyTyped="#afficherRechercheMusique" prefHeight="40.0" prefWidth="225.0" promptText="Filtrer par artiste" style="-fx-background-color: #f2f2f2; -fx-border-color: #5c5c5c; -fx-border-radius: 5;">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane>
+                     <children>
+                        <ScrollPane fx:id="scrollPaneResultatsRecherche11" hbarPolicy="NEVER" maxHeight="150.0" minHeight="0.0" style="-fx-background: white; -fx-background-color: white; -fx-border-width: 0;" visible="false" AnchorPane.topAnchor="41.0">
+                           <content>
+                              <VBox fx:id="vboxRecherche11">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                        <TextField fx:id="textFieldRechercher11" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#afficherRechercheMusique" onKeyTyped="#afficherRechercheMusique" prefHeight="40.0" prefWidth="225.0" promptText="Filtrer par album" style="-fx-background-color: #f2f2f2; -fx-border-color: #5c5c5c; -fx-border-radius: 5;">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
                </children>
             </FlowPane>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="10.0" layoutY="360.0" GridPane.columnIndex="2" GridPane.columnSpan="7" GridPane.rowIndex="7" GridPane.rowSpan="4">
+      <AnchorPane fx:id="placeholderAnchorResultatFiltrage" layoutX="10.0" layoutY="360.0" GridPane.columnIndex="2" GridPane.columnSpan="7" GridPane.rowIndex="7" GridPane.rowSpan="4">
          <children>
             <Label alignment="CENTER" contentDisplay="TOP" style="-fx-border-color: black; -fx-border-width: 0 0 0 0;" text="Résultats du filtrage" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
@@ -217,7 +261,7 @@
             </ImageView>
          </children>
       </FlowPane>
-      <AnchorPane GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowSpan="2">
+      <AnchorPane GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="2">
          <children>
             <ScrollPane fx:id="scrollPaneResultatsRecherche" hbarPolicy="NEVER" maxHeight="150.0" minHeight="0.0" style="-fx-background: white; -fx-background-color: white; -fx-border-width: 0;" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="59.0">
                <content>

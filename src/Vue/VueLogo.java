@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
 public class VueLogo extends FlowPane {
@@ -59,11 +60,12 @@ public class VueLogo extends FlowPane {
 				AnchorPane.setTopAnchor(App.va.ca.textFieldRechercher, ((double)newValue - App.va.ca.textFieldRechercher.getHeight())/2);
 				AnchorPane.setTopAnchor(App.va.ca.scrollPaneResultatsRecherche, (((double)newValue + App.va.ca.textFieldRechercher.getHeight())/2)-1 );
 				
-				App.va.ca.textFieldRechercher.setPrefHeight(logo.getFitHeight()/1.8);
-				App.va.ca.textFieldRechercher.setPrefWidth(App.va.ca.textFieldRechercher.getPrefHeight()*6.25);
-				App.va.ca.btnAddMusic.setPrefSize(logo.getFitHeight()/1.5, logo.getFitHeight()/1.5);
 			}
 		});
+        
+        // placement dans la grille
+        GridPane.setRowSpan(this, 2);
+		GridPane.setColumnSpan(this, 2);
     }
 
     /** Méthode pour agrandir l'ImageView lorsque la souris entre**/
