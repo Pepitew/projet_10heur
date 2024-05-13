@@ -34,9 +34,11 @@ public class MP3Player {
             System.out.println("Erreur lors de la fermeture du flux : " + e);
         }
     }
+    
+
 
     public static void main(String[] args) {
         MP3Player mp3Player = new MP3Player("data/Musique/SINS.mp3");
-        mp3Player.play();
+        //mp3Player.play();
     }
 }
