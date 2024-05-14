@@ -7,7 +7,7 @@ import java.util.Iterator;
 import Vue.VueListeDeMusique;
 
 
-public class Playlist implements Collection<Musique> {
+public class Playlist implements Collection<Musique>,Comparable<Playlist> {
     private String name;
     private ArrayList<Musique> liste;
     public static HashMap<String, Playlist> mesPlaylist = new HashMap<String, Playlist>();
@@ -143,6 +143,11 @@ public class Playlist implements Collection<Musique> {
 	    Playlist p = new Playlist(arguments.get(0), liste);
 	    Hierarchie.ajouterPlaylist(p);
 		return p;
+	}
+
+	@Override
+	public int compareTo(Playlist o) {
+		return this.name.compareTo(o.name);
 	}
 }
 
