@@ -92,7 +92,7 @@ public class Hierarchie {
 				if (auteurFav.get(m.getAuteur()) != null) {
 					int valeur = auteurFav.get(m.getAuteur());
 					auteurFav.remove(m.getAuteur());
-					auteurFav.put(m.getAuteur(), valeur++);
+					auteurFav.put(m.getAuteur(), valeur+1);
 				}
 				else {
 					auteurFav.put(m.getAuteur(), 1);
@@ -101,7 +101,7 @@ public class Hierarchie {
 				if (styleFav.get(m.getStyle()) != null) {
 					int valeur = styleFav.get(m.getStyle());
 					styleFav.remove(m.getStyle());
-					styleFav.put(m.getStyle(), valeur++);
+					styleFav.put(m.getStyle(), valeur+1);
 				}
 				else {
 					styleFav.put(m.getStyle(), 1);
@@ -109,25 +109,39 @@ public class Hierarchie {
 			}
 		}
 		
-		int drapeau = 0;
+		int drapeauAuteur = 0;
 		String auteurMax = "";
 		
 		for (String auteur : auteurFav.keySet()) {
-			if (auteurFav.get(auteur) > drapeau) {
+			if (auteurFav.get(auteur) > drapeauAuteur) {
 				auteurMax = auteur;
-				drapeau = auteurFav.get(auteur);
+				drapeauAuteur = auteurFav.get(auteur);
+			}
+		}
+		int drapeauStyle = 0;
+		STYLE styleMax = null;
+		for (STYLE style : styleFav.keySet()) {
+			if (styleFav.get(style) > drapeauStyle) {
+				styleMax = style;
+				drapeauStyle = styleFav.get(style);
 			}
 		}
 
 		TreeSet<Musique> recherche = Hierarchie.rechercher(null, auteurMax, null);
-		for (int i = 0; i < 5; i++) {
-
-			if (recherche.size() != 0) {
+		recherche.addAll(Hierarchie.rechercher(styleMax, null, null));
+		
+		int i = 0;
+		while (recherche.size() != 0 && i < 15) {
 				reco.add(recherche.first());
-				reco.remove(reco.first());
-			}
-				
+				recherche.remove(reco.last());
+				i++;
 		}
+		
+		
+		if(drapeauAuteur == 0 && drapeauStyle == 0) {
+			reco = new TreeSet<Musique>();
+		}
+		
 		
 		return reco;
 	}

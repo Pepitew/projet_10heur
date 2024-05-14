@@ -48,8 +48,8 @@ public class App extends Application {
 			primaryStage.setScene(App.va);
 			primaryStage.setResizable(true);
 			primaryStage.getIcons().add(icon); 
-			primaryStage.setMinHeight(580);
-			primaryStage.setMinWidth(1000);
+			primaryStage.setMinHeight(830);
+			primaryStage.setMinWidth(1550);
 			primaryStage.setMaxHeight(830);
 			primaryStage.setMaxWidth(1550);
 			primaryStage.show();
@@ -110,10 +110,8 @@ public class App extends Application {
 	/** TEST PLAYLIST **/
 	public void testPlaylist() {
 		Playlist playlistRecommandation = new Playlist("Recommandations"); 
-		System.out.println("RECOMMANDATION " +Hierarchie.recommandation());
-		for(Musique m : Hierarchie.recommandation()) {
-			playlistRecommandation.add(m);
-		}
+		playlistRecommandation.addAll(Hierarchie.recommandation());
+		
 		Playlist.mesPlaylist.put("Recommandations", playlistRecommandation);
 		Playlist jaime = new Playlist("Musiques likées");
 		for(Musique m : Hierarchie.hierarchie) {

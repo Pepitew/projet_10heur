@@ -34,6 +34,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.util.Duration;
 
 public class ControllerApplication {
@@ -123,6 +124,7 @@ public class ControllerApplication {
     		   // mise en place de la vue resultat filtre
     		   root.getChildren().remove(placeholderAnchorResultatFiltrage);
     		   root.add(this.resultatsFiltrage = new VueListeDeMusique(new TreeSet<Musique>()), 2, 7);
+    		   resultatsFiltrage.setPadding(new Insets(30,10,0,10));
     		   resultatsFiltrage.toBack();
     		   /** TEST **/
     		   
@@ -224,9 +226,13 @@ public class ControllerApplication {
     	afficherAttributLike();
     	if (Musique.musiqueJouée.isLiked) {
     		Playlist.mesPlaylist.get("Musiques likées").add(Musique.musiqueJouée);
+    		Playlist.mesPlaylist.get("Recommandations").clear();
+    		Playlist.mesPlaylist.get("Recommandations").addAll(Hierarchie.recommandation());
     	}
     	else {
     		Playlist.mesPlaylist.get("Musiques likées").remove(Musique.musiqueJouée);
+    		Playlist.mesPlaylist.get("Recommandations").clear();
+    		Playlist.mesPlaylist.get("Recommandations").addAll(Hierarchie.recommandation());
     	}
     }
     

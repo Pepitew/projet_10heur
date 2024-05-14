@@ -298,27 +298,33 @@ public class ControllerFormulaire {
 	/** Permet d'enregister la musique dans la Hiérarchie 
 	 * @throws CannotWriteException **/
 	public void saveMusique(ActionEvent event) {
-		try {			
-			// enregister l'image de la musique en local
-			Image image = imageMusic.getImage();
-			if (image != null) {
-				if (! Files.exists(Paths.get("data/Image"))) {
-					Files.createDirectory(Paths.get("data/Image"));
+		Thread saveImageAndMusique = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {			
+					// enregister l'image de la musique en local
+					Image image = imageMusic.getImage();
+					if (image != null) {
+						if (! Files.exists(Paths.get("data/Image"))) {
+							Files.createDirectory(Paths.get("data/Image"));
+						}
+						ImageIO.write(SwingFXUtils.fromFXImage(image, null),"png", new File("data/Image/"+nomImage));			
+					}
+					// enregister la musique en local
+					if (audioFile != null) {
+						if (! Files.exists(Paths.get("data/Musique"))) {
+							Files.createDirectory(Paths.get("data/Musique"));
+						}
+						if(! Files.exists(Paths.get("data/Musique/"+nomMusique+".mp3"))) {
+							AudioFileIO.writeAs(audioFile, "data/Musique/"+nomMusique);					
+						}
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-				ImageIO.write(SwingFXUtils.fromFXImage(image, null),"png", new File("data/Image/"+nomImage));			
 			}
-			// enregister la musique en local
-			if (audioFile != null) {
-				if (! Files.exists(Paths.get("data/Musique"))) {
-					Files.createDirectory(Paths.get("data/Musique"));
-				}
-				if(! Files.exists(Paths.get("data/Musique/"+nomMusique+".mp3"))) {
-					AudioFileIO.writeAs(audioFile, "data/Musique/"+nomMusique);					
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		});
 		
 		
 		

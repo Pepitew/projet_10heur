@@ -62,20 +62,18 @@ public class Playlist implements Collection<Musique>,Comparable<Playlist> {
 
     @Override
     public boolean add(Musique e) {
-    	this.liste.add(e);
     	Platform.runLater(()->{
     		App.va.ca.playlist.miseAJourAffichagePlaylist(this.getName());    		
     	});    
-        return true;
+        return this.liste.add(e);
     }
 
     @Override
     public boolean remove(Object o) {
-    	this.liste.remove(o);
     	Platform.runLater(()->{
     		App.va.ca.playlist.miseAJourAffichagePlaylist(this.getName());    		
     	});
-        return true;
+        return this.liste.remove(o);
     }
 
     @Override
@@ -85,6 +83,9 @@ public class Playlist implements Collection<Musique>,Comparable<Playlist> {
 
     @Override
     public boolean addAll(Collection<? extends Musique> c) {
+    	Platform.runLater(()->{
+    		App.va.ca.playlist.miseAJourAffichagePlaylist(this.getName());    		
+    	});  
         return this.liste.addAll(c);
     }
 
