@@ -11,9 +11,10 @@ import javafx.scene.layout.HBox;
 
 public class VueListeDeMusique extends ScrollPane {
 	private HBox recommandationContainer;
+	public String currentPlaylist;
 	
     
-    public VueListeDeMusique(Collection<Musique> ensembleMusique, boolean isPlaylist) {
+    public VueListeDeMusique(Collection<Musique> ensembleMusique) {
     	this.recommandationContainer = new HBox();
     	loadComponents(ensembleMusique);
         setupLayout();
@@ -47,7 +48,9 @@ public class VueListeDeMusique extends ScrollPane {
     }
     /** Mets à jour les musiques afficher dans l'onglet d'affichage des playlists si la playlist mise à jour est celle affichée**/
     public void miseAJourAffichagePlaylist(String nomPlaylist) {
-    	this.loadComponents(Playlist.mesPlaylist.get(nomPlaylist));
+    	if(currentPlaylist == nomPlaylist) {
+    		this.loadComponents(Playlist.mesPlaylist.get(nomPlaylist));    		
+    	}
     }
     
     /** Mets à jour les musiques afficher dans l'onglet d'affichage des options lorsq'une option change **/

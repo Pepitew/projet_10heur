@@ -8,7 +8,7 @@ import com.jfoenix.controls.JFXSlider;
 
 import Main.App;
 import Modele.Hierarchie;
-import Modele.MP3Player;
+import Modele.MP3NewThread;
 import Modele.Musique;
 import Modele.Playlist;
 import Vue.VueListeDeMusique;
@@ -34,7 +34,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.util.Duration;
 
 public class ControllerApplication {
@@ -54,7 +53,7 @@ public class ControllerApplication {
 	@FXML
 	public JFXSlider lecteur;
 	@FXML
-	public Label timeMaxLabel, timeCurrentLabel, labelNomMusiqueEnCours ,labelAuteurMusiqueEnCours,labelGenreMusiqueEnCours;
+	public Label labelPlaylist, timeMaxLabel, timeCurrentLabel, labelNomMusiqueEnCours ,labelAuteurMusiqueEnCours,labelGenreMusiqueEnCours;
 	@FXML
 	HBox recommandationContainer;
 	@FXML
@@ -67,16 +66,14 @@ public class ControllerApplication {
 	AnchorPane placeHolderOptionsFiltrage, placeholderAnchorResultatFiltrage, anchorPaneVosPlaylists;
 
 
-	
 	Timeline timelineBtnAddMusic;
 	public VueListeDeMusique resultatsFiltrage;
 	public VueListeDeMusique playlist;
-
 	
 	// initialize() est appelée dès le chargement du fichier fxml
 	@FXML
 	public void initialize() {
-		// Cette méthode attend que la scène soit entièrement chargée avant d'effectué la fonction de callback
+		// Cette méthode qui attends le prochain rafraichissement de l'app
 		 Platform.runLater(() -> {
 	            // écouteur sur la largeur de flowPaneLogo pour définir la largeur du logo en fonction de la taille de la fenêtre
 	            this.flowPaneLogo.widthProperty().addListener((obs, oldValue, newValue)->{
@@ -119,12 +116,13 @@ public class ControllerApplication {
     		   /** TEST **/
     		   // mise en place de la vue liste de Musique
     		   root.getChildren().remove(scrollPaneRecommandations);
-    		   playlist = new VueListeDeMusique(Playlist.mesPlaylist.get("Recommandation"), true);
+    		   playlist = new VueListeDeMusique(new TreeSet<Musique>());
+    		   playlist.currentPlaylist = "Recommandations";
     		   root.add(playlist, 2, 3);
     		   playlist.toBack();
     		   // mise en place de la vue resultat filtre
     		   root.getChildren().remove(placeholderAnchorResultatFiltrage);
-    		   root.add(this.resultatsFiltrage = new VueListeDeMusique(new TreeSet<Musique>(), false), 2, 7);
+    		   root.add(this.resultatsFiltrage = new VueListeDeMusique(new TreeSet<Musique>()), 2, 7);
     		   resultatsFiltrage.toBack();
     		   /** TEST **/
     		   
@@ -181,6 +179,21 @@ public class ControllerApplication {
 	public void lecteurChange() {
 		timeCurrentLabel.setText(formatTime(lecteur.getValue()));
 	}
+	/** méthode pour reprendre la lecture lorsque l'on relâche le slider**/
+	public void reprendreLecture() {
+		if(MP3NewThread.playerThread != null) {
+			MP3NewThread.kill();
+			new MP3NewThread(Musique.musiqueJouée.getMusicPath(), (int)lecteur.getValue());
+		}
+	}
+	/** méthode pour un affichage correct lorsque l'on déplace le slider**/
+	public void bougerLecteur() {
+		if(MP3NewThread.positionThread != null) {
+			MP3NewThread.positionThread.suspend();			
+		}
+		timeCurrentLabel.setText(formatTime(lecteur.getValue()));
+	}
+	
 	/** Méthode pour formater le temps au format "min:sec"**/
     public String formatTime(double seconds) {
         int minutes = (int) seconds / 60;
@@ -233,12 +246,17 @@ public class ControllerApplication {
     	if(play.isVisible()) {
     		play.setVisible(false);
     		pause.setVisible(true);
-    		MP3Player.play(Musique.musiqueJouée.getMusicPath());
+    		if (MP3NewThread.playerThread == null) {
+    			new MP3NewThread(Musique.musiqueJouée.getMusicPath(),0); 
+    		}
+    		else {
+    			MP3NewThread.resume();
+    		}
     	}
     	else if(pause.isVisible()) {
     		pause.setVisible(false);
     		play.setVisible(true);
-    		MP3Player.close();
+    		MP3NewThread.pause();
     	}
     }
     
@@ -253,6 +271,8 @@ public class ControllerApplication {
     		l.setPrefWidth(this.anchorPaneVosPlaylists.getWidth());
     		
     		l.setOnMousePressed(event->{
+    			this.labelPlaylist.setText(p.getValue().getName());
+    			this.playlist.currentPlaylist = p.getValue().getName();
     			this.playlist.miseAJourAffichagePlaylist(p.getValue().getName());
     		});
     		

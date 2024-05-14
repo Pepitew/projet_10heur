@@ -84,11 +84,13 @@ public class VueOptionsFiltrage extends AnchorPane{
   			public void changed(ObservableValue<? extends String> obs, String oldValue, String newValue) {
   				if(newValue != "Trier par genre") {
   					VueOptionsFiltrage.choixGenre = STYLE.valueOf(newValue);
-  					App.va.ca.resultatsFiltrage.miseAJourAffichageOptionsFiltrage(Hierarchie.rechercher(VueOptionsFiltrage.choixGenre, VueOptionsFiltrage.choixAuteur ,VueOptionsFiltrage.choixAlbum ));					
   				}
   				else {
   					VueOptionsFiltrage.choixGenre = null;
   				}
+  				Platform.runLater(() -> {
+  					App.va.ca.resultatsFiltrage.miseAJourAffichageOptionsFiltrage(Hierarchie.rechercher(VueOptionsFiltrage.choixGenre, VueOptionsFiltrage.choixAuteur ,VueOptionsFiltrage.choixAlbum ));					
+  				});
   			}});
         choiceBoxGenre.setItems(listeGenre);
         choiceBoxGenre.getSelectionModel().selectFirst();
@@ -105,15 +107,16 @@ public class VueOptionsFiltrage extends AnchorPane{
 			public void changed(ObservableValue<? extends String> obs, String oldValue, String newValue) {
 				if(newValue != "Trier par auteur") {
 					choiceBoxAlbum.setVisible(true);
-					afficherChoiceListAlbum();
 					VueOptionsFiltrage.choixAuteur = newValue;
-					App.va.ca.resultatsFiltrage.miseAJourAffichageOptionsFiltrage(Hierarchie.rechercher(VueOptionsFiltrage.choixGenre, VueOptionsFiltrage.choixAuteur ,VueOptionsFiltrage.choixAlbum ));					
+					afficherChoiceListAlbum();
 				}
 				else {
 					choiceBoxAlbum.setVisible(false);
 					VueOptionsFiltrage.choixAuteur = null;
 				}
-				
+				Platform.runLater(() -> {
+					App.va.ca.resultatsFiltrage.miseAJourAffichageOptionsFiltrage(Hierarchie.rechercher(VueOptionsFiltrage.choixGenre, VueOptionsFiltrage.choixAuteur ,VueOptionsFiltrage.choixAlbum ));					
+  				});
 			}	            	
         });
         choiceBoxAuteur.setItems(listeAuteur);
@@ -135,11 +138,13 @@ public class VueOptionsFiltrage extends AnchorPane{
 			public void changed(ObservableValue<? extends String> obs, String oldValue, String newValue) {
 				if(newValue != "Trier par album") {
 					VueOptionsFiltrage.choixAlbum = newValue;
-					App.va.ca.resultatsFiltrage.miseAJourAffichageOptionsFiltrage(Hierarchie.rechercher(VueOptionsFiltrage.choixGenre, VueOptionsFiltrage.choixAuteur ,VueOptionsFiltrage.choixAlbum ));					
 				}
 				else {
 					VueOptionsFiltrage.choixAlbum = null;
 				}
+				Platform.runLater(() -> {
+					App.va.ca.resultatsFiltrage.miseAJourAffichageOptionsFiltrage(Hierarchie.rechercher(VueOptionsFiltrage.choixGenre, VueOptionsFiltrage.choixAuteur ,VueOptionsFiltrage.choixAlbum ));					
+  				});
 			}});
         choiceBoxAlbum.setItems(listeAlbum);
         choiceBoxAlbum.getSelectionModel().selectFirst();

@@ -2,6 +2,7 @@ package Vue;
 
 import Main.App;
 import Modele.Hierarchie;
+import Modele.MP3NewThread;
 import Modele.Musique;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -147,6 +148,7 @@ public class VueMusiqueEnCours extends ScrollPane {
     		// gérer la taille du text
     		this.layout();
     		gérerTailleTextLabel(); 
+    		
     	}
     }
     

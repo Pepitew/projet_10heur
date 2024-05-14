@@ -1,6 +1,7 @@
 package Main;
 
 import Modele.Hierarchie;
+import Modele.MP3NewThread;
 import Modele.Musique;
 import Modele.Playlist;
 import Modele.Record;
@@ -56,6 +57,9 @@ public class App extends Application {
 			// évènement sur la fermeture de l'app
 			primaryStage.setOnCloseRequest(event -> {
 				Hierarchie.encoder();
+				if(MP3NewThread.playerThread != null) {
+					MP3NewThread.kill();
+				}
 	        });
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -92,12 +96,12 @@ public class App extends Application {
 	
 	/** TEST PLAYLIST **/
 	public void testPlaylist() {
-		Playlist playlistRecommandation = new Playlist("Recommandation"); 
+		Playlist playlistRecommandation = new Playlist("Recommandations"); 
 		System.out.println("RECOMMANDATION " +Hierarchie.recommandation());
 		for(Musique m : Hierarchie.recommandation()) {
 			playlistRecommandation.add(m);
 		}
-		Playlist.mesPlaylist.put("Recommandation", playlistRecommandation);
+		Playlist.mesPlaylist.put("Recommandations", playlistRecommandation);
 		Playlist jaime = new Playlist("Musiques likées");
 		for(Musique m : Hierarchie.hierarchie) {
 			if(m.isLiked) {

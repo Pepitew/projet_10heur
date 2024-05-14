@@ -1,6 +1,7 @@
 package Vue;
 
 import Main.App;
+import Modele.MP3NewThread;
 import Modele.Musique;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
@@ -55,6 +56,12 @@ public class VueMusique extends AnchorPane{
   
         // ajout d'un écouteur d'évènement
         this.setOnMousePressed(event -> {
+        	if (musique != Musique.musiqueJouée) {
+        		if (MP3NewThread.playerThread != null) {
+        			MP3NewThread.kill();        			
+        		}
+    			new MP3NewThread(musique.getMusicPath(),0); 			
+    		}
         	Musique.musiqueJouée = musique;
         	App.vmec.afficherMusiqueEnCours();
         });

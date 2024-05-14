@@ -1,24 +1,37 @@
 package Modele;
 
+import java.io.File;
 import java.io.FileInputStream;
 
+import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.mp3.MP3File;
+
+import Main.App;
+import javafx.application.Platform;
 import javazoom.jl.player.Player;
 
 public class MP3NewThread {
 	private Player player;
 	private FileInputStream fis;
-	private static Thread playerThread;
-	public MP3NewThread(String filename) {
+	private static double currentPosition;
+	public static Thread playerThread, positionThread;
+	public static String filename;
+	public MP3NewThread(String filename, final int startPositionInSeconds) {
+		MP3NewThread.filename = filename;
+		if (positionThread != null) { positionThread.stop();}
 		playerThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					fis = new FileInputStream(filename);
 					player = new Player(fis);
+					MP3File mp3File = (MP3File) AudioFileIO.read(new File(filename));
+					long startPositionInBytes = (long) (startPositionInSeconds * mp3File.getAudioHeader().getBitRateAsNumber() * 1000/8  );
+					fis.skip(startPositionInBytes); 
+					System.out.println(player.getPosition()/1000.0);
+				    
 					while (true) {
-
 						player.play();
-
 					}
 				}
 				catch (Exception e) {
@@ -38,28 +51,55 @@ public class MP3NewThread {
 			}
 		});
 		playerThread.start();
+		
+		// Obtenir le temps de lecture en boucle tant que le lecteur est en train de jouer
+        positionThread = new Thread(() -> {
+        	try {
+        		Thread.sleep(700);
+        	} catch (InterruptedException e) {
+        		e.printStackTrace();
+        	}
+            while (player != null && !player.isComplete()) {
+                currentPosition = player.getPosition()/1000.0;
+                // Mettez en pause pendant une courte période pour éviter une boucle infinie
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.runLater(() -> {
+                	App.va.ca.timeCurrentLabel.setText(App.va.ca.formatTime(startPositionInSeconds+currentPosition));
+                	App.va.ca.lecteur.setValue(startPositionInSeconds+currentPosition);
+                });
+            }
+        });
+
+        positionThread.start();
 	}
 
 	//méthode resume()
 	public static void resume(){
 		playerThread.resume();
+		positionThread.resume();
 	}
 
 	// méthode : pause()
 	public static void pause() {
-		playerThread.suspend();;
+		playerThread.suspend();
+		positionThread.suspend();
 	}
 	
-	// m�thode stop()
+	// m�thode stop()
 	public static void kill() {
 		playerThread.stop();
+		positionThread.stop();
 	}
 
 
 	//EXEMPLE
 	public static void main(String[] args) {
 		// Remplacer "chemin/vers/ton/fichier.mp3" par le chemin de ton fichier MP3
-		MP3NewThread mp3Player = new MP3NewThread("data/Musique/SINS.mp3");
+		MP3NewThread mp3Player = new MP3NewThread("data/Musique/SINS.mp3", 0);
 
 
 		// Mettre en pause la lecture pendant quelques secondes
