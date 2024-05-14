@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import Main.App;
 import Vue.VueListeDeMusique;
+import javafx.application.Platform;
 
 
 public class Playlist implements Collection<Musique> {
@@ -54,14 +56,18 @@ public class Playlist implements Collection<Musique> {
     @Override
     public boolean add(Musique e) {
     	this.liste.add(e);
-    	VueListeDeMusique.miseAJourAffichagePlaylist();
+    	Platform.runLater(()->{
+    		App.va.ca.playlist.miseAJourAffichagePlaylist();    		
+    	});
         return true;
     }
 
     @Override
     public boolean remove(Object o) {
     	this.liste.remove(o);
-    	VueListeDeMusique.miseAJourAffichagePlaylist();
+    	Platform.runLater(()->{
+    		App.va.ca.playlist.miseAJourAffichagePlaylist();    		
+    	});
         return true;
     }
 

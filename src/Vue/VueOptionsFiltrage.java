@@ -3,6 +3,8 @@ package Vue;
 import Main.App;
 import Modele.Hierarchie;
 import Modele.Musique;
+import Modele.Musique.STYLE;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,6 +25,11 @@ public class VueOptionsFiltrage extends AnchorPane{
 	ChoiceBox<String> choiceBoxGenre = new ChoiceBox<>();
     ChoiceBox<String> choiceBoxAuteur = new ChoiceBox<>();
     ChoiceBox<String> choiceBoxAlbum = new ChoiceBox<>();
+    static STYLE choixGenre;
+    static String choixAuteur;
+    static String choixAlbum;
+    
+    
     Label labelOptions = new Label("Options de filtrage");
     FlowPane flowPane = new FlowPane();
     
@@ -63,7 +70,7 @@ public class VueOptionsFiltrage extends AnchorPane{
         
         chargerOptions();
 	}
-	/** Permet de modifier les options dans les choices box**/
+	/** Permet de modifier les options dans les choices box genre et auteur**/
 	public void chargerOptions() {
         
         // définit le texte par défaut de choiceBoxGenre + remplit les valeurs
@@ -71,6 +78,17 @@ public class VueOptionsFiltrage extends AnchorPane{
         for(Musique.STYLE genre : Musique.STYLE.values()) {
         	listeGenre.add(genre.name());
         }
+        choiceBoxGenre.valueProperty().addListener(new ChangeListener<String>() {
+  			@Override
+  			public void changed(ObservableValue<? extends String> obs, String oldValue, String newValue) {
+  				if(newValue != "Trier par genre") {
+  					VueOptionsFiltrage.choixGenre = STYLE.valueOf(newValue);
+  					App.va.ca.resultatsFiltrage.miseAJourAffichageOptionsFiltrage(Hierarchie.rechercher(VueOptionsFiltrage.choixGenre, VueOptionsFiltrage.choixAuteur ,VueOptionsFiltrage.choixAlbum ));					
+  				}
+  				else {
+  					VueOptionsFiltrage.choixGenre = null;
+  				}
+  			}});
         choiceBoxGenre.setItems(listeGenre);
         choiceBoxGenre.getSelectionModel().selectFirst();
         // définit le texte par défaut de choiceBoxAuteur + ajouter un observateur + remplit les valeurs
@@ -79,23 +97,49 @@ public class VueOptionsFiltrage extends AnchorPane{
         	if(! listeAuteur.contains(m.getAuteur())) {
         		listeAuteur.add(m.getAuteur());
         	}
+        	
         }
         choiceBoxAuteur.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> obs, String oldValue, String newValue) {
 				if(newValue != "Trier par auteur") {
 					choiceBoxAlbum.setVisible(true);
+					afficherChoiceListAlbum();
+					VueOptionsFiltrage.choixAuteur = newValue;
+					App.va.ca.resultatsFiltrage.miseAJourAffichageOptionsFiltrage(Hierarchie.rechercher(VueOptionsFiltrage.choixGenre, VueOptionsFiltrage.choixAuteur ,VueOptionsFiltrage.choixAlbum ));					
 				}
 				else {
 					choiceBoxAlbum.setVisible(false);
+					VueOptionsFiltrage.choixAuteur = null;
 				}
 				
 			}	            	
         });
         choiceBoxAuteur.setItems(listeAuteur);
         choiceBoxAuteur.getSelectionModel().selectFirst();
-        // définit le texte par défaut de choiceBoxAlbum
+      
+	}
+	
+	/** Permet d'afficher et de modifier les options dans la choices box album**/
+	public void afficherChoiceListAlbum() {
+		  // définit le texte par défaut de choiceBoxAlbum
         ObservableList<String> listeAlbum = FXCollections.observableArrayList("Trier par album");
+        for(Musique m : Hierarchie.hierarchie) {
+        	if((! listeAlbum.contains(m.getAlbum()) && (m.getAuteur() == choiceBoxAuteur.getValue()))) {
+        		listeAlbum.add(m.getAlbum());
+        	}
+        }
+        choiceBoxAlbum.valueProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> obs, String oldValue, String newValue) {
+				if(newValue != "Trier par album") {
+					VueOptionsFiltrage.choixAlbum = newValue;
+					App.va.ca.resultatsFiltrage.miseAJourAffichageOptionsFiltrage(Hierarchie.rechercher(VueOptionsFiltrage.choixGenre, VueOptionsFiltrage.choixAuteur ,VueOptionsFiltrage.choixAlbum ));					
+				}
+				else {
+					VueOptionsFiltrage.choixAlbum = null;
+				}
+			}});
         choiceBoxAlbum.setItems(listeAlbum);
         choiceBoxAlbum.getSelectionModel().selectFirst();
 	}

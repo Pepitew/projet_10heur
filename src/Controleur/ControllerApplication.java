@@ -1,6 +1,7 @@
 package Controleur;
 
 import java.io.IOException;
+import java.util.TreeSet;
 
 import com.jfoenix.controls.JFXSlider;
 
@@ -34,7 +35,7 @@ import javafx.util.Duration;
 public class ControllerApplication {
 	// initialisation des variables
 	@FXML
-	GridPane root;
+	public GridPane root;
 	@FXML
 	ImageView logo;
 	@FXML
@@ -63,6 +64,8 @@ public class ControllerApplication {
 
 	
 	Timeline timelineBtnAddMusic;
+	public VueListeDeMusique resultatsFiltrage;
+	public VueListeDeMusique playlist;
 
 	
 	// initialize() est appelée dès le chargement du fichier fxml
@@ -83,6 +86,7 @@ public class ControllerApplication {
 	            //masque l'info-bulle au dessus du slider (lecteur de musique) 
 	            lecteur.getChildrenUnmodifiable().get(3).setOpacity(0);
 
+		 		});
     		   // mise en place de la vue options filtrage
     		   root.getChildren().remove(placeHolderOptionsFiltrage);
     		   root.add(App.vof, 0, 7);
@@ -99,21 +103,20 @@ public class ControllerApplication {
     		   /** TEST **/
     		   // mise en place de la vue liste de Musique
     		   root.getChildren().remove(scrollPaneRecommandations);
-    		   VueListeDeMusique playlist = new VueListeDeMusique(Playlist.mesPlaylist.get("Musiques likées"), true);
+    		   playlist = new VueListeDeMusique(Playlist.mesPlaylist.get("Recommandation"), true);
     		   root.add(playlist, 2, 3);
     		   playlist.toBack();
     		   // mise en place de la vue resultat filtre
     		   root.getChildren().remove(placeholderAnchorResultatFiltrage);
-    		   VueListeDeMusique like = new VueListeDeMusique(Playlist.mesPlaylist.get("Recommandation"), false);
-    		   root.add(like, 2, 7);
-    		   like.toBack();
+    		   root.add(this.resultatsFiltrage = new VueListeDeMusique(Playlist.mesPlaylist.get("Musiques likées"), false), 2, 7);
+    		   resultatsFiltrage.toBack();
     		   /** TEST **/
+    		   
     		   Platform.runLater(() -> {
 	    		   //appel de méthode nécessaire pour un affichage correct au lancement
 	    		   App.vmec.afficherMusiqueEnCours();
 	    		   this.afficherRechercheMusique();	
     		   });
-	        });
 	}
 	
 	/** méthode pour agrandir le bouton qui ajoute une musique **/
