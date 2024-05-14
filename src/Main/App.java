@@ -31,6 +31,7 @@ public class App extends Application {
 		App.primaryStage = primaryStage;
 		// charger les données des musiques du dossier info_music
 		Record.read("database");
+		Record.read("playlistBase");
 		
 		this.testPlaylist();
 		try {
@@ -85,6 +86,7 @@ public class App extends Application {
 	public static void save() {
 		Hierarchie.encoder();
 		Record.read("database");
+		Record.read("playlistBase");
 		App.vof.chargerOptions();
 	} 
 	

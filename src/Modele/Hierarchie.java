@@ -75,13 +75,7 @@ public class Hierarchie {
 		TreeSet<Musique> recherche = new TreeSet<>();
 		
 		for (Musique m : Hierarchie.hierarchie) {
-			if (genre != null && m.getStyle() == genre) {
-				recherche.add(m);
-			}
-			else if (artiste != null && m.getAuteur() == artiste) {
-				recherche.add(m);
-			}
-			else if (album != null && m.getAlbum() == album) {
+			if ((genre == null || m.getStyle() == genre)&& (artiste == null || m.getAuteur() == artiste) &&(album == null || m.getAlbum() == album)){
 				recherche.add(m);
 			}
 		}

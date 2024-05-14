@@ -309,7 +309,7 @@
             </TextField>
          </children>
       </AnchorPane>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E6E6E6; -fx-border-width: 1 1 1 0; -fx-border-color: black;" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="5">
+      <AnchorPane fx:id="anchorPaneVosPlaylists" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #E6E6E6; -fx-border-width: 1 1 1 0; -fx-border-color: black;" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="5">
          <children>
             <Label alignment="CENTER" layoutY="20.0" prefHeight="30.0" style="-fx-background-color: #ffffff0b;" text="Vos Playlists" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
@@ -319,6 +319,113 @@
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </Label>
+            <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #e6e6e6; -fx-background: #e6e6e6; -fx-border-width: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+               <content>
+                  <VBox fx:id="vboxVosPlaylists" alignment="TOP_CENTER" prefHeight="280.0" prefWidth="260.0" style="-fx-border-width: 0;">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="30.0" styleClass="labelPlaylist" text="Playlist 1">
+                           <font>
+                              <Font name="Verdana Italic" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="30.0" styleClass="labelPlaylist" text="Playlist 1">
+                           <font>
+                              <Font name="Verdana Italic" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="30.0" styleClass="labelPlaylist" text="Playlist 1">
+                           <font>
+                              <Font name="Verdana Italic" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="30.0" styleClass="labelPlaylist" text="Playlist 1">
+                           <font>
+                              <Font name="Verdana Italic" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="30.0" styleClass="labelPlaylist" text="Playlist 1">
+                           <font>
+                              <Font name="Verdana Italic" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="30.0" styleClass="labelPlaylist" text="Playlist 1">
+                           <font>
+                              <Font name="Verdana Italic" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="30.0" styleClass="labelPlaylist" text="Playlist 1">
+                           <font>
+                              <Font name="Verdana Italic" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Label alignment="CENTER" prefHeight="30.0" styleClass="labelPlaylist" text="Playlist 1">
+                           <font>
+                              <Font name="Verdana Italic" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Label alignment="CENTER" layoutX="100.0" layoutY="318.0" prefHeight="30.0" styleClass="labelPlaylist" text="Playlist 1">
+                           <font>
+                              <Font name="Verdana Italic" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="10.0" top="10.0" />
+                           </padding>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
          </children>
       </AnchorPane>
       
