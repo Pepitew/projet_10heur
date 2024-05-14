@@ -20,19 +20,6 @@ public class Musique implements Comparable<Musique>{
 	private String musiquePath; //chemin vers la musique
 	private String album; //nom de l'album
 
-	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture) {
-		this.ID_Musique = Musique.ID;
-		Musique.changeID();
-		
-		this.titre = titre;
-		this.auteur = auteur;
-		this.duree = duree;
-		this.isLiked = isLiked;
-		this.style = style;
-		this.couverture = couverture;
-		Hierarchie.ajouterMusique(this);
-		
-	}
 	
 	public Musique(String titre, String auteur, int duree, boolean isLiked, STYLE style, String couverture, String musiquePath, String album) {
 		this.ID_Musique = Musique.ID;
@@ -71,9 +58,12 @@ public class Musique implements Comparable<Musique>{
 	public static void changeID() {
 		Musique.ID = Musique.ID+1;
 	}
-
 	public void ajouterImage(String img) {
 		this.couverture = img; //CHemin de l'image
+	}
+	
+	public static void changeID(int ID) {
+		Musique.ID = ID;
 	}
 	
 
@@ -137,6 +127,7 @@ public class Musique implements Comparable<Musique>{
 		phrase.append("Titre : " + this.titre + "\nAuteur : " + this.auteur + "\ndurée (secondes) :" + this.duree + "\nLiké ? : " + this.isLiked + "\nStyle : " + this.style.toString() + "\nChemin de l'image : " + this.couverture);
 		return phrase.toString();
 	}
+	
 
 	
 
@@ -174,7 +165,7 @@ public class Musique implements Comparable<Musique>{
 		
 		Record.read("database");
 		
-		System.out.println(Hierarchie.rechercher(""));
+		System.out.println(h);
 		
 		
 	}

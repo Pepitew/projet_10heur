@@ -15,18 +15,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class VueMusique extends AnchorPane{
-	public int id;
-	public String titre;
+	private int id;
+	private String titre;
+	private Musique musique;
 	public AnchorPane root;
 	
 	private Label labelTitre;
     private ImageView couvertureMusique;
 	
-	public VueMusique(String imagePath, String titre, String auteur, int id) {
+	public VueMusique(Musique m) {
 		super();
-		
-		this.id = id;
-		this.titre = titre;
+		this.musique = m;
+		this.id = m.ID_Musique;
+		this.titre = m.getTitre();
 
 		// configuration du AnchorPanel
 		this.setPrefSize(190, 190);
@@ -36,14 +37,14 @@ public class VueMusique extends AnchorPane{
 		labelTitre = new Label();
         labelTitre.setPrefHeight(30.0);
         labelTitre.setPrefWidth(150.0);
-        labelTitre.setText(titre+" - "+auteur);
+        labelTitre.setText(titre+" - "+m.getAuteur());
         AnchorPane.setBottomAnchor(labelTitre, 0.0);
         AnchorPane.setLeftAnchor(labelTitre, 20.0);
         AnchorPane.setRightAnchor(labelTitre, 20.0);
         
         // configuration de l'ImageView
         couvertureMusique = new ImageView();
-        couvertureMusique.setImage(new Image("file:"+imagePath));
+        couvertureMusique.setImage(new Image("file:"+m.getImage()));
         couvertureMusique.setFitHeight(150.0);
         couvertureMusique.setFitWidth(150.0);
         couvertureMusique.setPickOnBounds(true);
@@ -60,8 +61,7 @@ public class VueMusique extends AnchorPane{
   
         // ajout d'un écouteur d'évènement
         this.setOnMousePressed(event -> {
-        	Musique musique_a_lire = Hierarchie.rechercher(titre).first();
-        	Musique.musiqueJouée = musique_a_lire;
+        	Musique.musiqueJouée = musique;
         	App.vmec.afficherMusiqueEnCours();
         });
         }

@@ -51,14 +51,15 @@ public class ControllerFormulaire {
 	String nomImage;
 	String nomMusique;
 	AudioFile audioFile;
+	int dureeMusique;
 	
 	// Variable associée au fichier FXML
 	@FXML
 	private GridPane root;
 	@FXML
-	private Label labelMusique,labelTitre, labelGenre, labelAuteur, labelDuree;
+	private Label labelMusique,labelTitre, labelGenre, labelAuteur, labelAlbum;
 	@FXML
-	private TextField fieldTitre, fieldAuteur, fieldDuree;
+	private TextField fieldTitre, fieldAuteur, fieldAlbum;
 	@FXML
 	private ChoiceBox<Musique.STYLE> choiceBoxGenre;
 	@FXML
@@ -84,7 +85,7 @@ public class ControllerFormulaire {
 		// Remplir le dictionnaire labelFieldMap
 		labelFieldMap.put(fieldTitre,labelTitre);
         labelFieldMap.put(fieldAuteur,labelAuteur);
-        labelFieldMap.put(fieldDuree,labelDuree);
+        labelFieldMap.put(fieldAlbum,labelAlbum);
         
      // Cette méthode attend que la scène soit entièrement chargée avant d'effectué la fonction de callback
         Platform.runLater(() -> {
@@ -225,12 +226,13 @@ public class ControllerFormulaire {
             	nomMusique = tag.getFirst(FieldKey.TITLE); 
             	Artwork artwork = tag.getFirstArtwork(); 
             	String artist = tag.getFirst(FieldKey.ARTIST); 
-            	int durationSeconds = audioFile.getAudioHeader().getTrackLength(); 
+            	String album = tag.getFirst(FieldKey.ALBUM);
+            	dureeMusique = audioFile.getAudioHeader().getTrackLength(); 
             	
             	// on les assignes au champ de saisi et au lecteur d'image
             	this.fieldTitre.setText(nomMusique);
             	this.fieldAuteur.setText(artist);
-            	this.fieldDuree.setText(String.valueOf(durationSeconds));
+            	this.fieldAlbum.setText(album);
             	
             	if (artwork != null) {
             	    // Convertir l'artwork en tableau de bytes
@@ -262,7 +264,7 @@ public class ControllerFormulaire {
 	public void verifierSaisie(){
 		Tooltip tooltip = new Tooltip("Il faut que tous les champs soient remplit pour pouvoir ajouter une musique !");
 		tooltip.setShowDelay(javafx.util.Duration.millis(100));
-		if(fieldTitre.getText() == "" || fieldAuteur.getText() == "" || fieldDuree.getText() == "" || choiceBoxGenre.getValue() == null || imageMusic.getImage() == null || audioFile == null) {
+		if(fieldTitre.getText() == "" || fieldAuteur.getText() == "" || fieldAlbum.getText() == "" || choiceBoxGenre.getValue() == null || imageMusic.getImage() == null || audioFile == null) {
 			if(btnAjouter.getStyleClass().contains("btnAble")) {
 				btnAjouter.getStyleClass().remove("btnAble");				
 				btnAjouter.getStyleClass().add("btnDisable");				
@@ -287,7 +289,7 @@ public class ControllerFormulaire {
 	public void viderChampsSaisie() {
 		fieldTitre.setText("");
 		fieldAuteur.setText("");
-		fieldDuree.setText("");
+		fieldAlbum.setText("");
 		choiceBoxGenre.setValue(null);
 		imageMusic.setImage(null);
 		audioFile = null;
@@ -323,11 +325,12 @@ public class ControllerFormulaire {
 		// créer une nouvelle musique
 		String titre = fieldTitre.getText();
 		String auteur = fieldAuteur.getText();
-		int duree = Integer.valueOf(fieldDuree.getText());
+		String album = fieldAlbum.getText();
 		String couverture = "data/Image/"+nomImage;
+		String mp3 = "data/Musique/"+nomMusique+".mp3";
 		Musique.STYLE style = choiceBoxGenre.getValue(); 
 				
-		Musique m = new Musique(titre,auteur,duree,false,style,couverture);
+		Musique m = new Musique(titre,auteur,dureeMusique,false,style,couverture,mp3,album);
 		
 		// l'ajouter à l'ensemble des musiques
 		Hierarchie.hierarchie.add(m);
