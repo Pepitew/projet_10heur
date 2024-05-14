@@ -25,12 +25,12 @@ public class MP3NewThread {
 				try {
 					fis = new FileInputStream(filename);
 					player = new Player(fis);
+					// récupérer le débit binaire de la musique pour pouvoir démarrer à un certain temps
 					MP3File mp3File = (MP3File) AudioFileIO.read(new File(filename));
 					long startPositionInBytes = (long) (startPositionInSeconds * mp3File.getAudioHeader().getBitRateAsNumber() * 1000/8  );
 					fis.skip(startPositionInBytes); 
-					System.out.println(player.getPosition()/1000.0);
 				    
-					while (true) {
+					while (!player.isComplete()) {
 						player.play();
 					}
 				}
@@ -54,10 +54,12 @@ public class MP3NewThread {
 		
 		// Obtenir le temps de lecture en boucle tant que le lecteur est en train de jouer
         positionThread = new Thread(() -> {
-        	try {
-        		Thread.sleep(700);
-        	} catch (InterruptedException e) {
-        		e.printStackTrace();
+        	while(player == null) {
+        		try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
         	}
             while (player != null && !player.isComplete()) {
                 currentPosition = player.getPosition()/1000.0;

@@ -62,12 +62,7 @@ public class VueResultatsRecherche extends Label {
 	}
 	
 	private void lireMusique() {
-		if (musique != Musique.musiqueJouée) {
-			if (MP3NewThread.playerThread != null) {
-    			MP3NewThread.kill();        			
-    		}
-			new MP3NewThread(musique.getMusicPath(),0); 			
-		}
+		App.lireMusique(musique);
 		Musique.musiqueJouée = musique;
 		App.vmec.afficherMusiqueEnCours();
 		App.va.viderRechercheTextField();

@@ -45,7 +45,7 @@ public class ControllerApplication {
 	@FXML
 	ImageView imageViewMusiqueEnCours;
 	@FXML
-	SVGPath play, previousArrow, nextArrow,	like, pause;
+	public SVGPath play, previousArrow, nextArrow,	like, pause;
 	@FXML
 	public Button btnAddMusic;
 	@FXML 
@@ -175,16 +175,16 @@ public class ControllerApplication {
 		App.vf.cf.addMusique();
 		
 	}
-	/** méthode pour mettre à jour le temps du lecteur de musique **/
-	public void lecteurChange() {
-		timeCurrentLabel.setText(formatTime(lecteur.getValue()));
-	}
+
 	/** méthode pour reprendre la lecture lorsque l'on relâche le slider**/
-	public void reprendreLecture() {
+	public void lecteurChange() {
 		if(MP3NewThread.playerThread != null) {
 			MP3NewThread.kill();
-			new MP3NewThread(Musique.musiqueJouée.getMusicPath(), (int)lecteur.getValue());
 		}
+		if(pause.isVisible()) {
+			new MP3NewThread(Musique.musiqueJouée.getMusicPath(), (int)lecteur.getValue());			
+		}
+		timeCurrentLabel.setText(formatTime(lecteur.getValue()));
 	}
 	/** méthode pour un affichage correct lorsque l'on déplace le slider**/
 	public void bougerLecteur() {

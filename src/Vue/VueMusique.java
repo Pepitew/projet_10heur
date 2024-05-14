@@ -56,12 +56,7 @@ public class VueMusique extends AnchorPane{
   
         // ajout d'un écouteur d'évènement
         this.setOnMousePressed(event -> {
-        	if (musique != Musique.musiqueJouée) {
-        		if (MP3NewThread.playerThread != null) {
-        			MP3NewThread.kill();        			
-        		}
-    			new MP3NewThread(musique.getMusicPath(),0); 			
-    		}
+        	App.lireMusique(musique);
         	Musique.musiqueJouée = musique;
         	App.vmec.afficherMusiqueEnCours();
         });

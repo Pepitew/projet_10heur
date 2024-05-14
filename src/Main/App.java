@@ -94,6 +94,19 @@ public class App extends Application {
 		App.vof.chargerOptions();
 	} 
 	
+	public static void lireMusique(Musique musique) {
+		if (musique != Musique.musiqueJouée) {
+    		if (MP3NewThread.playerThread != null) {
+    			MP3NewThread.kill();        			
+    		}
+			new MP3NewThread(musique.getMusicPath(),0); 			
+		}
+		if(App.va.ca.play.isVisible()) {
+			App.va.ca.play.setVisible(false);
+			App.va.ca.pause.setVisible(true);
+		}
+	}
+	
 	/** TEST PLAYLIST **/
 	public void testPlaylist() {
 		Playlist playlistRecommandation = new Playlist("Recommandations"); 

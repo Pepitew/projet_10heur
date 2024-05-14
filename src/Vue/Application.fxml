@@ -229,7 +229,7 @@
                         <SVGPath fx:id="previousArrow" content="M7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5ZM7.72 12.53a.75.75 0 0 1 0-1.06l7.5-7.5a.75.75 0 1 1 1.06 1.06L9.31 12l6.97 6.97a.75.75 0 1 1-1.06 1.06l-7.5-7.5Z" fill="#e6e6e6" stroke="#5c5c5c" />
                      </children>
                   </Pane>
-                  <JFXSlider fx:id="lecteur" layoutX="300.0" layoutY="17.0" max="156.0" onMouseClicked="#lecteurChange" onMouseDragged="#bougerLecteur" onMouseReleased="#reprendreLecture" prefWidth="500.0" value="0.1" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="15.0">
+                  <JFXSlider fx:id="lecteur" layoutX="300.0" layoutY="17.0" max="156.0" onMouseDragged="#bougerLecteur" onMouseReleased="#lecteurChange" prefWidth="500.0" value="0.1" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="15.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></JFXSlider>
