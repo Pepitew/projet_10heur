@@ -9,6 +9,7 @@ import Modele.Musique.STYLE;
 public class Hierarchie {
 	
 	public static TreeSet<Musique> hierarchie = new TreeSet<>();
+	public static TreeSet<Playlist> playlists = new TreeSet<Playlist>();
 	
 	
 	public static void ajouterMusique(Musique m) {
@@ -19,18 +20,42 @@ public class Hierarchie {
 		Hierarchie.hierarchie.remove(m);
 	}
 	
+	public static void ajouterPlaylist(Playlist p) {
+		Hierarchie.playlists.add(p);
+	}
+	
+	public static void retirerMusique(Playlist p) {
+		Hierarchie.playlists.remove(p);
+	}
+	
 	public static void encoder() {
-	    //StringBuilder phrase = new StringBuilder();
-	    String[] desString = new String[Hierarchie.hierarchie.size()];
-	    int indice = 0;
-	    for (Musique m : Hierarchie.hierarchie) {
-	        //phrase.append(Musique.encoder(m));
-	        desString[indice] = Musique.encoder(m);
-	        indice++;
+	    if (!Hierarchie.hierarchie.isEmpty()) {
+	    	String[] desString = new String[Hierarchie.hierarchie.size()];
+	    	int indice = 0;
+	    	for (Musique m : Hierarchie.hierarchie) {
+	    		desString[indice] = Musique.encoder(m);
+	    		indice++;
+	    	}
+	    	Record.write(desString, "database");
 	    }
-	    Record.write(desString, "database");
+	    
+	    if (!Hierarchie.playlists.isEmpty()) {	    	
+	    	String[] desString2 = new String[Hierarchie.playlists.size()];
+	    	int indice2 = 0;
+	    	for (Playlist p : Hierarchie.playlists) {
+	    		desString2[indice2] = Playlist.encoder(p);
+	    		indice2++;
+	    	}
+	    	Record.write(desString2, "playlistBase");
+	    	
+	    }
+		
+
 	    Hierarchie.hierarchie.clear();
+	    Hierarchie.playlists.clear();
 	    Musique.ID = 0;
+	    
+  
 	}
 	
 	public static TreeSet<Musique> rechercher(String chaine){
@@ -68,7 +93,7 @@ public class Hierarchie {
 		Map<String, Integer> auteurFav = new HashMap<String, Integer>(); //int : nbOccurence
 		Map<STYLE, Integer> styleFav = new HashMap<Musique.STYLE, Integer>(); //int : nbOccurence
 		
-		/*for (Musique m : Hierarchie.hierarchie) {
+		for (Musique m : Hierarchie.hierarchie) {
 			if (m.isLiked) {
 				if (auteurFav.get(m.getAuteur()) != null) {
 					int valeur = auteurFav.get(m.getAuteur());
@@ -88,13 +113,6 @@ public class Hierarchie {
 					styleFav.put(m.getStyle(), 1);
 				}
 			}
-		}*/
-		
-		for (Musique m : Hierarchie.hierarchie) {
-		    if (m.isLiked) {
-		        auteurFav.merge(m.getAuteur(), 1, Integer::sum);
-		        styleFav.merge(m.getStyle(), 1, Integer::sum);
-		    }
 		}
 		
 		int drapeau = 0;
@@ -121,7 +139,7 @@ public class Hierarchie {
 	}
 	
 	public String toString() {
-		return Hierarchie.hierarchie.toString();
+		return Hierarchie.hierarchie.toString() + "\n" + Hierarchie.playlists.toString();
 		
 	}
 	

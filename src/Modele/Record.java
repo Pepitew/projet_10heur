@@ -58,6 +58,7 @@ public class Record {
 	 * fileName : Nom du fichier dans lequel la chaine sera écrite
 	 */
 	
+	@SuppressWarnings("unused")
 	public static void read(String fileName) {
         try {
             // Ouverture du fichier
@@ -68,10 +69,18 @@ public class Record {
             String ligne;
             // Lecture et traitement de chaque ligne du fichier
             while ((ligne = fichier.readLine()) != null) {
-                // Décodage de la musique à partir de la ligne
-                Musique musique = Musique.decoder(ligne);
-                // Affichage de la musique (ou traitement supplémentaire si nécessaire)
-                //System.out.println(musique.toString());
+            	
+            	if (fileName == "database") {
+            		// Décodage de la musique à partir de la ligne
+            		Musique musique = Musique.decoder(ligne);
+            		// Affichage de la musique (ou traitement supplémentaire si nécessaire)
+            		//System.out.println(musique.toString());
+            	} else if (fileName == "playlistBase") {
+            		// Décodage de la musique à partir de la ligne
+            		Playlist p = Playlist.decoder(ligne);
+            		// Affichage de la musique (ou traitement supplémentaire si nécessaire)
+            		//System.out.println(musique.toString());
+            	}
             }
             // Fermeture des flux
             fichier.close();

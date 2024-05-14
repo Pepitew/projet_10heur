@@ -31,6 +31,7 @@ public class App extends Application {
 		App.primaryStage = primaryStage;
 		// charger les données des musiques du dossier info_music
 		Record.read("database");
+		
 		this.testPlaylist();
 		try {
 			Image icon = new Image("file:../../Logo/logo.png");
@@ -90,7 +91,7 @@ public class App extends Application {
 	/** TEST PLAYLIST **/
 	public void testPlaylist() {
 		Playlist playlistRecommandation = new Playlist("Recommandation"); 
-		System.out.println(Hierarchie.recommandation());
+		System.out.println("RECOMMANDATION " +Hierarchie.recommandation());
 		for(Musique m : Hierarchie.recommandation()) {
 			playlistRecommandation.add(m);
 		}
