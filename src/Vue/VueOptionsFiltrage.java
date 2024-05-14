@@ -17,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 
 public class VueOptionsFiltrage extends AnchorPane{
 	double vGap = 20.0;
@@ -40,7 +41,7 @@ public class VueOptionsFiltrage extends AnchorPane{
 	 	// configuration Label
         labelOptions.setStyle("-fx-background-color: #ffffff0b;");
         labelOptions.setAlignment(Pos.CENTER);
-        labelOptions.setFont(Font.font("Verdana Italic", 18));
+        labelOptions.setFont(Font.font("Verdana",FontPosture.ITALIC, 18));
         labelOptions.setPadding(new Insets(10, 0, 10, 0));
         labelOptions.setPrefHeight(30.0);
         AnchorPane.setLeftAnchor(labelOptions, 0.0);

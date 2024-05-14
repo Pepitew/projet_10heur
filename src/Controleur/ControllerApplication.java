@@ -1,6 +1,7 @@
 package Controleur;
 
 import java.io.IOException;
+import java.util.Map.Entry;
 import java.util.TreeSet;
 
 import com.jfoenix.controls.JFXSlider;
@@ -18,6 +19,8 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -30,6 +33,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.util.Duration;
 
 public class ControllerApplication {
@@ -53,13 +58,13 @@ public class ControllerApplication {
 	@FXML
 	HBox recommandationContainer;
 	@FXML
-	VBox vboxRecherche;
+	public VBox vboxRecherche, vboxVosPlaylists;
 	@FXML
 	public ScrollPane scrollPaneRecommandations, placeHolderMusiqueEnCours, scrollPaneResultatsRecherche;
 	@FXML
 	public TextField textFieldRechercher;
 	@FXML
-	AnchorPane placeHolderOptionsFiltrage, placeholderAnchorResultatFiltrage;
+	AnchorPane placeHolderOptionsFiltrage, placeholderAnchorResultatFiltrage, anchorPaneVosPlaylists;
 
 
 	
@@ -87,6 +92,17 @@ public class ControllerApplication {
 	            lecteur.getChildrenUnmodifiable().get(3).setOpacity(0);
 
 		 		});
+		 
+		 		//écouteur sur l'anchor pane de la session vos playlist pour ajuster la taille de la vbox à celle de l'anchor Pane
+		 		anchorPaneVosPlaylists.widthProperty().addListener((obs, odlValue, newValue)->{
+		 			this.vboxVosPlaylists.setPrefWidth((double) newValue);
+		 			for (Node n : this.vboxVosPlaylists.getChildren()) {
+		 				if(n instanceof Label) {
+		 					((Label) n).setPrefWidth((double) newValue);
+		 				}
+		 			}
+		 		});
+		 
     		   // mise en place de la vue options filtrage
     		   root.getChildren().remove(placeHolderOptionsFiltrage);
     		   root.add(App.vof, 0, 7);
@@ -108,7 +124,7 @@ public class ControllerApplication {
     		   playlist.toBack();
     		   // mise en place de la vue resultat filtre
     		   root.getChildren().remove(placeholderAnchorResultatFiltrage);
-    		   root.add(this.resultatsFiltrage = new VueListeDeMusique(Playlist.mesPlaylist.get("Musiques likées"), false), 2, 7);
+    		   root.add(this.resultatsFiltrage = new VueListeDeMusique(new TreeSet<Musique>(), false), 2, 7);
     		   resultatsFiltrage.toBack();
     		   /** TEST **/
     		   
@@ -116,6 +132,7 @@ public class ControllerApplication {
 	    		   //appel de méthode nécessaire pour un affichage correct au lancement
 	    		   App.vmec.afficherMusiqueEnCours();
 	    		   this.afficherRechercheMusique();	
+	    		   this.chargerLabelMesPlaylists();
     		   });
 	}
 	
@@ -224,4 +241,22 @@ public class ControllerApplication {
     		MP3Player.close();
     	}
     }
-}
+    
+    /** Méthode pour charger les labels des playlist, dans l'onglet mes playlists **/
+    public void chargerLabelMesPlaylists() {
+    	this.vboxVosPlaylists.getChildren().clear();
+    	for(Entry<String, Playlist> p : Playlist.mesPlaylist.entrySet()) {
+    		Label l = new Label(p.getKey());
+    		l.setFont(Font.font("System",14));
+    		l.setPadding(new Insets(10, 0, 10, 0));
+    		l.getStyleClass().add("labelPlaylist");
+    		l.setPrefWidth(this.anchorPaneVosPlaylists.getWidth());
+    		
+    		l.setOnMousePressed(event->{
+    			this.playlist.miseAJourAffichagePlaylist(p.getValue().getName());
+    		});
+    		
+    		this.vboxVosPlaylists.getChildren().add(l);
+    	}
+    }
+}	

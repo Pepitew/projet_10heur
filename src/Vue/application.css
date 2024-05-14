@@ -55,3 +55,11 @@ ProgressBar{
     -fx-background-color: #1aa34a; /* Background color when pressed */
     -fx-border-color: #1aa34a; /* Border color when pressed */
 }
+
+.labelPlaylist:hover{
+	-fx-background-color : #cfcfcf;
+	-fx-cursor: hand;
+}
+.labelPlaylist{
+	-fx-alignment: center;	
+}
