@@ -60,7 +60,7 @@ public class Playlist implements Collection<Musique>,Comparable<Playlist> {
 
     @Override
     public boolean add(Musique e) {
-    	VueListeDeMusique.miseAJourAffichagePlaylist();
+    	//VueListeDeMusique.miseAJourAffichagePlaylist();
         return this.liste.add(e);
     }
 
@@ -148,6 +148,21 @@ public class Playlist implements Collection<Musique>,Comparable<Playlist> {
 	@Override
 	public int compareTo(Playlist o) {
 		return this.name.compareTo(o.name);
+	}
+	
+	public String toString() {
+		StringBuilder phrase = new StringBuilder();
+		phrase.append("Playlist : " + this.name + "\n");
+		if (!this.isEmpty()) {
+			for (Musique m : this.liste) {
+				phrase.append(m.getTitre() + "\n");
+			}
+		} else {
+			phrase.append("la playlist est vide");
+		}
+		
+		
+		return phrase.toString();
 	}
 }
 

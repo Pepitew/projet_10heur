@@ -29,21 +29,27 @@ public class Hierarchie {
 	}
 	
 	public static void encoder() {
-	    String[] desString = new String[Hierarchie.hierarchie.size()];
-	    int indice = 0;
-	    for (Musique m : Hierarchie.hierarchie) {
-	        desString[indice] = Musique.encoder(m);
-	        indice++;
+	    if (!Hierarchie.hierarchie.isEmpty()) {
+	    	String[] desString = new String[Hierarchie.hierarchie.size()];
+	    	int indice = 0;
+	    	for (Musique m : Hierarchie.hierarchie) {
+	    		desString[indice] = Musique.encoder(m);
+	    		indice++;
+	    	}
+	    	Record.write(desString, "database");
 	    }
-	    Record.write(desString, "database");
 	    
-	    String[] desString2 = new String[Hierarchie.hierarchie.size()];
-	    int indice2 = 0;
-	    for (Playlist p : Hierarchie.playlists) {
-	        desString[indice2] = Playlist.encoder(p);
-	        indice2++;
+	    if (!Hierarchie.playlists.isEmpty()) {	    	
+	    	String[] desString2 = new String[Hierarchie.playlists.size()];
+	    	int indice2 = 0;
+	    	for (Playlist p : Hierarchie.playlists) {
+	    		desString2[indice2] = Playlist.encoder(p);
+	    		indice2++;
+	    	}
+	    	Record.write(desString2, "playlistBase");
+	    	
 	    }
-	    Record.write(desString2, "playlistBase");
+		
 
 	    Hierarchie.hierarchie.clear();
 	    Hierarchie.playlists.clear();
@@ -134,7 +140,7 @@ public class Hierarchie {
 	}
 	
 	public String toString() {
-		return Hierarchie.hierarchie.toString();
+		return Hierarchie.hierarchie.toString() + "\n" + Hierarchie.playlists.toString();
 		
 	}
 	
