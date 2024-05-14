@@ -49,6 +49,11 @@ public class MP3NewThread {
 	public static void pause() {
 		playerThread.suspend();;
 	}
+	
+	// méthode stop()
+	public static void kill() {
+		playerThread.stop();
+	}
 
 
 	//EXEMPLE
@@ -71,6 +76,13 @@ public class MP3NewThread {
 			e.printStackTrace();
 		}
 		MP3NewThread.resume();
-
+		
+		try {
+			Thread.sleep(1000); // Pause pendant 3 secondes
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		MP3NewThread.kill();
 	}
 }
