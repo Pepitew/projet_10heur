@@ -63,8 +63,6 @@ public class VueResultatsRecherche extends Label {
 	
 	private void lireMusique() {
 		App.lireMusique(musique);
-		Musique.musiqueJouée = musique;
-		App.vmec.afficherMusiqueEnCours();
 		App.va.viderRechercheTextField();
 	}
 }

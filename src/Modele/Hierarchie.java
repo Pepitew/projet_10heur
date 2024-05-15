@@ -74,11 +74,17 @@ public class Hierarchie {
 	public static TreeSet<Musique> rechercher(STYLE genre, String artiste, String album) {
 		TreeSet<Musique> recherche = new TreeSet<>();
 		
+		if(genre == null && artiste == null && album == null) {
+			return recherche;
+		}
+		
 		for (Musique m : Hierarchie.hierarchie) {
-			if ((genre == null || m.getStyle() == genre)&& (artiste == null || m.getAuteur() == artiste) &&(album == null || m.getAlbum() == album)){
+			if ((genre == null || m.getStyle() == genre)&& (artiste == null || m.getAuteur().equals(artiste)) &&(album == null || m.getAlbum().equals(album))){
 				recherche.add(m);
 			}
 		}
+		System.out.println(recherche);
+		System.out.println("--------------------------------------------------------");
 		return recherche;
 	}
 	
@@ -136,11 +142,7 @@ public class Hierarchie {
 				recherche.remove(reco.last());
 				i++;
 		}
-		
-		
-		if(drapeauAuteur == 0 && drapeauStyle == 0) {
-			reco = new TreeSet<Musique>();
-		}
+
 		
 		
 		return reco;

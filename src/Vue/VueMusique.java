@@ -57,8 +57,6 @@ public class VueMusique extends AnchorPane{
         // ajout d'un écouteur d'évènement
         this.setOnMousePressed(event -> {
         	App.lireMusique(musique);
-        	Musique.musiqueJouée = musique;
-        	App.vmec.afficherMusiqueEnCours();
         });
         }
 }

@@ -50,6 +50,8 @@ public class App extends Application {
 			primaryStage.getIcons().add(icon); 
 			primaryStage.setMinHeight(830);
 			primaryStage.setMinWidth(1550);
+			primaryStage.setHeight(830);
+			primaryStage.setWidth(1550);
 			primaryStage.setMaxHeight(830);
 			primaryStage.setMaxWidth(1550);
 			primaryStage.show();
@@ -91,7 +93,6 @@ public class App extends Application {
 		Hierarchie.encoder();
 		Record.read("database");
 		Record.read("playlistBase");
-		App.vof.chargerOptions();
 	} 
 	
 	public static void lireMusique(Musique musique) {
@@ -105,6 +106,8 @@ public class App extends Application {
 			App.va.ca.play.setVisible(false);
 			App.va.ca.pause.setVisible(true);
 		}
+		Musique.musiqueJouée = musique;
+		App.vmec.afficherMusiqueEnCours();
 	}
 	
 	/** TEST PLAYLIST **/
