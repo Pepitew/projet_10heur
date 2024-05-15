@@ -4,10 +4,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import Main.App;
 import Vue.VueListeDeMusique;
+import javafx.application.Platform;
 
 
-public class Playlist implements Collection<Musique> {
+public class Playlist implements Collection<Musique>,Comparable<Playlist> {
     private String name;
     private ArrayList<Musique> liste;
     public static HashMap<String, Playlist> mesPlaylist = new HashMap<String, Playlist>();
@@ -60,16 +62,18 @@ public class Playlist implements Collection<Musique> {
 
     @Override
     public boolean add(Musique e) {
-    	this.liste.add(e);
-    	VueListeDeMusique.miseAJourAffichagePlaylist();
-        return true;
+    	Platform.runLater(()->{
+    		App.va.ca.playlist.miseAJourAffichagePlaylist(this.getName());    		
+    	});    
+        return this.liste.add(e);
     }
 
     @Override
     public boolean remove(Object o) {
-    	this.liste.remove(o);
-    	VueListeDeMusique.miseAJourAffichagePlaylist();
-        return true;
+    	Platform.runLater(()->{
+    		App.va.ca.playlist.miseAJourAffichagePlaylist(this.getName());    		
+    	});
+        return this.liste.remove(o);
     }
 
     @Override
@@ -79,6 +83,9 @@ public class Playlist implements Collection<Musique> {
 
     @Override
     public boolean addAll(Collection<? extends Musique> c) {
+    	Platform.runLater(()->{
+    		App.va.ca.playlist.miseAJourAffichagePlaylist(this.getName());    		
+    	});  
         return this.liste.addAll(c);
     }
 
@@ -146,6 +153,26 @@ public class Playlist implements Collection<Musique> {
 	    Playlist p = new Playlist(arguments.get(0), liste);
 	    Hierarchie.ajouterPlaylist(p);
 		return p;
+	}
+
+	@Override
+	public int compareTo(Playlist o) {
+		return this.name.compareTo(o.name);
+	}
+	
+	public String toString() {
+		StringBuilder phrase = new StringBuilder();
+		phrase.append("Playlist : " + this.name + "\n");
+		if (!this.isEmpty()) {
+			for (Musique m : this.liste) {
+				phrase.append(m.getTitre() + "\n");
+			}
+		} else {
+			phrase.append("la playlist est vide");
+		}
+		
+		
+		return phrase.toString();
 	}
 }
 

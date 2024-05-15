@@ -29,21 +29,27 @@ public class Hierarchie {
 	}
 	
 	public static void encoder() {
-	    String[] desString = new String[Hierarchie.hierarchie.size()];
-	    int indice = 0;
-	    for (Musique m : Hierarchie.hierarchie) {
-	        desString[indice] = Musique.encoder(m);
-	        indice++;
+	    if (!Hierarchie.hierarchie.isEmpty()) {
+	    	String[] desString = new String[Hierarchie.hierarchie.size()];
+	    	int indice = 0;
+	    	for (Musique m : Hierarchie.hierarchie) {
+	    		desString[indice] = Musique.encoder(m);
+	    		indice++;
+	    	}
+	    	Record.write(desString, "database");
 	    }
-	    Record.write(desString, "database");
 	    
-	    String[] desString2 = new String[Hierarchie.hierarchie.size()];
-	    int indice2 = 0;
-	    for (Playlist p : Hierarchie.playlists) {
-	        desString[indice2] = Playlist.encoder(p);
-	        indice2++;
+	    if (!Hierarchie.playlists.isEmpty()) {	    	
+	    	String[] desString2 = new String[Hierarchie.playlists.size()];
+	    	int indice2 = 0;
+	    	for (Playlist p : Hierarchie.playlists) {
+	    		desString2[indice2] = Playlist.encoder(p);
+	    		indice2++;
+	    	}
+	    	Record.write(desString2, "playlistBase");
+	    	
 	    }
-	    Record.write(desString2, "playlistBase");
+		
 
 	    Hierarchie.hierarchie.clear();
 	    Hierarchie.playlists.clear();
@@ -68,14 +74,12 @@ public class Hierarchie {
 	public static TreeSet<Musique> rechercher(STYLE genre, String artiste, String album) {
 		TreeSet<Musique> recherche = new TreeSet<>();
 		
+		if(genre == null && artiste == null && album == null) {
+			return recherche;
+		}
+		
 		for (Musique m : Hierarchie.hierarchie) {
-			if (genre != null && m.getStyle() == genre) {
-				recherche.add(m);
-			}
-			else if (artiste != null && m.getAuteur() == artiste) {
-				recherche.add(m);
-			}
-			else if (album != null && m.getAlbum() == album) {
+			if ((genre == null || m.getStyle() == genre)&& (artiste == null || m.getAuteur().equals(artiste)) &&(album == null || m.getAlbum().equals(album))){
 				recherche.add(m);
 			}
 		}
@@ -93,7 +97,7 @@ public class Hierarchie {
 				if (auteurFav.get(m.getAuteur()) != null) {
 					int valeur = auteurFav.get(m.getAuteur());
 					auteurFav.remove(m.getAuteur());
-					auteurFav.put(m.getAuteur(), valeur++);
+					auteurFav.put(m.getAuteur(), valeur+1);
 				}
 				else {
 					auteurFav.put(m.getAuteur(), 1);
@@ -102,7 +106,7 @@ public class Hierarchie {
 				if (styleFav.get(m.getStyle()) != null) {
 					int valeur = styleFav.get(m.getStyle());
 					styleFav.remove(m.getStyle());
-					styleFav.put(m.getStyle(), valeur++);
+					styleFav.put(m.getStyle(), valeur+1);
 				}
 				else {
 					styleFav.put(m.getStyle(), 1);
@@ -110,31 +114,41 @@ public class Hierarchie {
 			}
 		}
 		
-		int drapeau = 0;
+		int drapeauAuteur = 0;
 		String auteurMax = "";
 		
 		for (String auteur : auteurFav.keySet()) {
-			if (auteurFav.get(auteur) > drapeau) {
+			if (auteurFav.get(auteur) > drapeauAuteur) {
 				auteurMax = auteur;
-				drapeau = auteurFav.get(auteur);
+				drapeauAuteur = auteurFav.get(auteur);
+			}
+		}
+		int drapeauStyle = 0;
+		STYLE styleMax = null;
+		for (STYLE style : styleFav.keySet()) {
+			if (styleFav.get(style) > drapeauStyle) {
+				styleMax = style;
+				drapeauStyle = styleFav.get(style);
 			}
 		}
 
 		TreeSet<Musique> recherche = Hierarchie.rechercher(null, auteurMax, null);
-		for (int i = 0; i < 5; i++) {
-
-			if (recherche.size() != 0) {
+		recherche.addAll(Hierarchie.rechercher(styleMax, null, null));
+		
+		int i = 0;
+		while (recherche.size() != 0 && i < 15) {
 				reco.add(recherche.first());
-				reco.remove(reco.first());
-			}
-				
+				recherche.remove(reco.last());
+				i++;
 		}
+
+		
 		
 		return reco;
 	}
 	
 	public String toString() {
-		return Hierarchie.hierarchie.toString();
+		return Hierarchie.hierarchie.toString() + "\n" + Hierarchie.playlists.toString();
 		
 	}
 	

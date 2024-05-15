@@ -1,6 +1,7 @@
 package Main;
 
 import Modele.Hierarchie;
+import Modele.MP3NewThread;
 import Modele.Musique;
 import Modele.Playlist;
 import Modele.Record;
@@ -31,6 +32,8 @@ public class App extends Application {
 		App.primaryStage = primaryStage;
 		// charger les données des musiques du dossier info_music
 		Record.read("database");
+		Record.read("playlistBase");
+		
 		this.testPlaylist();
 		try {
 			Image icon = new Image("file:../../Logo/logo.png");
@@ -45,8 +48,10 @@ public class App extends Application {
 			primaryStage.setScene(App.va);
 			primaryStage.setResizable(true);
 			primaryStage.getIcons().add(icon); 
-			primaryStage.setMinHeight(580);
-			primaryStage.setMinWidth(1000);
+			primaryStage.setMinHeight(830);
+			primaryStage.setMinWidth(1550);
+			primaryStage.setHeight(830);
+			primaryStage.setWidth(1550);
 			primaryStage.setMaxHeight(830);
 			primaryStage.setMaxWidth(1550);
 			primaryStage.show();
@@ -54,6 +59,9 @@ public class App extends Application {
 			// évènement sur la fermeture de l'app
 			primaryStage.setOnCloseRequest(event -> {
 				Hierarchie.encoder();
+				if(MP3NewThread.playerThread != null) {
+					MP3NewThread.kill();
+				}
 	        });
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -84,17 +92,30 @@ public class App extends Application {
 	public static void save() {
 		Hierarchie.encoder();
 		Record.read("database");
-		App.vof.chargerOptions();
+		Record.read("playlistBase");
 	} 
+	
+	public static void lireMusique(Musique musique) {
+		if (musique != Musique.musiqueJouée) {
+    		if (MP3NewThread.playerThread != null) {
+    			MP3NewThread.kill();        			
+    		}
+			new MP3NewThread(musique.getMusicPath(),0); 			
+		}
+		if(App.va.ca.play.isVisible()) {
+			App.va.ca.play.setVisible(false);
+			App.va.ca.pause.setVisible(true);
+		}
+		Musique.musiqueJouée = musique;
+		App.vmec.afficherMusiqueEnCours();
+	}
 	
 	/** TEST PLAYLIST **/
 	public void testPlaylist() {
-		Playlist playlistRecommandation = new Playlist("Recommandation"); 
-		System.out.println(Hierarchie.recommandation());
-		for(Musique m : Hierarchie.recommandation()) {
-			playlistRecommandation.add(m);
-		}
-		Playlist.mesPlaylist.put("Recommandation", playlistRecommandation);
+		Playlist playlistRecommandation = new Playlist("Recommandations"); 
+		playlistRecommandation.addAll(Hierarchie.recommandation());
+		
+		Playlist.mesPlaylist.put("Recommandations", playlistRecommandation);
 		Playlist jaime = new Playlist("Musiques likées");
 		for(Musique m : Hierarchie.hierarchie) {
 			if(m.isLiked) {

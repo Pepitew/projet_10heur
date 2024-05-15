@@ -2,6 +2,7 @@ package Vue;
 
 import Main.App;
 import Modele.Hierarchie;
+import Modele.MP3NewThread;
 import Modele.Musique;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -61,8 +62,7 @@ public class VueResultatsRecherche extends Label {
 	}
 	
 	private void lireMusique() {
-		Musique.musiqueJouée = musique;
-		App.vmec.afficherMusiqueEnCours();
+		App.lireMusique(musique);
 		App.va.viderRechercheTextField();
 	}
 }

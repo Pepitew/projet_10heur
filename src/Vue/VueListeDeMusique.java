@@ -11,11 +11,10 @@ import javafx.scene.layout.HBox;
 
 public class VueListeDeMusique extends ScrollPane {
 	private HBox recommandationContainer;
-	private static VueListeDeMusique playlist;
-	private static String nomPlaylist;
+	public String currentPlaylist;
 	
     
-    public VueListeDeMusique(Collection<Musique> ensembleMusique, boolean isPlaylist) {
+    public VueListeDeMusique(Collection<Musique> ensembleMusique) {
     	this.recommandationContainer = new HBox();
     	loadComponents(ensembleMusique);
         setupLayout();
@@ -23,10 +22,6 @@ public class VueListeDeMusique extends ScrollPane {
 	   recommandationContainer.setOnScroll(event -> {
             this.setHvalue(this.getHvalue()+event.getDeltaY()/recommandationContainer.getChildren().size()/10);
 	   });
-	   if(isPlaylist) {
-		   VueListeDeMusique.playlist = this;
-		   VueListeDeMusique.nomPlaylist = ((Playlist) ensembleMusique).getName();
-	   }
 }
     
     private void loadComponents(Collection<Musique> ensembleMusique) {
@@ -52,10 +47,15 @@ public class VueListeDeMusique extends ScrollPane {
         recommandationContainer.setSpacing(10);
     }
     /** Mets à jour les musiques afficher dans l'onglet d'affichage des playlists si la playlist mise à jour est celle affichée**/
-    public static void miseAJourAffichagePlaylist() {
-    	if(VueListeDeMusique.playlist != null) {
-    	
-    		playlist.loadComponents(Playlist.mesPlaylist.get(VueListeDeMusique.nomPlaylist));
+    public void miseAJourAffichagePlaylist(String nomPlaylist) {
+    	if(currentPlaylist == nomPlaylist) {
+    		this.loadComponents(Playlist.mesPlaylist.get(nomPlaylist));    		
     	}
     }
+    
+    /** Mets à jour les musiques afficher dans l'onglet d'affichage des options lorsq'une option change **/
+    public void miseAJourAffichageOptionsFiltrage(Collection<Musique> listeMusique) {
+    	this.loadComponents(listeMusique);
+    }
+    
 }

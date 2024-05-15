@@ -1,18 +1,13 @@
 package Vue;
 
-import java.io.IOException;
-
 import Main.App;
-import Modele.Hierarchie;
+import Modele.MP3NewThread;
 import Modele.Musique;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 
 public class VueMusique extends AnchorPane{
 	private int id;
@@ -61,8 +56,7 @@ public class VueMusique extends AnchorPane{
   
         // ajout d'un écouteur d'évènement
         this.setOnMousePressed(event -> {
-        	Musique.musiqueJouée = musique;
-        	App.vmec.afficherMusiqueEnCours();
+        	App.lireMusique(musique);
         });
         }
 }

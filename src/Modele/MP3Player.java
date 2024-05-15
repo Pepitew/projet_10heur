@@ -1,7 +1,6 @@
 package Modele;
 
 import java.io.FileInputStream;
-
 import Main.App;
 import javafx.application.Platform;
 import javazoom.jl.player.Player;
@@ -36,7 +35,7 @@ public class MP3Player {
         });
 
         lectureThread.start();
-       
+
         // Obtenir le temps de lecture en boucle tant que le lecteur est en train de jouer
         positionThread = new Thread(() -> {
         	try {
@@ -66,7 +65,7 @@ public class MP3Player {
     public static double getCurrentPosition() {
         return currentPosition;
     }
-    
+
     public static void close() {
         if (player != null) {
             player.close();

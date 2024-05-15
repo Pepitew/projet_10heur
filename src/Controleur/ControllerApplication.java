@@ -1,12 +1,14 @@
 package Controleur;
 
 import java.io.IOException;
+import java.util.Map.Entry;
+import java.util.TreeSet;
 
 import com.jfoenix.controls.JFXSlider;
 
 import Main.App;
 import Modele.Hierarchie;
-import Modele.MP3Player;
+import Modele.MP3NewThread;
 import Modele.Musique;
 import Modele.Playlist;
 import Vue.VueListeDeMusique;
@@ -17,6 +19,8 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -29,18 +33,20 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.util.Duration;
 
 public class ControllerApplication {
 	// initialisation des variables
 	@FXML
-	GridPane root;
+	public GridPane root;
 	@FXML
 	ImageView logo;
 	@FXML
 	ImageView imageViewMusiqueEnCours;
 	@FXML
-	SVGPath play, previousArrow, nextArrow,	like, pause;
+	public SVGPath play, previousArrow, nextArrow,	like, pause;
 	@FXML
 	public Button btnAddMusic;
 	@FXML 
@@ -48,27 +54,27 @@ public class ControllerApplication {
 	@FXML
 	public JFXSlider lecteur;
 	@FXML
-	public Label timeMaxLabel, timeCurrentLabel, labelNomMusiqueEnCours ,labelAuteurMusiqueEnCours,labelGenreMusiqueEnCours;
+	public Label labelPlaylist, timeMaxLabel, timeCurrentLabel, labelNomMusiqueEnCours ,labelAuteurMusiqueEnCours,labelGenreMusiqueEnCours;
 	@FXML
 	HBox recommandationContainer;
 	@FXML
-	VBox vboxRecherche;
+	public VBox vboxRecherche, vboxVosPlaylists;
 	@FXML
 	public ScrollPane scrollPaneRecommandations, placeHolderMusiqueEnCours, scrollPaneResultatsRecherche;
 	@FXML
 	public TextField textFieldRechercher;
 	@FXML
-	AnchorPane placeHolderOptionsFiltrage, placeholderAnchorResultatFiltrage;
+	AnchorPane placeHolderOptionsFiltrage, placeholderAnchorResultatFiltrage, anchorPaneVosPlaylists;
 
 
-	
 	Timeline timelineBtnAddMusic;
-
+	public VueListeDeMusique resultatsFiltrage;
+	public VueListeDeMusique playlist;
 	
 	// initialize() est appelée dès le chargement du fichier fxml
 	@FXML
 	public void initialize() {
-		// Cette méthode attend que la scène soit entièrement chargée avant d'effectué la fonction de callback
+		// Cette méthode qui attends le prochain rafraichissement de l'app
 		 Platform.runLater(() -> {
 	            // écouteur sur la largeur de flowPaneLogo pour définir la largeur du logo en fonction de la taille de la fenêtre
 	            this.flowPaneLogo.widthProperty().addListener((obs, oldValue, newValue)->{
@@ -83,6 +89,18 @@ public class ControllerApplication {
 	            //masque l'info-bulle au dessus du slider (lecteur de musique) 
 	            lecteur.getChildrenUnmodifiable().get(3).setOpacity(0);
 
+		 		});
+		 
+		 		//écouteur sur l'anchor pane de la session vos playlist pour ajuster la taille de la vbox à celle de l'anchor Pane
+		 		anchorPaneVosPlaylists.widthProperty().addListener((obs, odlValue, newValue)->{
+		 			this.vboxVosPlaylists.setPrefWidth((double) newValue);
+		 			for (Node n : this.vboxVosPlaylists.getChildren()) {
+		 				if(n instanceof Label) {
+		 					((Label) n).setPrefWidth((double) newValue);
+		 				}
+		 			}
+		 		});
+		 
     		   // mise en place de la vue options filtrage
     		   root.getChildren().remove(placeHolderOptionsFiltrage);
     		   root.add(App.vof, 0, 7);
@@ -99,21 +117,23 @@ public class ControllerApplication {
     		   /** TEST **/
     		   // mise en place de la vue liste de Musique
     		   root.getChildren().remove(scrollPaneRecommandations);
-    		   VueListeDeMusique playlist = new VueListeDeMusique(Playlist.mesPlaylist.get("Musiques likées"), true);
+    		   playlist = new VueListeDeMusique(new TreeSet<Musique>());
+    		   playlist.currentPlaylist = "Recommandations";
     		   root.add(playlist, 2, 3);
     		   playlist.toBack();
     		   // mise en place de la vue resultat filtre
     		   root.getChildren().remove(placeholderAnchorResultatFiltrage);
-    		   VueListeDeMusique like = new VueListeDeMusique(Playlist.mesPlaylist.get("Recommandation"), false);
-    		   root.add(like, 2, 7);
-    		   like.toBack();
+    		   root.add(this.resultatsFiltrage = new VueListeDeMusique(new TreeSet<Musique>()), 2, 7);
+    		   resultatsFiltrage.setPadding(new Insets(30,10,0,10));
+    		   resultatsFiltrage.toBack();
     		   /** TEST **/
+    		   
     		   Platform.runLater(() -> {
 	    		   //appel de méthode nécessaire pour un affichage correct au lancement
 	    		   App.vmec.afficherMusiqueEnCours();
 	    		   this.afficherRechercheMusique();	
+	    		   this.chargerLabelMesPlaylists();
     		   });
-	        });
 	}
 	
 	/** méthode pour agrandir le bouton qui ajoute une musique **/
@@ -157,10 +177,25 @@ public class ControllerApplication {
 		App.vf.cf.addMusique();
 		
 	}
-	/** méthode pour mettre à jour le temps du lecteur de musique **/
+
+	/** méthode pour reprendre la lecture lorsque l'on relâche le slider**/
 	public void lecteurChange() {
+		if(MP3NewThread.playerThread != null) {
+			MP3NewThread.kill();
+		}
+		if(pause.isVisible()) {
+			new MP3NewThread(Musique.musiqueJouée.getMusicPath(), (int)lecteur.getValue());			
+		}
 		timeCurrentLabel.setText(formatTime(lecteur.getValue()));
 	}
+	/** méthode pour un affichage correct lorsque l'on déplace le slider**/
+	public void bougerLecteur() {
+		if(MP3NewThread.positionThread != null) {
+			MP3NewThread.positionThread.suspend();			
+		}
+		timeCurrentLabel.setText(formatTime(lecteur.getValue()));
+	}
+	
 	/** Méthode pour formater le temps au format "min:sec"**/
     public String formatTime(double seconds) {
         int minutes = (int) seconds / 60;
@@ -191,9 +226,13 @@ public class ControllerApplication {
     	afficherAttributLike();
     	if (Musique.musiqueJouée.isLiked) {
     		Playlist.mesPlaylist.get("Musiques likées").add(Musique.musiqueJouée);
+    		Playlist.mesPlaylist.get("Recommandations").clear();
+    		Playlist.mesPlaylist.get("Recommandations").addAll(Hierarchie.recommandation());
     	}
     	else {
     		Playlist.mesPlaylist.get("Musiques likées").remove(Musique.musiqueJouée);
+    		Playlist.mesPlaylist.get("Recommandations").clear();
+    		Playlist.mesPlaylist.get("Recommandations").addAll(Hierarchie.recommandation());
     	}
     }
     
@@ -213,12 +252,41 @@ public class ControllerApplication {
     	if(play.isVisible()) {
     		play.setVisible(false);
     		pause.setVisible(true);
-    		MP3Player.play(Musique.musiqueJouée.getMusicPath());
+    		if (MP3NewThread.playerThread == null) {
+    			new MP3NewThread(Musique.musiqueJouée.getMusicPath(),(int)lecteur.getValue()); 
+    		}
+    		else if(MP3NewThread.enPause == true) {
+    			MP3NewThread.kill();
+    			new MP3NewThread(Musique.musiqueJouée.getMusicPath(), (int)lecteur.getValue());	
+    		}
+    		else {
+    			MP3NewThread.resume();
+    		}
     	}
     	else if(pause.isVisible()) {
     		pause.setVisible(false);
     		play.setVisible(true);
-    		MP3Player.close();
+    		MP3NewThread.pause();
     	}
     }
-}
+    
+    /** Méthode pour charger les labels des playlist, dans l'onglet mes playlists **/
+    public void chargerLabelMesPlaylists() {
+    	this.vboxVosPlaylists.getChildren().clear();
+    	for(Entry<String, Playlist> p : Playlist.mesPlaylist.entrySet()) {
+    		Label l = new Label(p.getKey());
+    		l.setFont(Font.font("System",14));
+    		l.setPadding(new Insets(10, 0, 10, 0));
+    		l.getStyleClass().add("labelPlaylist");
+    		l.setPrefWidth(this.anchorPaneVosPlaylists.getWidth());
+    		
+    		l.setOnMousePressed(event->{
+    			this.labelPlaylist.setText(p.getValue().getName());
+    			this.playlist.currentPlaylist = p.getValue().getName();
+    			this.playlist.miseAJourAffichagePlaylist(p.getValue().getName());
+    		});
+    		
+    		this.vboxVosPlaylists.getChildren().add(l);
+    	}
+    }
+}	
