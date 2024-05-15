@@ -228,11 +228,14 @@ public class ControllerApplication {
     		Playlist.mesPlaylist.get("Musiques likées").add(Musique.musiqueJouée);
     		Playlist.mesPlaylist.get("Recommandations").clear();
     		Playlist.mesPlaylist.get("Recommandations").addAll(Hierarchie.recommandation());
+    		System.out.println(Playlist.mesPlaylist.get(playlist.currentPlaylist));
+    		playlist.miseAJourAffichage(Playlist.mesPlaylist.get(playlist.currentPlaylist));
     	}
     	else {
     		Playlist.mesPlaylist.get("Musiques likées").remove(Musique.musiqueJouée);
     		Playlist.mesPlaylist.get("Recommandations").clear();
     		Playlist.mesPlaylist.get("Recommandations").addAll(Hierarchie.recommandation());
+    		playlist.miseAJourAffichage(Playlist.mesPlaylist.get(playlist.currentPlaylist));
     	}
     }
     
@@ -293,6 +296,11 @@ public class ControllerApplication {
     
     /** Méthode pour lancer la prochaine musique **/
     public void musiqueSuivante() {
-    	//this.playlist.
+    	Playlist.mesPlaylist.get(this.playlist.currentPlaylist).suivant();
+    }
+    
+    /** Méthode pour lancer la musique précédente**/
+    public void musiquePrécédente() {
+    	Playlist.mesPlaylist.get(this.playlist.currentPlaylist).precedent();
     }
 }	

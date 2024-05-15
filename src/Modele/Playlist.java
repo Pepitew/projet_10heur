@@ -11,7 +11,7 @@ import javafx.application.Platform;
 
 public class Playlist implements Collection<Musique>,Comparable<Playlist> {
     private String name;
-    private ArrayList<Musique> liste;
+    public ArrayList<Musique> liste;
     public int current; //indice de la musique courrante
     
     public static HashMap<String, Playlist> mesPlaylist = new HashMap<String, Playlist>();
@@ -80,18 +80,12 @@ public class Playlist implements Collection<Musique>,Comparable<Playlist> {
     }
 
     @Override
-    public boolean add(Musique e) {
-    	Platform.runLater(()->{
-    		App.va.ca.playlist.miseAJourAffichage(this);    		
-    	});    
+    public boolean add(Musique e) {   
         return this.liste.add(e);
     }
 
     @Override
     public boolean remove(Object o) {
-    	Platform.runLater(()->{
-    		App.va.ca.playlist.miseAJourAffichage(this);    		
-    	});
         return this.liste.remove(o);
     }
 
@@ -102,9 +96,6 @@ public class Playlist implements Collection<Musique>,Comparable<Playlist> {
 
     @Override
     public boolean addAll(Collection<? extends Musique> c) {
-    	Platform.runLater(()->{
-    		App.va.ca.playlist.miseAJourAffichage(this);    		
-    	});  
         return this.liste.addAll(c);
     }
 

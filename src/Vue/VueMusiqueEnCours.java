@@ -4,6 +4,7 @@ import Main.App;
 import Modele.Hierarchie;
 import Modele.MP3NewThread;
 import Modele.Musique;
+import Modele.Playlist;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
@@ -129,7 +130,12 @@ public class VueMusiqueEnCours extends ScrollPane {
     	// en attendant la méthode qui permet de récupérer la musique en cours...
     	if(! Hierarchie.hierarchie.isEmpty()) {
     		if(Musique.musiqueJouée == null) {
-    			Musique.musiqueJouée = Hierarchie.hierarchie.first();
+    			if(Playlist.mesPlaylist.get("Recommandations").size() == 0) {
+    				Musique.musiqueJouée = Hierarchie.hierarchie.first();    				
+    			}
+    			else {
+    				Musique.musiqueJouée = Playlist.mesPlaylist.get("Recommandations").liste.get(0);    				
+    			}
     		}
     		imageViewMusiqueEnCours.setImage(new Image("file:"+Musique.musiqueJouée.getImage()));
     		labelNomMusiqueEnCours.setText("Titre - "+Musique.musiqueJouée.getTitre());

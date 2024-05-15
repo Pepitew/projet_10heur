@@ -12,7 +12,6 @@ import javafx.scene.layout.HBox;
 public class VueListeDeMusique extends ScrollPane {
 	private HBox recommandationContainer;
 	public String currentPlaylist;
-	public Playlist playlist;
 	
     
     public VueListeDeMusique(Collection<Musique> ensembleMusique) {
