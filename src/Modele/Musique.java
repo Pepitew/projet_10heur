@@ -150,8 +150,8 @@ public class Musique implements Comparable<Musique>{
 		return this.ID_Musique - m.ID_Musique;
 	}
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		@SuppressWarnings("unused")
 		Hierarchie h = new Hierarchie();
 		Musique m1 = new Musique("Apix", "collander", 140, true, STYLE.POP, "/tata/quebec", "/tata/quebec","aparax"); // créer 4 nouvelle musique
 		Musique m2 = new Musique("Apex", "collander", 136, false, STYLE.ELECTRO, "/tata/quebec/calisse", "/tata/quebec","aparax");
