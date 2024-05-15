@@ -283,10 +283,16 @@ public class ControllerApplication {
     		l.setOnMousePressed(event->{
     			this.labelPlaylist.setText(p.getValue().getName());
     			this.playlist.currentPlaylist = p.getValue().getName();
-    			this.playlist.miseAJourAffichagePlaylist(p.getValue().getName());
+    			this.playlist.miseAJourAffichage(p.getValue());
     		});
     		
     		this.vboxVosPlaylists.getChildren().add(l);
     	}
+    }
+    
+    
+    /** Méthode pour lancer la prochaine musique **/
+    public void musiqueSuivante() {
+    	//this.playlist.
     }
 }	

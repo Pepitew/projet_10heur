@@ -111,7 +111,7 @@ public class VueOptionsFiltrage extends AnchorPane{
  					VueOptionsFiltrage.choixAlbum = null;
  				}
  				Platform.runLater(() -> {
- 					App.va.ca.resultatsFiltrage.miseAJourAffichageOptionsFiltrage(Hierarchie.rechercher(VueOptionsFiltrage.choixGenre, VueOptionsFiltrage.choixAuteur ,VueOptionsFiltrage.choixAlbum ));					
+ 					App.va.ca.resultatsFiltrage.miseAJourAffichage(Hierarchie.rechercher(VueOptionsFiltrage.choixGenre, VueOptionsFiltrage.choixAuteur ,VueOptionsFiltrage.choixAlbum ));					
    				});
  			}};
         

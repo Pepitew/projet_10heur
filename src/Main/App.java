@@ -124,5 +124,5 @@ public class App extends Application {
 		}
 		Playlist.mesPlaylist.put("Musiques likées", jaime);
 	}
-	/** FIN TEST PLAYLIST**/
+	/** FIN TEST PLAYLIST **/
 }
