@@ -34,7 +34,11 @@ public class App extends Application {
 		Record.read("database");
 		Record.read("playlistBase");
 		
-		this.testPlaylist();
+		for (Playlist p : Hierarchie.playlists) {
+			Playlist.mesPlaylist.put(p.getName(), p);
+		}
+		
+		//this.testPlaylist();
 		try {
 			Image icon = new Image("file:../../Logo/logo.png");
 			// Instanciation et Récupération des vues
@@ -112,6 +116,7 @@ public class App extends Application {
 	
 	/** TEST PLAYLIST **/
 	public void testPlaylist() {
+		
 		Playlist playlistRecommandation = new Playlist("Recommandations"); 
 		playlistRecommandation.addAll(Hierarchie.recommandation());
 		
@@ -119,7 +124,8 @@ public class App extends Application {
 		Playlist jaime = new Playlist("Musiques likées");
 		for(Musique m : Hierarchie.hierarchie) {
 			if(m.isLiked) {
-				jaime.add(m);				
+				jaime.add(m);
+				App.save();
 			}
 		}
 		Playlist.mesPlaylist.put("Musiques likées", jaime);

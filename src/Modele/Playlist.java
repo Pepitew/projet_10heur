@@ -45,6 +45,7 @@ public class Playlist implements Collection<Musique>,Comparable<Playlist> {
     	}
     }
     
+  
     public String getName() {
     	return this.name;
     }
