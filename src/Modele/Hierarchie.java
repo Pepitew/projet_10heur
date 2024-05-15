@@ -132,8 +132,9 @@ public class Hierarchie {
 			}
 		}
 
-		TreeSet<Musique> recherche = Hierarchie.rechercher(null, auteurMax, null);
+		TreeSet<Musique> recherche = new TreeSet<Musique>();
 		recherche.addAll(Hierarchie.rechercher(styleMax, null, null));
+		recherche.addAll(Hierarchie.rechercher(null, auteurMax, null));
 		
 		int i = 0;
 		while (recherche.size() != 0 && i < 15) {
