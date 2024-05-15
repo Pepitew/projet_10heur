@@ -83,8 +83,6 @@ public class Hierarchie {
 				recherche.add(m);
 			}
 		}
-		System.out.println(recherche);
-		System.out.println("--------------------------------------------------------");
 		return recherche;
 	}
 	

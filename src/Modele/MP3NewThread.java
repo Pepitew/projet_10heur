@@ -16,7 +16,9 @@ public class MP3NewThread {
 	private static double currentPosition;
 	public static Thread playerThread, positionThread;
 	public static String filename;
+	public static boolean enPause;
 	public MP3NewThread(String filename, final int startPositionInSeconds) {
+		MP3NewThread.enPause = false;
 		MP3NewThread.filename = filename;
 		if (positionThread != null) { positionThread.stop();}
 		playerThread = new Thread(new Runnable() {
@@ -81,12 +83,14 @@ public class MP3NewThread {
 
 	//méthode resume()
 	public static void resume(){
+		MP3NewThread.enPause = false;
 		playerThread.resume();
 		positionThread.resume();
 	}
 
 	// méthode : pause()
 	public static void pause() {
+		MP3NewThread.enPause = true;
 		playerThread.suspend();
 		positionThread.suspend();
 	}

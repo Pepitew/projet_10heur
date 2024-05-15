@@ -253,7 +253,11 @@ public class ControllerApplication {
     		play.setVisible(false);
     		pause.setVisible(true);
     		if (MP3NewThread.playerThread == null) {
-    			new MP3NewThread(Musique.musiqueJouée.getMusicPath(),0); 
+    			new MP3NewThread(Musique.musiqueJouée.getMusicPath(),(int)lecteur.getValue()); 
+    		}
+    		else if(MP3NewThread.enPause == true) {
+    			MP3NewThread.kill();
+    			new MP3NewThread(Musique.musiqueJouée.getMusicPath(), (int)lecteur.getValue());	
     		}
     		else {
     			MP3NewThread.resume();
