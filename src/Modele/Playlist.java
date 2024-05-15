@@ -12,9 +12,12 @@ import javafx.application.Platform;
 public class Playlist implements Collection<Musique>,Comparable<Playlist> {
     private String name;
     private ArrayList<Musique> liste;
+    public int current; //indice de la musique courrante
+    
     public static HashMap<String, Playlist> mesPlaylist = new HashMap<String, Playlist>();
 
     public Playlist(String name) {
+    	this.current = 0;
         this.name = name;
         this.liste = new ArrayList<Musique>();
         Playlist.mesPlaylist.put(name, this);
@@ -22,9 +25,24 @@ public class Playlist implements Collection<Musique>,Comparable<Playlist> {
     }
     
     public Playlist(String name, ArrayList<Musique> liste) {
+    	this.current = 0;
     	this.name = name;
     	this.liste = liste;
     	Hierarchie.ajouterPlaylist(this);
+    }
+    
+    public void suivant() {
+    	if (this.current < this.liste.size()-1) {
+    		this.current = this.current + 1;
+    		App.lireMusique(this.liste.get(current));
+    	}
+    }
+    
+    public void precedent() {
+    	if (this.current > 0) {
+    		this.current = this.current - 1;
+    		App.lireMusique(this.liste.get(current));
+    	}
     }
     
     public String getName() {
