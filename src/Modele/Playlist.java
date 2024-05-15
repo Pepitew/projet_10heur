@@ -34,15 +34,19 @@ public class Playlist implements Collection<Musique>,Comparable<Playlist> {
     public void suivant() {
     	if (this.current < this.liste.size()-1) {
     		this.current = this.current + 1;
-    		App.lireMusique(this.liste.get(current));
+    	} else {
+    		this.current = 0;
     	}
+    	App.lireMusique(this.liste.get(current));
     }
     
     public void precedent() {
     	if (this.current > 0) {
     		this.current = this.current - 1;
-    		App.lireMusique(this.liste.get(current));
+    	} else {
+    		this.current = this.liste.size()-1;
     	}
+    	App.lireMusique(this.liste.get(current));
     }
     
   
