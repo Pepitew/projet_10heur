@@ -138,9 +138,14 @@ public class Hierarchie {
 		
 		int i = 0;
 		while (recherche.size() != 0 && i < 15) {
+			if (recherche.first().isLiked) {
+				recherche.remove(recherche.first());
+			} else {
 				reco.add(recherche.first());
 				recherche.remove(reco.last());
-				i++;
+				i++;			
+			}
+			
 		}
 
 		
