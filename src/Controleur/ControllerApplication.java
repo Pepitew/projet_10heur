@@ -118,7 +118,7 @@ public class ControllerApplication {
     		   // mise en place de la vue liste de Musique
     		   root.getChildren().remove(scrollPaneRecommandations);
     		   playlist = new VueListeDeMusique(new TreeSet<Musique>());
-    		   playlist.currentPlaylist = "Recommandations";
+    		   playlist.miseAJourAffichage(Playlist.mesPlaylist.get("Recommandations"));
     		   root.add(playlist, 2, 3);
     		   playlist.toBack();
     		   // mise en place de la vue resultat filtre
